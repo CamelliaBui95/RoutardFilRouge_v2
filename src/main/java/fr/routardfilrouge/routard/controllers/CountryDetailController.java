@@ -1,5 +1,6 @@
 package fr.routardfilrouge.routard.controllers;
 
+import fr.routardfilrouge.routard.MainApp;
 import fr.routardfilrouge.routard.metier.ClimateType;
 import fr.routardfilrouge.routard.metier.Country;
 import fr.routardfilrouge.routard.metier.InfoType;
@@ -34,8 +35,14 @@ public class CountryDetailController {
     private Label authorLabel;
 
     private CountryBean countryBean;
+    private MainApp mainApp;
 
     private Country country;
+
+    @FXML
+    private void handleNewClick() {
+        mainApp.showNewCountryDialog();
+    }
 
     public Country getCountry() {
         return country;
@@ -61,5 +68,9 @@ public class CountryDetailController {
 
     public void setCountryBean(CountryBean countryBean) {
         this.countryBean = countryBean;
+    }
+
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
     }
 }

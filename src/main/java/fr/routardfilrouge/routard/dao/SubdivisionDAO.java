@@ -48,6 +48,21 @@ public class SubdivisionDAO extends DAO<Subdivision, Subdivision>{
         return subdivisions;
     }
 
+    @Override
+    public boolean update(Subdivision object) {
+        return false;
+    }
+
+    @Override
+    public boolean post(Subdivision object) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(Subdivision object) {
+        return false;
+    }
+
     private Country getCountry(String countryCode) {
         if(countries.isEmpty())
             return null;

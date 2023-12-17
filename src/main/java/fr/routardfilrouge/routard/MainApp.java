@@ -2,6 +2,7 @@ package fr.routardfilrouge.routard;
 
 import fr.routardfilrouge.routard.controllers.CountryDetailController;
 import fr.routardfilrouge.routard.controllers.MainViewController;
+import fr.routardfilrouge.routard.controllers.NewCountryDialogController;
 import fr.routardfilrouge.routard.metier.Country;
 import fr.routardfilrouge.routard.service.CityBean;
 import fr.routardfilrouge.routard.service.CountryBean;
@@ -11,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -58,13 +60,36 @@ public class MainApp extends Application {
 
     public void showCountryDetail(BorderPane countryDetailPane, Country country) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Country-Detail-View.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CountryDetail-View.fxml"));
             AnchorPane pane = loader.load();
             CountryDetailController controller = loader.getController();
             controller.setCountryBean(countryBean);
+            controller.setMainApp(this);
             controller.setCountry(country);
 
             countryDetailPane.setCenter(pane);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showNewCountryDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewCountryDialog-View.fxml"));
+            AnchorPane dialogPane = loader.load();
+            NewCountryDialogController controller = loader.getController();
+
+            Stage dialogStage = new Stage();
+
+            dialogStage.setTitle("New Country");
+            dialogStage.setResizable(false);
+            dialogStage.initOwner(primaryStage);
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+
+            dialogStage.setScene(new Scene(dialogPane));
+
+            controller.setDialogStage(dialogStage);
+            dialogStage.showAndWait();
         } catch(Exception e) {
             e.printStackTrace();
         }

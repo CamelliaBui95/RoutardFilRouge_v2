@@ -44,4 +44,19 @@ public class CityDAO extends DAO<City, City>{
          }
         return cities;
     }
+
+    @Override
+    public boolean update(City object) {
+        return false;
+    }
+
+    @Override
+    public boolean post(City object) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(City object) {
+        return false;
+    }
 }

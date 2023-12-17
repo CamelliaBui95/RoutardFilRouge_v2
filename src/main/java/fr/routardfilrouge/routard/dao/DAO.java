@@ -10,4 +10,7 @@ public abstract class DAO<T, TSearch> {
         this.connection = RoutardConnect.getInstance();
     }
     public abstract ArrayList<T> getAll();
+    public abstract boolean update(T object);
+    public abstract boolean post(T object);
+    public abstract boolean delete(T object);
 }

@@ -12,6 +12,21 @@ public class InfoDAO extends DAO<InfoType, InfoType>{
         return null;
     }
 
+    @Override
+    public boolean update(InfoType object) {
+        return false;
+    }
+
+    @Override
+    public boolean post(InfoType object) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(InfoType object) {
+        return false;
+    }
+
     public ArrayList<InfoType> getAllType() {
         ArrayList<InfoType> infoTypes = new ArrayList<>();
         String req = "SELECT * FROM TYPE_INFO";

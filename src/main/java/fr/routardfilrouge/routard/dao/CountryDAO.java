@@ -48,6 +48,21 @@ public class CountryDAO extends DAO<Country, Country> {
         return countries;
     }
 
+    @Override
+    public boolean update(Country object) {
+        return false;
+    }
+
+    @Override
+    public boolean post(Country object) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(Country object) {
+        return false;
+    }
+
     public void setInfoTypes(ArrayList<InfoType> infoTypes) {
         this.infoTypes = infoTypes;
     }

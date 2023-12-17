@@ -101,7 +101,7 @@
             <ButtonBar prefHeight="70.0" prefWidth="399.0" GridPane.halignment="CENTER" GridPane.rowIndex="3">
               <buttons>
                 <Button fx:id="deleteBtn" mnemonicParsing="false" text="Delete" />
-                  <Button fx:id="newBtn" mnemonicParsing="false" text="New" />
+                  <Button fx:id="newBtn" mnemonicParsing="false" onAction="#handleNewClick" text="New" />
                   <Button fx:id="saveBtn" mnemonicParsing="false" text="Save" />
               </buttons>
             </ButtonBar>
