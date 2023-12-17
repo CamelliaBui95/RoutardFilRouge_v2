@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.SearchableComboBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.routardfilrouge.routard.controllers.MainViewController">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                                <MenuItem mnemonicParsing="false" text="Exit" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <GridPane hgap="10.0" vgap="10.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="485.0" minWidth="10.0" prefWidth="443.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="555.0" minWidth="10.0" prefWidth="537.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="87.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="440.0" minWidth="10.0" prefWidth="413.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Search">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                    <GridPane.margin>
+                                        <Insets />
+                                    </GridPane.margin>
+                                </Label>
+                                <TextField fx:id="countrySearchField" GridPane.columnIndex="1" />
+                            </children>
+                        </GridPane>
+                        <GridPane hgap="10.0" GridPane.rowIndex="1">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <SearchableComboBox fx:id="continentSearch" promptText="Continent" GridPane.columnIndex="2" />
+                                <SearchableComboBox fx:id="climateTypeSearch" promptText="Type of Climate" GridPane.columnIndex="1" />
+                                <SearchableComboBox fx:id="codeCountrySearch" promptText="ISO Code 3166-1" />
+                            </children>
+                        </GridPane>
+                        <GridPane GridPane.columnIndex="1">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                        </GridPane>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </GridPane>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <SplitPane dividerPositions="0.5891783567134269" BorderPane.alignment="CENTER">
+            <items>
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+                    <items>
+                        <AnchorPane>
+                            <children>
+                                <TableView fx:id="countryTableView" layoutX="50.0" layoutY="51.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <columns>
+                                        <TableColumn fx:id="countryCodeCol" prefWidth="100.0" text="Country Code" />
+                                        <TableColumn fx:id="countryNameCol" prefWidth="300.0" text="Country Name" />
+                                        <TableColumn fx:id="continentNameCol" minWidth="0.0" prefWidth="100.0" text="Continent" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane>
+                            <children>
+                                <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <items>
+                                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                            <children>
+                                                <SplitPane dividerPositions="0.1033434650455927" layoutX="76.0" layoutY="51.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <items>
+                                                        <AnchorPane maxHeight="41.0">
+                                                            <children>
+                                                                <GridPane hgap="5.0" layoutX="73.0" layoutY="-14.0" prefHeight="31.0" prefWidth="287.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                    <columnConstraints>
+                                                                        <ColumnConstraints hgrow="NEVER" maxWidth="138.0" minWidth="10.0" prefWidth="61.0" />
+                                                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="700.0" minWidth="10.0" prefWidth="211.0" />
+                                                                    </columnConstraints>
+                                                                    <rowConstraints>
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                                                    </rowConstraints>
+                                                                    <children>
+                                                                        <Label text="Search">
+                                                                            <font>
+                                                                                <Font name="System Bold" size="16.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <TextField fx:id="subdivisionSearchField" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                                                                    </children>
+                                                                    <padding>
+                                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                    </padding>
+                                                                </GridPane>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                            <children>
+                                                                <TableView fx:id="subdivisionTableView" prefHeight="292.0" prefWidth="287.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                    <columns>
+                                                                        <TableColumn fx:id="idSubdivisionCol" prefWidth="30.0" text="ID" />
+                                                                        <TableColumn fx:id="subdivisionNameCol" prefWidth="216.0" text="Subdivision Name" />
+                                                                        <TableColumn fx:id="subdivisionCodeCol" prefWidth="43.0" text="Code" />
+                                                                    </columns>
+                                                                </TableView>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </items>
+                                                </SplitPane>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                            <children>
+                                                <SplitPane dividerPositions="0.1033434650455927" layoutX="76.0" layoutY="51.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <items>
+                                                        <AnchorPane maxHeight="41.0">
+                                                            <children>
+                                                                <GridPane hgap="5.0" layoutX="73.0" layoutY="-14.0" prefHeight="31.0" prefWidth="287.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                    <columnConstraints>
+                                                                        <ColumnConstraints hgrow="NEVER" maxWidth="138.0" minWidth="10.0" prefWidth="61.0" />
+                                                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="700.0" minWidth="10.0" prefWidth="211.0" />
+                                                                    </columnConstraints>
+                                                                    <rowConstraints>
+                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                                                    </rowConstraints>
+                                                                    <children>
+                                                                        <Label text="Search">
+                                                                            <font>
+                                                                                <Font name="System Bold" size="16.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <TextField fx:id="citySearchField" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                                                                    </children>
+                                                                    <padding>
+                                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                    </padding>
+                                                                </GridPane>
+                                                            </children>
+                                                        </AnchorPane>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                            <children>
+                                                                <TableView prefHeight="292.0" prefWidth="286.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                    <columns>
+                                                                        <TableColumn fx:id="idCity" prefWidth="30.0" text="ID" />
+                                                                        <TableColumn fx:id="cityName" prefWidth="255.0" text="City Name" />
+                                                                    </columns>
+                                                                </TableView>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </items>
+                                                </SplitPane>
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
+                    </items>
+                </SplitPane>
+                <BorderPane prefHeight="673.0" prefWidth="600.0">
+                    <top>
+                        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+                            <children>
+                                <Label text="Details" textAlignment="CENTER">
+                                    <font>
+                                        <Font name="System Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                        </HBox>
+                    </top>
+                </BorderPane>
+            </items>
+            <padding>
+                <Insets left="5.0" right="5.0" />
+            </padding>
+        </SplitPane>
+    </center>
+    <bottom>
+        <AnchorPane maxHeight="-Infinity" prefHeight="5.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
+    </bottom>
+</BorderPane>
+
