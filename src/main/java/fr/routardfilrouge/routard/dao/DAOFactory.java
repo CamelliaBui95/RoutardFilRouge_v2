@@ -7,8 +7,9 @@ import java.util.ArrayList;
 public class DAOFactory {
     private static CountryDAO countryDAO;
     private static SubdivisionDAO subdivisionDAO;
-
     private static CityDAO cityDAO;
+
+    private static InfoDAO infoDAO;
 
     public static CountryDAO getCountryDAO() {
         if(countryDAO == null)
@@ -31,5 +32,10 @@ public class DAOFactory {
         return cityDAO;
     }
 
+    public static InfoDAO getInfoDAO() {
+        if(infoDAO == null)
+            infoDAO = new InfoDAO();
 
+        return infoDAO;
+    }
 }

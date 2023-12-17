@@ -216,7 +216,7 @@
                         </AnchorPane>
                     </items>
                 </SplitPane>
-                <BorderPane prefHeight="673.0" prefWidth="600.0">
+                <BorderPane fx:id="detailPane" prefHeight="673.0" prefWidth="600.0">
                     <top>
                         <HBox alignment="CENTER" BorderPane.alignment="CENTER">
                             <children>

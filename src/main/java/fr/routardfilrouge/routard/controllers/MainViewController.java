@@ -13,8 +13,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 
 public class MainViewController {
+    @FXML
+    private BorderPane detailPane;
     @FXML
     private TableView<Country> countryTableView;
     @FXML
@@ -70,6 +73,11 @@ public class MainViewController {
             this.countryBean.filterCountry(n);
             this.subdivisionBean.filterSubdivisions(subdivisionSearchStr, n);
             this.cityBean.filterCity(citySearchStr, subdivisionSearchStr, n);
+        });
+
+        countryTableView.getSelectionModel().selectedItemProperty().addListener((ob, o, n) -> {
+            if(n != null)
+                mainApp.showCountryDetail(detailPane, n);
         });
     }
 

@@ -1,12 +1,15 @@
 package fr.routardfilrouge.routard;
 
+import fr.routardfilrouge.routard.controllers.CountryDetailController;
 import fr.routardfilrouge.routard.controllers.MainViewController;
+import fr.routardfilrouge.routard.metier.Country;
 import fr.routardfilrouge.routard.service.CityBean;
 import fr.routardfilrouge.routard.service.CountryBean;
 import fr.routardfilrouge.routard.service.SubdivisionBean;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -48,6 +51,20 @@ public class MainApp extends Application {
             primaryStage.setTitle("Project Manager - Routard");
             primaryStage.setScene(scene);
             primaryStage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showCountryDetail(BorderPane countryDetailPane, Country country) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Country-Detail-View.fxml"));
+            AnchorPane pane = loader.load();
+            CountryDetailController controller = loader.getController();
+            controller.setCountryBean(countryBean);
+            controller.setCountry(country);
+
+            countryDetailPane.setCenter(pane);
         } catch(Exception e) {
             e.printStackTrace();
         }
