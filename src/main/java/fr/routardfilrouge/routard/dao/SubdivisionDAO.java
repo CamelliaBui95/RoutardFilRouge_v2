@@ -7,9 +7,22 @@ import fr.routardfilrouge.routard.metier.Subdivision;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SubdivisionDAO extends DAO<Subdivision, Subdivision>{
-    private ArrayList<Country> countries;
+    private HashMap<String, Country> countries;
+
+    public SubdivisionDAO() {
+        this.countries = new HashMap<>();
+        ArrayList<Country> countriesArr = DAOFactory.getCountryDAO().getAll();
+        for(int i = 0; i < countriesArr.size(); i++) {
+            String countryCode = countriesArr.get(i).getIsoCode();
+            Country country = countriesArr.get(i);
+
+            countries.putIfAbsent(countryCode, country);
+        }
+    }
+
     @Override
     public ArrayList<Subdivision> getAll() {
         ArrayList<Subdivision> subdivisions = new ArrayList<>();
@@ -36,17 +49,10 @@ public class SubdivisionDAO extends DAO<Subdivision, Subdivision>{
     }
 
     private Country getCountry(String countryCode) {
-        if(countries == null || countries.isEmpty())
+        if(countries.isEmpty())
             return null;
 
-        Country country = countries.stream().iterator().next();
-        while(!country.getIsoCode().equals(countryCode) && countries.stream().iterator().hasNext()) {
-            country = countries.stream().iterator().next();
-        }
-        return country;
+        return countries.get(countryCode);
     }
 
-    public void setCountries(ArrayList<Country> countries) {
-        this.countries = countries;
-    }
 }

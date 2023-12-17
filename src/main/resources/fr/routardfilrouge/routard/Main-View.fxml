@@ -198,10 +198,10 @@
                                                         </AnchorPane>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                                             <children>
-                                                                <TableView prefHeight="292.0" prefWidth="286.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                <TableView fx:id="cityTableView" prefHeight="292.0" prefWidth="286.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                     <columns>
-                                                                        <TableColumn fx:id="idCity" prefWidth="30.0" text="ID" />
-                                                                        <TableColumn fx:id="cityName" prefWidth="255.0" text="City Name" />
+                                                                        <TableColumn fx:id="idCityCol" prefWidth="30.0" text="ID" />
+                                                                        <TableColumn fx:id="cityNameCol" prefWidth="255.0" text="City Name" />
                                                                     </columns>
                                                                 </TableView>
                                                             </children>
@@ -242,4 +242,3 @@
         <AnchorPane maxHeight="-Infinity" prefHeight="5.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
     </bottom>
 </BorderPane>
-

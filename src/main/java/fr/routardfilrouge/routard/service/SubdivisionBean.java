@@ -21,9 +21,14 @@ public class SubdivisionBean {
         sortedSubdivisions = new SortedList<>(filteredSubdivisions);
     }
 
-    public void filterSubdivisions(String searchStr) {
+    public void filterSubdivisionsByCountry(String searchStr) {
         String finalSearchStr = searchStr.toLowerCase();
-        filteredSubdivisions.setPredicate(sub -> sub.getSubdivisionName().toLowerCase().contains(finalSearchStr));
+        filteredSubdivisions.setPredicate(sub -> sub.getCountry().getName().toLowerCase().contains(finalSearchStr));
+    }
+
+    public void filterSubdivisions(String searchSubdivision, String searchCountry) {
+        filteredSubdivisions.setPredicate(sub -> sub.getCountry().getName().toLowerCase().contains(searchCountry.toLowerCase())
+                                                    && sub.getSubdivisionName().toLowerCase().contains(searchSubdivision.toLowerCase()));
     }
 
     public SortedList<Subdivision> getSortedSubdivisions() {

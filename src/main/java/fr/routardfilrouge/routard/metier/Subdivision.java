@@ -70,4 +70,9 @@ public class Subdivision {
     public void setSubType(SubType subType) {
         this.subType = subType;
     }
+
+    @Override
+    public String toString() {
+        return "Subdivision=" + subdivisionName + "-Country=" + country.getName();
+    }
 }

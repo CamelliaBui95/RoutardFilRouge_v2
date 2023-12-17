@@ -1,6 +1,7 @@
 package fr.routardfilrouge.routard;
 
 import fr.routardfilrouge.routard.controllers.MainViewController;
+import fr.routardfilrouge.routard.service.CityBean;
 import fr.routardfilrouge.routard.service.CountryBean;
 import fr.routardfilrouge.routard.service.SubdivisionBean;
 import javafx.application.Application;
@@ -15,10 +16,12 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private CountryBean countryBean;
     private SubdivisionBean subdivisionBean;
+    private CityBean cityBean;
 
     public MainApp() {
         this.countryBean = new CountryBean();
         this.subdivisionBean = new SubdivisionBean();
+        this.cityBean = new CityBean();
     }
 
     @Override
@@ -38,6 +41,7 @@ public class MainApp extends Application {
             MainViewController controller = fxmlLoader.getController();
             controller.setCountryBean(countryBean);
             controller.setSubdivisionBean(subdivisionBean);
+            controller.setCityBean(cityBean);
             controller.setMainApp(this);
 
             Scene scene = new Scene(pane);
