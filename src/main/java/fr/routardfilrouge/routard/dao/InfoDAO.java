@@ -13,6 +13,11 @@ public class InfoDAO extends DAO<InfoType, InfoType>{
     }
 
     @Override
+    public ArrayList<InfoType> getLike(InfoType searchObject) {
+        return null;
+    }
+
+    @Override
     public boolean update(InfoType object) {
         return false;
     }

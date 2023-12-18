@@ -2,18 +2,22 @@ package fr.routardfilrouge.routard.dao;
 
 import fr.routardfilrouge.routard.metier.Continent;
 import fr.routardfilrouge.routard.metier.Country;
+import fr.routardfilrouge.routard.metier.CountrySearch;
 import fr.routardfilrouge.routard.metier.InfoType;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class CountryDAO extends DAO<Country, Country> {
+public class CountryDAO extends DAO<Country, CountrySearch> {
     private ArrayList<InfoType> infoTypes;
+    private HashMap<String, Continent> continents;
 
     public CountryDAO() {
         infoTypes = new ArrayList<>();
+        continents = new HashMap<>();
     }
 
     @Override
@@ -23,9 +27,43 @@ public class CountryDAO extends DAO<Country, Country> {
         try(CallableStatement stm = connection.prepareCall(req)) {
             ResultSet rs = stm.executeQuery();
             while(rs.next()) {
-                String continentCode = rs.getString("CODE_CONTINENT");
-                String continentName = rs.getString("NOM_CONTINENT");
-                Continent continent = new Continent(continentCode, continentName);
+                Continent continent = this.continents.get(rs.getString("CODE_CONTINENT"));
+
+                String countryCode = rs.getString("CODE_PAYS");
+                String countryName = rs.getString("NOM_PAYS");
+                Country country = new Country(countryCode,countryName,continent);
+
+                /*This will be displaced*/
+                int infoTypeIndex = rs.getInt("ID_TYPE_INFO") - 1;
+                if(infoTypeIndex >= 0) {
+                    InfoType infoType = infoTypes.get(infoTypeIndex);
+                    String info = rs.getString("INFO");
+
+                    country.addInfo(infoType, info);
+                }
+
+                countries.add(country);
+            }
+            rs.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return countries;
+    }
+
+    @Override
+    public ArrayList<Country> getLike(CountrySearch countrySearch) {
+        ArrayList<Country> countries = new ArrayList<>();
+        String rq = "{call ps_searchCountry(?,?,?)}";
+
+        try(PreparedStatement stm = connection.prepareStatement(rq)) {
+            stm.setString(1, countrySearch.getCountryName());
+            stm.setString(2, countrySearch.getCountryCode());
+            stm.setString(3, countrySearch.getContinent().getContinentCode());
+
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()) {
+                Continent continent = this.continents.get(rs.getString("CODE_CONTINENT"));
 
                 String countryCode = rs.getString("CODE_PAYS");
                 String countryName = rs.getString("NOM_PAYS");
@@ -93,5 +131,15 @@ public class CountryDAO extends DAO<Country, Country> {
 
     public void setInfoTypes(ArrayList<InfoType> infoTypes) {
         this.infoTypes = infoTypes;
+    }
+
+    public void setContinents(ArrayList<Continent> continents) {
+        for(int i = 0; i < continents.size(); i++) {
+            String key = continents.get(i).getContinentCode();
+            Continent value = continents.get(i);
+
+            this.continents.putIfAbsent(key, value);
+        }
+
     }
 }

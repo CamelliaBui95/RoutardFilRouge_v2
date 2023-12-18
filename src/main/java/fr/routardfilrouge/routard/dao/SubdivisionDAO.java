@@ -30,10 +30,10 @@ public class SubdivisionDAO extends DAO<Subdivision, Subdivision>{
         try(CallableStatement stm = connection.prepareCall(req)) {
             ResultSet rs = stm.executeQuery();
             while(rs.next()) {
-                Country country = getCountry(rs.getString("CODE_PAYS"));
-                SubType type = new SubType(rs.getInt("ID_TYPE"), rs.getString("NOM_TYPE"));
+                Country country = getCountry(rs.getString("CODE_ISO_3166_1"));
+                SubType type = new SubType(rs.getInt("ID_TYPE"), rs.getString("NOM_TYPE_SUBDIVISION"));
                 int idSub = rs.getInt("ID_SUBDIVISION");
-                String codeSub = rs.getString("CODE_SUB");
+                String codeSub = rs.getString("CODE_ISO_3166_2");
                 String nameSub = rs.getString("NOM_SUBDIVISION");
                 Subdivision subdivision = new Subdivision(idSub, nameSub, country);
                 subdivision.setSubdivisionCode(codeSub);
@@ -46,6 +46,11 @@ public class SubdivisionDAO extends DAO<Subdivision, Subdivision>{
             e.printStackTrace();
         }
         return subdivisions;
+    }
+
+    @Override
+    public ArrayList<Subdivision> getLike(Subdivision searchObject) {
+        return null;
     }
 
     @Override

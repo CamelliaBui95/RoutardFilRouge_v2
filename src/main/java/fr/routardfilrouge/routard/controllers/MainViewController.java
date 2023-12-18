@@ -1,12 +1,14 @@
 package fr.routardfilrouge.routard.controllers;
 
 import fr.routardfilrouge.routard.MainApp;
-import fr.routardfilrouge.routard.metier.City;
-import fr.routardfilrouge.routard.metier.Country;
-import fr.routardfilrouge.routard.metier.Subdivision;
+import fr.routardfilrouge.routard.metier.*;
 import fr.routardfilrouge.routard.service.CityBean;
+import fr.routardfilrouge.routard.service.ClimateBean;
 import fr.routardfilrouge.routard.service.CountryBean;
 import fr.routardfilrouge.routard.service.SubdivisionBean;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import org.controlsfx.control.SearchableComboBox;
 
 public class MainViewController {
     @FXML
@@ -28,6 +31,10 @@ public class MainViewController {
     private TableColumn<Country, String> continentNameCol;
     @FXML
     private TextField countrySearchField;
+    @FXML
+    private SearchableComboBox<Continent> continentSearch;
+    @FXML
+    private SearchableComboBox<String> codeCountrySearch;
     private CountryBean countryBean;
 
     @FXML
@@ -51,6 +58,10 @@ public class MainViewController {
     @FXML
     private TextField citySearchField;
     private CityBean cityBean;
+
+    @FXML
+    private SearchableComboBox<ClimateType> climateTypeSearch;
+    private ClimateBean climateBean;
 
     private MainApp mainApp;
 
@@ -105,11 +116,37 @@ public class MainViewController {
         });
     }
 
+    private void setUpContinentSearchBox() {
+        ObservableList<Continent> continentsObservableList = countryBean.getContinents();
+        continentsObservableList.add(0, new Continent("", "Continent (" + continentsObservableList.size() + ")"));
+        continentSearch.setItems(continentsObservableList);
+        continentSearch.getSelectionModel().selectFirst();
+
+        continentSearch.valueProperty().addListener((ob, o, n) -> countryBean.getCountriesByContinent((Continent) n));
+    }
+
+    private void setUpCountryCodeSearchBox() {
+        ObservableList<String> countryCodesObservableList = countryBean.getCountryCodes();
+        countryCodesObservableList.add(0,"Country Code (" + countryCodesObservableList.size() + ")");
+        codeCountrySearch.setItems(countryCodesObservableList);
+        codeCountrySearch.getSelectionModel().selectFirst();
+
+        codeCountrySearch.valueProperty().addListener((ob, o, n) -> {
+            if(codeCountrySearch.getSelectionModel().getSelectedIndex() == 0)
+                countryBean.getCountriesByCountryCode("");
+            else
+                countryBean.getCountriesByCountryCode(n);
+        });
+    }
+
     public void setCountryBean(CountryBean countryBean) {
         this.countryBean = countryBean;
         SortedList<Country> sortedCountries = this.countryBean.getSortedCountries();
         sortedCountries.comparatorProperty().bind(countryTableView.comparatorProperty());
         countryTableView.setItems(sortedCountries);
+
+        setUpContinentSearchBox();
+        setUpCountryCodeSearchBox();
     }
 
     public void setSubdivisionBean(SubdivisionBean subdivisionBean) {
@@ -118,12 +155,19 @@ public class MainViewController {
         sortedSubdivisions.comparatorProperty().bind(subdivisionTableView.comparatorProperty());
         subdivisionTableView.setItems(sortedSubdivisions);
     }
-
     public void setCityBean(CityBean cityBean) {
         this.cityBean = cityBean;
         SortedList<City> sortedCities = this.cityBean.getSortedCities();
         sortedCities.comparatorProperty().bind(cityTableView.comparatorProperty());
         cityTableView.setItems(sortedCities);
+    }
+    public void setClimateBean(ClimateBean climateBean) {
+        this.climateBean = climateBean;
+
+        ObservableList<ClimateType> climateTypesObservableList = climateBean.getClimateTypes();
+        climateTypesObservableList.add(0, new ClimateType("", "Climate (" + climateTypesObservableList.size() + ")"));
+        climateTypeSearch.setItems(climateTypesObservableList);
+        climateTypeSearch.getSelectionModel().selectFirst();
     }
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;

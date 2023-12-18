@@ -3,6 +3,8 @@ package fr.routardfilrouge.routard.metier;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.Objects;
+
 public class Continent {
     private StringProperty continentCode;
     private StringProperty name;
@@ -35,4 +37,18 @@ public class Continent {
     public void setName(String name) {
         this.name.set(name);
     }
+
+    @Override
+    public String toString() {
+        return name.get();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Continent continent = (Continent) o;
+        return Objects.equals(continentCode, continent.continentCode) && Objects.equals(name, continent.name);
+    }
+
 }

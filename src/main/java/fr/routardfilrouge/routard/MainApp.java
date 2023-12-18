@@ -5,6 +5,7 @@ import fr.routardfilrouge.routard.controllers.MainViewController;
 import fr.routardfilrouge.routard.controllers.NewEditCountryDialogController;
 import fr.routardfilrouge.routard.metier.Country;
 import fr.routardfilrouge.routard.service.CityBean;
+import fr.routardfilrouge.routard.service.ClimateBean;
 import fr.routardfilrouge.routard.service.CountryBean;
 import fr.routardfilrouge.routard.service.SubdivisionBean;
 import javafx.application.Application;
@@ -22,11 +23,13 @@ public class MainApp extends Application {
     private CountryBean countryBean;
     private SubdivisionBean subdivisionBean;
     private CityBean cityBean;
+    private ClimateBean climateBean;
 
     public MainApp() {
         this.countryBean = new CountryBean();
         this.subdivisionBean = new SubdivisionBean();
         this.cityBean = new CityBean();
+        this.climateBean = new ClimateBean();
     }
 
     @Override
@@ -47,6 +50,7 @@ public class MainApp extends Application {
             controller.setCountryBean(countryBean);
             controller.setSubdivisionBean(subdivisionBean);
             controller.setCityBean(cityBean);
+            controller.setClimateBean(climateBean);
             controller.setMainApp(this);
 
             Scene scene = new Scene(pane);

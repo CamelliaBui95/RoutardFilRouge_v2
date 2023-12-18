@@ -46,6 +46,11 @@ public class CityDAO extends DAO<City, City>{
     }
 
     @Override
+    public ArrayList<City> getLike(City searchObject) {
+        return null;
+    }
+
+    @Override
     public boolean update(City object) {
         return false;
     }
