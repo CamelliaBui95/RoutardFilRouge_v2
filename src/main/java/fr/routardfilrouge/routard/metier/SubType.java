@@ -13,4 +13,28 @@ public class SubType {
         this.idType = new SimpleIntegerProperty(idType);
         this.typeName = new SimpleStringProperty(typeName);
     }
+
+    public int getIdType() {
+        return idType.get();
+    }
+
+    public IntegerProperty idTypeProperty() {
+        return idType;
+    }
+
+    public void setIdType(int idType) {
+        this.idType.set(idType);
+    }
+
+    public String getTypeName() {
+        return typeName.get();
+    }
+
+    public StringProperty typeNameProperty() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName.set(typeName);
+    }
 }

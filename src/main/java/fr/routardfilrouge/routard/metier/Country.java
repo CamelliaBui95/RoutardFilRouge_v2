@@ -21,6 +21,10 @@ public class Country {
         infoCollection = new HashMap<>();
     }
 
+    public Country() {
+
+    }
+
     public String getName() {
         return name.get();
     }

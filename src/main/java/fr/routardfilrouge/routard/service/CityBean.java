@@ -1,9 +1,7 @@
 package fr.routardfilrouge.routard.service;
 
 import fr.routardfilrouge.routard.dao.DAOFactory;
-import fr.routardfilrouge.routard.metier.City;
-import fr.routardfilrouge.routard.metier.Country;
-import fr.routardfilrouge.routard.metier.Subdivision;
+import fr.routardfilrouge.routard.metier.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,6 +12,8 @@ public class CityBean {
     private FilteredList<City> filteredCities;
     private SortedList<City> sortedCities;
 
+    private CitySearch citySearch;
+
     public CityBean() {
         cities = FXCollections.observableArrayList();
         cities.addAll(DAOFactory.getCityDAO().getAll());
@@ -21,18 +21,7 @@ public class CityBean {
         filteredCities = new FilteredList<>(cities, null);
         sortedCities = new SortedList<>(filteredCities);
 
-    }
-
-    public void filterCityByCountry(String countryName) {
-        String finalCountryName = countryName.toLowerCase();
-        filteredCities.setPredicate(city -> city.getSubdivision().getCountry().getName().toLowerCase().contains(finalCountryName));
-    }
-
-    public void filterCityBySubdivision(String subdivisionName, String countryName) {
-        String finalSubdivisionName = subdivisionName.toLowerCase();
-        String finalCountryName = countryName.toLowerCase();
-        filteredCities.setPredicate(city -> city.getSubdivision().getCountry().getName().toLowerCase().contains(finalCountryName) &&
-                                            city.getSubdivision().getSubdivisionName().toLowerCase().contains(finalSubdivisionName));
+        citySearch = new CitySearch();
     }
 
     public void filterCity(String cityName, String subdivisionName, String countryName) {
@@ -48,6 +37,25 @@ public class CityBean {
                     && subdivision.getSubdivisionName().toLowerCase().contains(finalSubdivisionName)
                     && city.getCityName().toLowerCase().contains(finalCityName);
         });
+    }
+
+    public void getCitiesByCountryCode(String countryCode) {
+        if(citySearch.getCountryCode().equals(countryCode))
+            return;
+        if(countryCode != null) {
+            citySearch.setCountryCode(countryCode);
+            cities.setAll(DAOFactory.getCityDAO().getLike(citySearch));
+        }
+    }
+
+    public void getCitiesByContinent(Continent continent) {
+        if(citySearch.getContinent() != null && citySearch.getContinent().equals(continent))
+            return;
+
+        if(continent != null) {
+            citySearch.setContinent(continent);
+            cities.setAll(DAOFactory.getCityDAO().getLike(citySearch));
+        }
     }
 
     public SortedList<City> getSortedCities() {

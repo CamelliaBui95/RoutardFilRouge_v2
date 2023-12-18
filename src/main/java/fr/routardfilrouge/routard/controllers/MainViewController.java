@@ -122,7 +122,11 @@ public class MainViewController {
         continentSearch.setItems(continentsObservableList);
         continentSearch.getSelectionModel().selectFirst();
 
-        continentSearch.valueProperty().addListener((ob, o, n) -> countryBean.getCountriesByContinent((Continent) n));
+        continentSearch.valueProperty().addListener((ob, o, n) -> {
+            countryBean.getCountriesByContinent((Continent) n);
+            subdivisionBean.getSubdivisionsByContinent((Continent) n);
+            cityBean.getCitiesByContinent((Continent) n);
+        });
     }
 
     private void setUpCountryCodeSearchBox() {
@@ -132,10 +136,13 @@ public class MainViewController {
         codeCountrySearch.getSelectionModel().selectFirst();
 
         codeCountrySearch.valueProperty().addListener((ob, o, n) -> {
-            if(codeCountrySearch.getSelectionModel().getSelectedIndex() == 0)
-                countryBean.getCountriesByCountryCode("");
-            else
-                countryBean.getCountriesByCountryCode(n);
+            String value = "";
+            if(codeCountrySearch.getSelectionModel().getSelectedIndex() != 0)
+                value = n;
+
+            countryBean.getCountriesByCountryCode(value);
+            subdivisionBean.getSubdivisionsByCountryCode(value);
+            cityBean.getCitiesByCountryCode(value);
         });
     }
 
