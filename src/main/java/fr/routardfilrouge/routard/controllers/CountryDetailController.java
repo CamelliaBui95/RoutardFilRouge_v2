@@ -9,26 +9,32 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 import org.controlsfx.control.SearchableComboBox;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CountryDetailController {
 
     @FXML
-    private TextField countryCodeField;
+    private TextFlow countryCodeText;
     @FXML
-    private TextField countryNameField;
+    private TextFlow countryNameText;
     @FXML
-    private TextField continentCodeField;
+    private TextFlow continentCodeText;
     @FXML
-    private TextField continentField;
+    private TextFlow continentNameText;
     @FXML
-    private TextField languageField;
+    private TextFlow languageText;
     @FXML
-    private TextField currencyField;
+    private TextFlow currencyText;
     @FXML
     private SearchableComboBox<InfoType> infoTypeSearch;
     @FXML
-    private TextArea infoField;
+    private TextFlow infoText;
     @FXML
     private Label dateLabel;
     @FXML
@@ -44,6 +50,11 @@ public class CountryDetailController {
         mainApp.showNewCountryDialog();
     }
 
+    @FXML
+    private void handleModifyClick() {
+        mainApp.showNewCountryDialog();
+    }
+
     public Country getCountry() {
         return country;
     }
@@ -54,16 +65,32 @@ public class CountryDetailController {
     }
 
     private void fillInDetails() {
-        countryCodeField.setText(country.getIsoCode());
-        countryNameField.setText(country.getName());
-        continentCodeField.setText(country.getContinent().getContinentCode());
-        continentField.setText(country.getContinent().getName());
+        ArrayList<Text> texts = generateTexts();
+
+        countryCodeText.getChildren().add(texts.get(0));
+        countryNameText.getChildren().add(texts.get(1));
+        continentCodeText.getChildren().add(texts.get(2));
+        continentNameText.getChildren().add(texts.get(3));
+        languageText.getChildren().add(texts.get(4));
+        currencyText.getChildren().add(texts.get(5));
+        infoText.getChildren().add(texts.get(6));
+    }
+
+    private ArrayList<Text> generateTexts() {
+
+        Text countryCode = new Text(country.getIsoCode());
+        Text countryName = new Text(country.getName());
+        Text continentCode = new Text(country.getContinent().getContinentCode());
+        Text continentName = new Text(country.getContinent().getName());
+        Text language = new Text("");
+        Text currency = new Text("");
 
         infoTypeSearch.setItems(countryBean.getInfoTypes());
         infoTypeSearch.getSelectionModel().selectFirst();
 
-        String defaultInfo = country.getInfoCollection().get(infoTypeSearch.getSelectionModel().getSelectedItem());
-        infoField.setText(defaultInfo);
+        Text info = new Text(country.getInfoCollection().get(infoTypeSearch.getSelectionModel().getSelectedItem()));
+
+        return new ArrayList<>(Arrays.asList(countryCode, countryName, continentCode, continentName, language, currency, info));
     }
 
     public void setCountryBean(CountryBean countryBean) {

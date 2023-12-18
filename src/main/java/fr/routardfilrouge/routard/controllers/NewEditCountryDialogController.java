@@ -1,10 +1,9 @@
 package fr.routardfilrouge.routard.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class NewCountryDialogController {
+public class NewEditCountryDialogController {
     private Stage dialogStage;
     @FXML
     private void handleCancelClick() {

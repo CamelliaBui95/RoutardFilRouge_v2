@@ -2,7 +2,7 @@ package fr.routardfilrouge.routard;
 
 import fr.routardfilrouge.routard.controllers.CountryDetailController;
 import fr.routardfilrouge.routard.controllers.MainViewController;
-import fr.routardfilrouge.routard.controllers.NewCountryDialogController;
+import fr.routardfilrouge.routard.controllers.NewEditCountryDialogController;
 import fr.routardfilrouge.routard.metier.Country;
 import fr.routardfilrouge.routard.service.CityBean;
 import fr.routardfilrouge.routard.service.CountryBean;
@@ -50,6 +50,8 @@ public class MainApp extends Application {
             controller.setMainApp(this);
 
             Scene scene = new Scene(pane);
+            scene.getStylesheets().add(getClass().getResource("stylesheets/styles.css").toExternalForm());
+
             primaryStage.setTitle("Project Manager - Routard");
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -75,9 +77,9 @@ public class MainApp extends Application {
 
     public void showNewCountryDialog() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewCountryDialog-View.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditCountryDialog-View.fxml"));
             AnchorPane dialogPane = loader.load();
-            NewCountryDialogController controller = loader.getController();
+            NewEditCountryDialogController controller = loader.getController();
 
             Stage dialogStage = new Stage();
 

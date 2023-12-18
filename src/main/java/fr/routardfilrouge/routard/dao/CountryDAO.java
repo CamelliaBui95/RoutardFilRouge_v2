@@ -5,6 +5,7 @@ import fr.routardfilrouge.routard.metier.Country;
 import fr.routardfilrouge.routard.metier.InfoType;
 
 import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -49,18 +50,45 @@ public class CountryDAO extends DAO<Country, Country> {
     }
 
     @Override
-    public boolean update(Country object) {
-        return false;
+    public boolean update(Country country) {
+        String req = "{call ps_modifyCountry(?,?,?)}";
+        try(PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setString(1, country.getIsoCode());
+            stm.setString(2, country.getName());
+            stm.setString(3, country.getContinent().getContinentCode());
+            stm.executeUpdate();
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public boolean post(Country object) {
-        return false;
+    public boolean post(Country country) {
+        String rq = "{call ps_insertCountry(?,?,?)}";
+        try(PreparedStatement stm = connection.prepareStatement(rq)) {
+            stm.setString(1, country.getIsoCode());
+            stm.setString(2, country.getName());
+            stm.setString(3, country.getContinent().getContinentCode());
+            stm.executeUpdate();
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public boolean delete(Country object) {
-        return false;
+    public boolean delete(Country country) {
+        String rq = "DELETE FROM PAYS WHERE CODE_ISO_3166_1=?";
+        try(PreparedStatement stm = connection.prepareStatement(rq)) {
+            stm.setString(1, country.getIsoCode());
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public void setInfoTypes(ArrayList<InfoType> infoTypes) {

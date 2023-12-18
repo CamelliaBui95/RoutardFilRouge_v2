@@ -1,0 +1,5 @@
+#infoText, #countryCodeText, #countryNameText, #continentCodeText, #continentNameText, #languageText, #currencyText {
+    -fx-background-color: #fff;
+    -fx-border-color: #b6b2b2;
+    -fx-border-radius: 5px;
+}

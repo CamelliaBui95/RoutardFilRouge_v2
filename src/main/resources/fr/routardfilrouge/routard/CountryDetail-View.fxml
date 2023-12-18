@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
 <AnchorPane minHeight="643.0" minWidth="404.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.routardfilrouge.routard.controllers.CountryDetailController">
@@ -33,37 +33,79 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="countryCodeField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
             <Label text="Name" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="countryNameField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
             <Label text="Code Continent" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="continentCodeField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
             <Label text="Continent" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="continentField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
             <Label text="Language" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="languageField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
             <Label text="Currency" GridPane.rowIndex="5">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="currencyField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
+            <TextFlow fx:id="countryCodeText" prefHeight="200.0" prefWidth="200.0" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+               <GridPane.margin>
+                  <Insets bottom="2.0" top="2.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets left="5.0" top="2.0" />
+               </padding>
+            </TextFlow>
+            <TextFlow fx:id="countryNameText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+               <GridPane.margin>
+                  <Insets bottom="2.0" top="2.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets left="5.0" top="2.0" />
+               </padding>
+            </TextFlow>
+            <TextFlow fx:id="continentCodeText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+               <GridPane.margin>
+                  <Insets bottom="2.0" top="2.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets left="5.0" top="2.0" />
+               </padding>
+            </TextFlow>
+            <TextFlow fx:id="continentNameText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+               <GridPane.margin>
+                  <Insets bottom="2.0" top="2.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets left="5.0" top="2.0" />
+               </padding>
+            </TextFlow>
+            <TextFlow fx:id="languageText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+               <GridPane.margin>
+                  <Insets bottom="2.0" top="2.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets left="5.0" top="2.0" />
+               </padding>
+            </TextFlow>
+            <TextFlow fx:id="currencyText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+               <GridPane.margin>
+                  <Insets bottom="2.0" top="2.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets left="5.0" top="2.0" />
+               </padding>
+            </TextFlow>
          </children>
       </GridPane>
       <GridPane layoutX="76.0" layoutY="383.0" prefHeight="404.0" prefWidth="399.0" vgap="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
@@ -94,15 +136,11 @@
                   <SearchableComboBox fx:id="infoTypeSearch" promptText="Cimate" GridPane.columnIndex="1" />
                </children>
             </GridPane>
-            <TextArea fx:id="infoField" prefHeight="265.0" prefWidth="399.0" wrapText="true" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-               <font>
-                  <Font size="14.0" />
-               </font></TextArea>
             <ButtonBar prefHeight="70.0" prefWidth="399.0" GridPane.halignment="CENTER" GridPane.rowIndex="3">
               <buttons>
                 <Button fx:id="deleteBtn" mnemonicParsing="false" text="Delete" />
                   <Button fx:id="newBtn" mnemonicParsing="false" onAction="#handleNewClick" text="New" />
-                  <Button fx:id="saveBtn" mnemonicParsing="false" text="Save" />
+                  <Button fx:id="modifyBtn" mnemonicParsing="false" onAction="#handleModifyClick" text="Modify" />
               </buttons>
             </ButtonBar>
             <GridPane hgap="5.0" vgap="5.0" GridPane.rowIndex="2">
@@ -129,6 +167,10 @@
                   <Label fx:id="authorLabel" text="Author" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
+            <TextFlow fx:id="infoText" lineSpacing="2.0" prefHeight="200.0" prefWidth="200.0" styleClass="infoText" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </padding></TextFlow>
          </children>
       </GridPane>
    </children>
