@@ -68,7 +68,7 @@
                         <Insets bottom="2.0" top="2.0" />
                      </GridPane.margin>
                   </SearchableComboBox>
-                  <Button mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                  <Button mnemonicParsing="false" onAction="#handleAddNewContinent" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                      <graphic>
                         <FontAwesomeIconView fx:id="addContinentBtn" glyphName="PLUS" size="12.5" />
                      </graphic>
@@ -99,9 +99,9 @@
                         <Insets bottom="2.0" top="2.0" />
                      </GridPane.margin>
                   </SearchableComboBox>
-                  <Button mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                  <Button mnemonicParsing="false" onAction="#handleAddNewLanguage" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                      <graphic>
-                        <FontAwesomeIconView fx:id="addLanguageBtn" glyphName="PLUS" size="12.5" />
+                        <FontAwesomeIconView glyphName="PLUS" size="12.5" />
                      </graphic>
                   </Button>
                </children>
@@ -120,7 +120,7 @@
                         <Insets bottom="2.0" top="2.0" />
                      </GridPane.margin>
                   </SearchableComboBox>
-                  <Button mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                  <Button mnemonicParsing="false" onAction="#handleAddNewCurrency" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                      <graphic>
                         <FontAwesomeIconView fx:id="addCurrencyBtn" glyphName="PLUS" size="12.5" />
                      </graphic>
@@ -170,7 +170,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="addInfoTypeBtn" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                              <Button fx:id="addInfoTypeBtn" mnemonicParsing="false" onAction="#handleAddNewInfoType" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="PLUS" size="12.5" />
                                  </graphic>
@@ -190,7 +190,7 @@
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2">
               <buttons>
                 <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#handleCancelClick" text="Cancel" />
-                  <Button fx:id="okBtn" mnemonicParsing="false" text="OK" />
+                  <Button fx:id="okBtn" mnemonicParsing="false" onAction="#handleOKClick" text="OK" />
               </buttons>
             </ButtonBar>
          </children>

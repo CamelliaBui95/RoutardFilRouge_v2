@@ -16,7 +16,7 @@
    <children>
       <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="450.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="300.0" minWidth="10.0" prefWidth="132.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1000.0" minWidth="10.0" prefWidth="132.0" />
             <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="262.0" />
          </columnConstraints>
          <rowConstraints>
@@ -58,7 +58,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextFlow fx:id="countryCodeText" prefHeight="200.0" prefWidth="200.0" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <TextFlow fx:id="countryCodeText" maxHeight="26.0" prefHeight="200.0" prefWidth="200.0" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                <GridPane.margin>
                   <Insets bottom="2.0" top="2.0" />
                </GridPane.margin>
@@ -66,7 +66,7 @@
                   <Insets left="5.0" top="2.0" />
                </padding>
             </TextFlow>
-            <TextFlow fx:id="countryNameText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <TextFlow fx:id="countryNameText" maxHeight="26.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                <GridPane.margin>
                   <Insets bottom="2.0" top="2.0" />
                </GridPane.margin>
@@ -74,7 +74,7 @@
                   <Insets left="5.0" top="2.0" />
                </padding>
             </TextFlow>
-            <TextFlow fx:id="continentCodeText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <TextFlow fx:id="continentCodeText" maxHeight="26.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                <GridPane.margin>
                   <Insets bottom="2.0" top="2.0" />
                </GridPane.margin>
@@ -82,7 +82,7 @@
                   <Insets left="5.0" top="2.0" />
                </padding>
             </TextFlow>
-            <TextFlow fx:id="continentNameText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <TextFlow fx:id="continentNameText" maxHeight="26.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                <GridPane.margin>
                   <Insets bottom="2.0" top="2.0" />
                </GridPane.margin>
@@ -90,7 +90,7 @@
                   <Insets left="5.0" top="2.0" />
                </padding>
             </TextFlow>
-            <TextFlow fx:id="languageText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <TextFlow fx:id="languageText" maxHeight="26.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                <GridPane.margin>
                   <Insets bottom="2.0" top="2.0" />
                </GridPane.margin>
@@ -98,7 +98,7 @@
                   <Insets left="5.0" top="2.0" />
                </padding>
             </TextFlow>
-            <TextFlow fx:id="currencyText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <TextFlow fx:id="currencyText" maxHeight="26.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                <GridPane.margin>
                   <Insets bottom="2.0" top="2.0" />
                </GridPane.margin>

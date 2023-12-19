@@ -4,6 +4,7 @@ import fr.routardfilrouge.routard.MainApp;
 import fr.routardfilrouge.routard.metier.ClimateType;
 import fr.routardfilrouge.routard.metier.Country;
 import fr.routardfilrouge.routard.metier.InfoType;
+import fr.routardfilrouge.routard.service.ContinentBean;
 import fr.routardfilrouge.routard.service.CountryBean;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -47,12 +48,12 @@ public class CountryDetailController {
 
     @FXML
     private void handleNewClick() {
-        mainApp.showNewCountryDialog();
+        mainApp.showNewCountryDialog(new Country(), "New Country", true);
     }
 
     @FXML
     private void handleModifyClick() {
-        mainApp.showNewCountryDialog();
+        mainApp.showNewCountryDialog(country, "Modify Country", false);
     }
 
     public Country getCountry() {

@@ -2,10 +2,7 @@ package fr.routardfilrouge.routard.controllers;
 
 import fr.routardfilrouge.routard.MainApp;
 import fr.routardfilrouge.routard.metier.*;
-import fr.routardfilrouge.routard.service.CityBean;
-import fr.routardfilrouge.routard.service.ClimateBean;
-import fr.routardfilrouge.routard.service.CountryBean;
-import fr.routardfilrouge.routard.service.SubdivisionBean;
+import fr.routardfilrouge.routard.service.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
@@ -36,6 +33,7 @@ public class MainViewController {
     @FXML
     private SearchableComboBox<String> codeCountrySearch;
     private CountryBean countryBean;
+    private ContinentBean continentBean;
 
     @FXML
     private TableView<Subdivision> subdivisionTableView;
@@ -117,7 +115,7 @@ public class MainViewController {
     }
 
     private void setUpContinentSearchBox() {
-        ObservableList<Continent> continentsObservableList = countryBean.getContinents();
+        ObservableList<Continent> continentsObservableList = continentBean.getContinents();
         continentsObservableList.add(0, new Continent("", "Continent (" + continentsObservableList.size() + ")"));
         continentSearch.setItems(continentsObservableList);
         continentSearch.getSelectionModel().selectFirst();
@@ -152,7 +150,6 @@ public class MainViewController {
         sortedCountries.comparatorProperty().bind(countryTableView.comparatorProperty());
         countryTableView.setItems(sortedCountries);
 
-        setUpContinentSearchBox();
         setUpCountryCodeSearchBox();
     }
 
@@ -175,6 +172,12 @@ public class MainViewController {
         climateTypesObservableList.add(0, new ClimateType("", "Climate (" + climateTypesObservableList.size() + ")"));
         climateTypeSearch.setItems(climateTypesObservableList);
         climateTypeSearch.getSelectionModel().selectFirst();
+    }
+
+    public void setContinentBean(ContinentBean continentBean) {
+        this.continentBean = continentBean;
+
+        setUpContinentSearchBox();
     }
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;

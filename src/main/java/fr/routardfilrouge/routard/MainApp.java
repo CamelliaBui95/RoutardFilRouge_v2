@@ -4,10 +4,7 @@ import fr.routardfilrouge.routard.controllers.CountryDetailController;
 import fr.routardfilrouge.routard.controllers.MainViewController;
 import fr.routardfilrouge.routard.controllers.NewEditCountryDialogController;
 import fr.routardfilrouge.routard.metier.Country;
-import fr.routardfilrouge.routard.service.CityBean;
-import fr.routardfilrouge.routard.service.ClimateBean;
-import fr.routardfilrouge.routard.service.CountryBean;
-import fr.routardfilrouge.routard.service.SubdivisionBean;
+import fr.routardfilrouge.routard.service.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,9 +21,14 @@ public class MainApp extends Application {
     private SubdivisionBean subdivisionBean;
     private CityBean cityBean;
     private ClimateBean climateBean;
+    private ContinentBean continentBean;
 
     public MainApp() {
+        this.continentBean = new ContinentBean();
+
         this.countryBean = new CountryBean();
+        this.countryBean.setContinents(continentBean.getContinentsArr());
+
         this.subdivisionBean = new SubdivisionBean();
         this.cityBean = new CityBean();
         this.climateBean = new ClimateBean();
@@ -47,6 +49,7 @@ public class MainApp extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("Main-View.fxml"));
             BorderPane pane = (BorderPane) fxmlLoader.load();
             MainViewController controller = fxmlLoader.getController();
+            controller.setContinentBean(continentBean);
             controller.setCountryBean(countryBean);
             controller.setSubdivisionBean(subdivisionBean);
             controller.setCityBean(cityBean);
@@ -79,7 +82,7 @@ public class MainApp extends Application {
         }
     }
 
-    public void showNewCountryDialog() {
+    public void showNewCountryDialog(Country country, String title, boolean isNew) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditCountryDialog-View.fxml"));
             AnchorPane dialogPane = loader.load();
@@ -87,7 +90,7 @@ public class MainApp extends Application {
 
             Stage dialogStage = new Stage();
 
-            dialogStage.setTitle("New Country");
+            dialogStage.setTitle(title);
             dialogStage.setResizable(false);
             dialogStage.initOwner(primaryStage);
             dialogStage.initModality(Modality.APPLICATION_MODAL);
@@ -95,6 +98,10 @@ public class MainApp extends Application {
             dialogStage.setScene(new Scene(dialogPane));
 
             controller.setDialogStage(dialogStage);
+            controller.setCountry(country);
+            controller.setCountryBean(countryBean);
+            controller.setContinentBean(continentBean);
+            controller.setNew(isNew);
             dialogStage.showAndWait();
         } catch(Exception e) {
             e.printStackTrace();

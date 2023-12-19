@@ -19,7 +19,6 @@ public class CountryBean {
     private FilteredList<Country> filteredCountries;
     private SortedList<Country> sortedCountries;
     private ObservableList<InfoType> infoTypes;
-    private ObservableList<Continent> continents;
     private ObservableList<String> countryCodes;
 
     private CountrySearch countrySearch;
@@ -29,18 +28,15 @@ public class CountryBean {
         ArrayList<InfoType> infoTypesArr = DAOFactory.getInfoDAO().getAllType();
         infoTypes.addAll(infoTypesArr);
 
-        continents = FXCollections.observableArrayList();
+        /*continents = FXCollections.observableArrayList();
         ArrayList<Continent> continentArr = DAOFactory.getContinentDAO().getAll();
-        continents.addAll(continentArr);
+        continents.addAll(continentArr);*/
 
         DAOFactory.getCountryDAO().setInfoTypes(infoTypesArr);
-        DAOFactory.getCountryDAO().setContinents(continentArr);
+        //DAOFactory.getCountryDAO().setContinents(continentArr);
 
         countries = FXCollections.observableArrayList();
-        countries.addAll(DAOFactory.getCountryDAO().getAll());
-
         countryCodes = FXCollections.observableArrayList();
-        countryCodes.addAll(extractCountryCodes());
 
         filteredCountries = new FilteredList<>(countries, null);
         sortedCountries = new SortedList<>(filteredCountries);
@@ -68,10 +64,6 @@ public class CountryBean {
         return infoTypes;
     }
 
-    public ObservableList<Continent> getContinents() {
-        return continents;
-    }
-
     public ObservableList<String> getCountryCodes() {
         return countryCodes;
     }
@@ -93,5 +85,11 @@ public class CountryBean {
             countrySearch.setContinent(continent);
             countries.setAll(DAOFactory.getCountryDAO().getLike(countrySearch));
         }
+    }
+
+    public void setContinents(ArrayList<Continent> continents) {
+        DAOFactory.getCountryDAO().setContinents(continents);
+        countries.addAll(DAOFactory.getCountryDAO().getAll());
+        countryCodes.addAll(extractCountryCodes());
     }
 }
