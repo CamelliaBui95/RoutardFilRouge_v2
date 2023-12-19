@@ -6,19 +6,17 @@ import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Country {
     private StringProperty isoCode;
     private StringProperty name;
     private Continent continent;
 
-    private HashMap<InfoType, String> infoCollection;
-
     public Country(String isoCode, String name, Continent continent) {
         this.isoCode = new SimpleStringProperty(isoCode);
         this.name = new SimpleStringProperty(name);
         this.continent = continent;
-        infoCollection = new HashMap<>();
     }
 
     public Country() {
@@ -57,16 +55,17 @@ public class Country {
         this.continent = continent;
     }
 
-    public HashMap<InfoType, String> getInfoCollection() {
-        return infoCollection;
-    }
-
-    public void addInfo(InfoType infoType, String info) {
-        infoCollection.put(infoType, info);
-    }
-
     @Override
     public String toString() {
         return "Country=" + getName();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Country country = (Country) o;
+        return Objects.equals(isoCode, country.isoCode) && Objects.equals(name, country.name) && Objects.equals(continent, country.continent);
+    }
+
 }

@@ -6,6 +6,7 @@ import fr.routardfilrouge.routard.metier.Country;
 import fr.routardfilrouge.routard.metier.InfoType;
 import fr.routardfilrouge.routard.service.ContinentBean;
 import fr.routardfilrouge.routard.service.CountryBean;
+import fr.routardfilrouge.routard.service.InfoBean;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -17,6 +18,7 @@ import org.controlsfx.control.SearchableComboBox;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class CountryDetailController {
 
@@ -42,9 +44,11 @@ public class CountryDetailController {
     private Label authorLabel;
 
     private CountryBean countryBean;
+    private InfoBean infoBean;
     private MainApp mainApp;
-
     private Country country;
+
+    private HashMap<InfoType, String> infoCollection;
 
     @FXML
     private void handleNewClick() {
@@ -62,6 +66,7 @@ public class CountryDetailController {
 
     public void setCountry(Country country) {
         this.country = country;
+        infoCollection = infoBean.getInfoSlice(country) == null ? new HashMap<>() : infoBean.getInfoSlice(country);
         fillInDetails();
     }
 
@@ -78,7 +83,6 @@ public class CountryDetailController {
     }
 
     private ArrayList<Text> generateTexts() {
-
         Text countryCode = new Text(country.getIsoCode());
         Text countryName = new Text(country.getName());
         Text continentCode = new Text(country.getContinent().getContinentCode());
@@ -86,16 +90,23 @@ public class CountryDetailController {
         Text language = new Text("");
         Text currency = new Text("");
 
-        infoTypeSearch.setItems(countryBean.getInfoTypes());
+        infoTypeSearch.setItems(infoBean.getInfoTypes());
         infoTypeSearch.getSelectionModel().selectFirst();
 
-        Text info = new Text(country.getInfoCollection().get(infoTypeSearch.getSelectionModel().getSelectedItem()));
+        Text info = new Text("");
+        if(!infoCollection.isEmpty())
+            info.setText(infoCollection.get(infoTypeSearch.getSelectionModel().getSelectedItem()));
+
 
         return new ArrayList<>(Arrays.asList(countryCode, countryName, continentCode, continentName, language, currency, info));
     }
 
     public void setCountryBean(CountryBean countryBean) {
         this.countryBean = countryBean;
+    }
+
+    public void setInfoBean(InfoBean infoBean) {
+        this.infoBean = infoBean;
     }
 
     public void setMainApp(MainApp mainApp) {

@@ -1,34 +1,59 @@
 package fr.routardfilrouge.routard.dao;
 
+import fr.routardfilrouge.routard.metier.Country;
+import fr.routardfilrouge.routard.metier.Info;
 import fr.routardfilrouge.routard.metier.InfoType;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class InfoDAO extends DAO<InfoType, InfoType>{
+public class InfoDAO extends DAO<Info, Info>{
+    private HashMap<String, Country> countries;
+
+    public InfoDAO() {
+        countries = new HashMap<>();
+    }
+
     @Override
-    public ArrayList<InfoType> getAll() {
+    public ArrayList<Info> getAll() {
+        ArrayList<Info> infos = new ArrayList<>();
+        String req = "SELECT * FROM INFORMER";
+
+        try(Statement stm = connection.createStatement()) {
+            ResultSet rs = stm.executeQuery(req);
+            while(rs.next()) {
+                int idType = rs.getInt("ID_TYPE_INFO");
+                Country country = countries.get(rs.getString("CODE_ISO_3166_1"));
+                String infoText = rs.getString("INFO");
+                Info info = new Info(idType, country, infoText);
+                infos.add(info);
+            }
+            rs.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return infos;
+    }
+
+    @Override
+    public ArrayList<Info> getLike(Info searchObject) {
         return null;
     }
 
     @Override
-    public ArrayList<InfoType> getLike(InfoType searchObject) {
-        return null;
-    }
-
-    @Override
-    public boolean update(InfoType object) {
+    public boolean update(Info object) {
         return false;
     }
 
     @Override
-    public boolean post(InfoType object) {
+    public boolean post(Info object) {
         return false;
     }
 
     @Override
-    public boolean delete(InfoType object) {
+    public boolean delete(Info object) {
         return false;
     }
 
@@ -49,5 +74,12 @@ public class InfoDAO extends DAO<InfoType, InfoType>{
         }
 
         return infoTypes;
+    }
+
+    public void setCountries(ArrayList<Country> countries) {
+        for(int i = 0; i < countries.size(); i++) {
+            String countryCode = countries.get(i).getIsoCode();
+            this.countries.putIfAbsent(countryCode, countries.get(i));
+        }
     }
 }

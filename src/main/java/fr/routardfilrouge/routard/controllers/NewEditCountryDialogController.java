@@ -1,10 +1,12 @@
 package fr.routardfilrouge.routard.controllers;
 
+import fr.routardfilrouge.routard.MainApp;
 import fr.routardfilrouge.routard.metier.Continent;
 import fr.routardfilrouge.routard.metier.Country;
 import fr.routardfilrouge.routard.metier.InfoType;
 import fr.routardfilrouge.routard.service.ContinentBean;
 import fr.routardfilrouge.routard.service.CountryBean;
+import fr.routardfilrouge.routard.service.InfoBean;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NewEditCountryDialogController {
     @FXML
@@ -33,9 +36,12 @@ public class NewEditCountryDialogController {
     @FXML
     private Button okBtn;
     private Stage dialogStage;
+    private MainApp mainApp;
     private Country country;
+    private HashMap<InfoType, String> infoCollection;
     private CountryBean countryBean;
     private ContinentBean continentBean;
+    private InfoBean infoBean;
     private boolean isNew = false;
     private boolean isOkClicked = false;
 
@@ -57,11 +63,17 @@ public class NewEditCountryDialogController {
     }
     @FXML
     private void handleAddNewInfoType() {
-
+        mainApp.showNewElementDialog("New Info Type");
     }
     @FXML
     private void handleAddNewContinent() {
-
+        HashMap<String, String> element = mainApp.showNewElementDialog("New Continent");
+        if(element == null || element.isEmpty()) {
+            System.out.println("Continent insertion failed");
+            return;
+        }
+        Continent continent = new Continent(element.get("id"), element.get("name"));
+        continentBean.postContinent(continent);
     }
     @FXML
     private void handleAddNewLanguage() {
@@ -76,8 +88,9 @@ public class NewEditCountryDialogController {
         ObservableList<Continent> continentsList = continentBean.getContinents();
         continentSearch.setItems(continentsList);
         continentSearch.getSelectionModel().selectFirst();
-        infoTypeSearch.setItems(countryBean.getInfoTypes());
+        infoTypeSearch.setItems(infoBean.getInfoTypes());
         infoTypeSearch.getSelectionModel().selectFirst();
+
 
         if(!isNew) {
             countryCodeField.setText(country.getIsoCode());
@@ -88,7 +101,7 @@ public class NewEditCountryDialogController {
             int indexContinent = continentsList.indexOf(country.getContinent());
             continentSearch.getSelectionModel().select(indexContinent);
 
-            String infoText = country.getInfoCollection().get((InfoType) infoTypeSearch.getSelectionModel().getSelectedItem());
+            String infoText = infoCollection.get((InfoType) infoTypeSearch.getSelectionModel().getSelectedItem());
             infoTextarea.setText(infoText);
         }
 
@@ -100,6 +113,7 @@ public class NewEditCountryDialogController {
 
     public void setCountry(Country country) {
         this.country = country;
+        infoCollection = infoBean.getInfoSlice(country) == null ? new HashMap<>() : infoBean.getInfoSlice(country);
     }
 
     public void setCountryBean(CountryBean countryBean) {
@@ -110,9 +124,16 @@ public class NewEditCountryDialogController {
         this.continentBean = continentBean;
     }
 
+    public void setInfoBean(InfoBean infoBean) {
+        this.infoBean = infoBean;
+    }
+
     public void setNew(boolean isNew) {
         this.isNew = isNew;
-
         mapDataToView();
+    }
+
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
     }
 }

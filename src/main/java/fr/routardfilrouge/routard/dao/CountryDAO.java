@@ -12,11 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CountryDAO extends DAO<Country, CountrySearch> {
-    private ArrayList<InfoType> infoTypes;
+
     private HashMap<String, Continent> continents;
 
     public CountryDAO() {
-        infoTypes = new ArrayList<>();
         continents = new HashMap<>();
     }
 
@@ -32,15 +31,6 @@ public class CountryDAO extends DAO<Country, CountrySearch> {
                 String countryCode = rs.getString("CODE_PAYS");
                 String countryName = rs.getString("NOM_PAYS");
                 Country country = new Country(countryCode,countryName,continent);
-
-                /*This will be displaced*/
-                int infoTypeIndex = rs.getInt("ID_TYPE_INFO") - 1;
-                if(infoTypeIndex >= 0) {
-                    InfoType infoType = infoTypes.get(infoTypeIndex);
-                    String info = rs.getString("INFO");
-
-                    country.addInfo(infoType, info);
-                }
 
                 countries.add(country);
             }
@@ -68,15 +58,6 @@ public class CountryDAO extends DAO<Country, CountrySearch> {
                 String countryCode = rs.getString("CODE_PAYS");
                 String countryName = rs.getString("NOM_PAYS");
                 Country country = new Country(countryCode,countryName,continent);
-
-                /*This will be displaced*/
-                int infoTypeIndex = rs.getInt("ID_TYPE_INFO") - 1;
-                if(infoTypeIndex >= 0) {
-                    InfoType infoType = infoTypes.get(infoTypeIndex);
-                    String info = rs.getString("INFO");
-
-                    country.addInfo(infoType, info);
-                }
 
                 countries.add(country);
             }
@@ -127,10 +108,6 @@ public class CountryDAO extends DAO<Country, CountrySearch> {
             e.printStackTrace();
             return false;
         }
-    }
-
-    public void setInfoTypes(ArrayList<InfoType> infoTypes) {
-        this.infoTypes = infoTypes;
     }
 
     public void setContinents(ArrayList<Continent> continents) {

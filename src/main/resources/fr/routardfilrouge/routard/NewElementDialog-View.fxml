@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="150.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.routardfilrouge.routard.controllers.NewElementDialogController">
+   <children>
+      <GridPane layoutX="136.0" layoutY="55.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="137.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="84.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <children>
+                  <Label text="ID">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="idField" prefHeight="25.0" prefWidth="70.0">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label text="Name">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nameField" prefHeight="25.0" prefWidth="226.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="57.0" prefWidth="480.0" GridPane.rowIndex="1">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleCancelClick" text="Cancel">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="element_okBtn" minWidth="76.0" mnemonicParsing="false" onAction="#handleOkClick" text="OK">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

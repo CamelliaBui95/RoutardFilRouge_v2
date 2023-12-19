@@ -3,6 +3,7 @@ package fr.routardfilrouge.routard;
 import fr.routardfilrouge.routard.controllers.CountryDetailController;
 import fr.routardfilrouge.routard.controllers.MainViewController;
 import fr.routardfilrouge.routard.controllers.NewEditCountryDialogController;
+import fr.routardfilrouge.routard.controllers.NewElementDialogController;
 import fr.routardfilrouge.routard.metier.Country;
 import fr.routardfilrouge.routard.service.*;
 import javafx.application.Application;
@@ -14,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class MainApp extends Application {
     private Stage primaryStage;
@@ -23,12 +25,12 @@ public class MainApp extends Application {
     private ClimateBean climateBean;
     private ContinentBean continentBean;
 
+    private InfoBean infoBean;
+
     public MainApp() {
         this.continentBean = new ContinentBean();
-
         this.countryBean = new CountryBean();
-        this.countryBean.setContinents(continentBean.getContinentsArr());
-
+        this.infoBean = new InfoBean();
         this.subdivisionBean = new SubdivisionBean();
         this.cityBean = new CityBean();
         this.climateBean = new ClimateBean();
@@ -72,8 +74,10 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("CountryDetail-View.fxml"));
             AnchorPane pane = loader.load();
             CountryDetailController controller = loader.getController();
-            controller.setCountryBean(countryBean);
+
             controller.setMainApp(this);
+            controller.setInfoBean(infoBean);
+            controller.setCountryBean(countryBean);
             controller.setCountry(country);
 
             countryDetailPane.setCenter(pane);
@@ -98,13 +102,40 @@ public class MainApp extends Application {
             dialogStage.setScene(new Scene(dialogPane));
 
             controller.setDialogStage(dialogStage);
-            controller.setCountry(country);
             controller.setCountryBean(countryBean);
             controller.setContinentBean(continentBean);
+            controller.setInfoBean(infoBean);
+            controller.setCountry(country);
+            controller.setMainApp(this);
             controller.setNew(isNew);
+
             dialogStage.showAndWait();
         } catch(Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public HashMap<String, String> showNewElementDialog(String title) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewElementDialog-View.fxml"));
+            AnchorPane pane = loader.load();
+            NewElementDialogController controller = loader.getController();
+
+            Stage dialogStage = new Stage();
+
+            dialogStage.setTitle(title);
+            dialogStage.setResizable(false);
+            dialogStage.initOwner(primaryStage);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.setScene(new Scene(pane));
+
+            controller.setDialogStage(dialogStage);
+
+            dialogStage.showAndWait();
+            return controller.getElement();
+        } catch(IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

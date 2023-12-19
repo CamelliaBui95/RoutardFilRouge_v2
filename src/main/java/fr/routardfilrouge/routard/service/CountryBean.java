@@ -15,28 +15,24 @@ import javafx.fxml.FXML;
 import java.util.ArrayList;
 
 public class CountryBean {
+    private ArrayList<Country> countriesArr;
     private ObservableList<Country> countries;
     private FilteredList<Country> filteredCountries;
     private SortedList<Country> sortedCountries;
-    private ObservableList<InfoType> infoTypes;
     private ObservableList<String> countryCodes;
 
     private CountrySearch countrySearch;
 
     public CountryBean() {
-        infoTypes = FXCollections.observableArrayList();
-        ArrayList<InfoType> infoTypesArr = DAOFactory.getInfoDAO().getAllType();
-        infoTypes.addAll(infoTypesArr);
 
-        /*continents = FXCollections.observableArrayList();
-        ArrayList<Continent> continentArr = DAOFactory.getContinentDAO().getAll();
-        continents.addAll(continentArr);*/
-
-        DAOFactory.getCountryDAO().setInfoTypes(infoTypesArr);
-        //DAOFactory.getCountryDAO().setContinents(continentArr);
-
+        countriesArr = new ArrayList<>();
         countries = FXCollections.observableArrayList();
         countryCodes = FXCollections.observableArrayList();
+
+        countriesArr = DAOFactory.getCountryDAO().getAll();
+        countries.addAll(countriesArr);
+        countryCodes.addAll(extractCountryCodes());
+        DAOFactory.getInfoDAO().setCountries(countriesArr);
 
         filteredCountries = new FilteredList<>(countries, null);
         sortedCountries = new SortedList<>(filteredCountries);
@@ -58,10 +54,6 @@ public class CountryBean {
 
     public SortedList<Country> getSortedCountries() {
         return sortedCountries;
-    }
-
-    public ObservableList<InfoType> getInfoTypes() {
-        return infoTypes;
     }
 
     public ObservableList<String> getCountryCodes() {
@@ -86,10 +78,22 @@ public class CountryBean {
             countries.setAll(DAOFactory.getCountryDAO().getLike(countrySearch));
         }
     }
-
-    public void setContinents(ArrayList<Continent> continents) {
-        DAOFactory.getCountryDAO().setContinents(continents);
-        countries.addAll(DAOFactory.getCountryDAO().getAll());
-        countryCodes.addAll(extractCountryCodes());
+    public void postCountry(Country country) {
+        boolean isPosted = DAOFactory.getCountryDAO().post(country);
+        if(isPosted) {
+            countriesArr = DAOFactory.getCountryDAO().getAll();
+            countries.setAll(countriesArr);
+            DAOFactory.getInfoDAO().setCountries(countriesArr);
+        }
     }
+
+    public void updateCountry(Country country) {
+        boolean isUpdated = DAOFactory.getCountryDAO().update(country);
+        if(isUpdated) {
+            countriesArr = DAOFactory.getCountryDAO().getAll();
+            countries.setAll(countriesArr);
+            DAOFactory.getInfoDAO().setCountries(countriesArr);
+        }
+    }
+
 }
