@@ -9,15 +9,21 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
+import java.util.ArrayList;
+
 public class SubdivisionBean {
+    private ArrayList<Subdivision> subdivisionArr;
     private ObservableList<Subdivision> subdivisions;
     private FilteredList<Subdivision> filteredSubdivisions;
     private SortedList<Subdivision> sortedSubdivisions;
     private SubdivisionSearch subdivisionSearch;
 
     public SubdivisionBean() {
+        subdivisionArr = new ArrayList<>();
         subdivisions = FXCollections.observableArrayList();
-        subdivisions.addAll(DAOFactory.getSubdivisionDAO().getAll());
+
+        subdivisionArr = DAOFactory.getSubdivisionDAO().getAll();
+        subdivisions.addAll(subdivisionArr);
 
         filteredSubdivisions = new FilteredList<>(subdivisions, null);
         sortedSubdivisions = new SortedList<>(filteredSubdivisions);
@@ -51,5 +57,9 @@ public class SubdivisionBean {
 
     public SortedList<Subdivision> getSortedSubdivisions() {
         return sortedSubdivisions;
+    }
+
+    public ArrayList<Subdivision> getSubdivisionArr() {
+        return subdivisionArr;
     }
 }

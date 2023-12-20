@@ -56,7 +56,7 @@ public class SubdivisionDetailController {
 
     @FXML
     public void handleAddNewPOI() {
-        mainApp.showNewEditPOIDialog();
+        mainApp.showNewEditPOIDialog("New POI", new POI(), true);
     }
 
     @FXML
@@ -86,6 +86,10 @@ public class SubdivisionDetailController {
         poiCategoryCol.setCellValueFactory(cell -> cell.getValue().getType().typeNameProperty());
 
         poiSearchField.textProperty().addListener((ob, o, n) -> poiBean.filterPOIbyName(n));
+        poiTableView.getSelectionModel().selectedItemProperty().addListener((ob, o, n) -> {
+            if(n != null)
+                mainApp.showNewEditPOIDialog("Modify POI", n, false);
+        });
     }
 
     private void setUpPOICategorySearch() {

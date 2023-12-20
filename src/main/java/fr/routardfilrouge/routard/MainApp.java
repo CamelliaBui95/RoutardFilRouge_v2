@@ -2,6 +2,7 @@ package fr.routardfilrouge.routard;
 
 import fr.routardfilrouge.routard.controllers.*;
 import fr.routardfilrouge.routard.metier.Country;
+import fr.routardfilrouge.routard.metier.POI;
 import fr.routardfilrouge.routard.metier.Subdivision;
 import fr.routardfilrouge.routard.service.*;
 import javafx.application.Application;
@@ -127,7 +128,6 @@ public class MainApp extends Application {
             controller.setMainApp(this);
             controller.setNew(isNew);
 
-
             dialogStage.showAndWait();
             return controller.isOkClicked();
         } catch(Exception e) {
@@ -160,19 +160,26 @@ public class MainApp extends Application {
         }
     }
 
-    public void showNewEditPOIDialog() {
+    public void showNewEditPOIDialog(String title, POI poi, boolean isNew) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditPOIDialog-View.fxml"));
             AnchorPane pane = loader.load();
             NewEditPOIDialogController controller = loader.getController();
 
             Stage dialogStage = new Stage();
+            dialogStage.setTitle(title);
             dialogStage.initOwner(primaryStage);
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.setResizable(false);
             dialogStage.setScene(new Scene(pane));
 
             controller.setDialogStage(dialogStage);
+            controller.setPoiBean(poiBean);
+            controller.setCountryBean(countryBean);
+            controller.setSubdivisionBean(subdivisionBean);
+            controller.setPoi(poi);
+            controller.setNew(isNew);
+
             dialogStage.showAndWait();
         } catch(IOException e) {
             e.printStackTrace();

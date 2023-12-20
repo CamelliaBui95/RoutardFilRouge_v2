@@ -59,7 +59,7 @@ public class Country {
 
     @Override
     public String toString() {
-        return "Country=" + getName();
+        return getName();
     }
 
     @Override

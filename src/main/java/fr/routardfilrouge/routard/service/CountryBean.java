@@ -60,6 +60,10 @@ public class CountryBean {
         return countryCodes;
     }
 
+    public ArrayList<Country> getCountriesArr() {
+        return countriesArr;
+    }
+
     public void getCountriesByCountryCode(String countryCode) {
         if(countrySearch.getCountryCode().equals(countryCode))
             return;

@@ -80,6 +80,6 @@ public class Subdivision {
 
     @Override
     public String toString() {
-        return "Subdivision=" + subdivisionName + "-Country=" + country.getName();
+        return getSubdivisionName();
     }
 }
