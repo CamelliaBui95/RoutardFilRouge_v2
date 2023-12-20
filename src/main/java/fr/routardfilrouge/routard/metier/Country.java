@@ -21,7 +21,7 @@ public class Country {
 
     public Country() {
         isoCode = new SimpleStringProperty("");
-        name = new SimpleStringProperty("");
+        name = new SimpleStringProperty("Country");
         continent = new Continent();
     }
 

@@ -18,7 +18,7 @@ public class POIType {
 
     public POIType() {
         idType = new SimpleIntegerProperty(0);
-        typeName = new SimpleStringProperty("");
+        typeName = new SimpleStringProperty("Category");
     }
 
     public int getIdType() {
