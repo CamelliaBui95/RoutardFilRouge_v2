@@ -138,6 +138,7 @@ public class NewEditCountryDialogController {
             countryNameField.setText(country.getName());
 
             int indexContinent = continentsList.indexOf(country.getContinent());
+
             continentSearch.getSelectionModel().select(indexContinent);
 
             String infoText = infoCollection.get((InfoType) infoTypeSearch.getSelectionModel().getSelectedItem());

@@ -67,7 +67,7 @@ public class Country {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Country country = (Country) o;
-        return Objects.equals(isoCode, country.isoCode) && Objects.equals(name, country.name) && continent.equals(country.continent);
+        return isoCode.get().equals(country.isoCode.get()) && name.get().equals(country.getName()) && continent.equals(country.continent);
     }
 
 }

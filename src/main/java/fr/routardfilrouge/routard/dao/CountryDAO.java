@@ -103,6 +103,7 @@ public class CountryDAO extends DAO<Country, CountrySearch> {
         String rq = "DELETE FROM PAYS WHERE CODE_ISO_3166_1=?";
         try(PreparedStatement stm = connection.prepareStatement(rq)) {
             stm.setString(1, country.getIsoCode());
+            stm.executeUpdate();
             return true;
         } catch(Exception e) {
             e.printStackTrace();

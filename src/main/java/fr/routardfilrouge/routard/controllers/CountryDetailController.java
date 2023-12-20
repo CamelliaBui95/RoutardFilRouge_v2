@@ -56,11 +56,15 @@ public class CountryDetailController {
     @FXML
     private void handleNewClick() {
         mainApp.showNewCountryDialog(new Country(), "New Country", true);
+        fillInDetails();
     }
-
     @FXML
     private void handleModifyClick() {
         mainApp.showNewCountryDialog(country, "Modify Country", false);
+    }
+    @FXML
+    private void handleDeleteClick() {
+        countryBean.deleteCountry(country);
     }
 
     public Country getCountry() {

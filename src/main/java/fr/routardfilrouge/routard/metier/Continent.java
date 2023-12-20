@@ -53,7 +53,7 @@ public class Continent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Continent continent = (Continent) o;
-        return Objects.equals(continentCode, continent.continentCode) && Objects.equals(name, continent.name);
+        return continentCode.get().equals(continent.continentCode.get()) && name.get().equals(continent.name.get());
     }
 
 }

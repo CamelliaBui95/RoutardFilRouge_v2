@@ -87,7 +87,6 @@ public class CountryBean {
         }
         return isPosted;
     }
-
     public boolean updateCountry(Country country) {
         boolean isUpdated = DAOFactory.getCountryDAO().update(country);
         if(isUpdated) {
@@ -96,6 +95,17 @@ public class CountryBean {
             DAOFactory.getInfoDAO().setCountries(countriesArr);
         }
         return isUpdated;
+    }
+
+    public boolean deleteCountry(Country country) {
+        boolean isDeleted = DAOFactory.getCountryDAO().delete(country);
+        System.out.println(isDeleted);
+        if(isDeleted) {
+            countriesArr = DAOFactory.getCountryDAO().getAll();
+            countries.setAll(countriesArr);
+            DAOFactory.getInfoDAO().setCountries(countriesArr);
+        }
+        return isDeleted;
     }
 
 }
