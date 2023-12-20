@@ -19,6 +19,13 @@ public class Subdivision {
         this.subdivisionCode = new SimpleStringProperty();
     }
 
+    public Subdivision() {
+        idSubdivision = new SimpleIntegerProperty(0);
+        subdivisionName = new SimpleStringProperty("");
+        subdivisionCode = new SimpleStringProperty("");
+        country = new Country();
+    }
+
     public int getIdSubdivision() {
         return idSubdivision.get();
     }

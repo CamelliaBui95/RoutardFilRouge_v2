@@ -1,16 +1,15 @@
 package fr.routardfilrouge.routard;
 
-import fr.routardfilrouge.routard.controllers.CountryDetailController;
-import fr.routardfilrouge.routard.controllers.MainViewController;
-import fr.routardfilrouge.routard.controllers.NewEditCountryDialogController;
-import fr.routardfilrouge.routard.controllers.NewElementDialogController;
+import fr.routardfilrouge.routard.controllers.*;
 import fr.routardfilrouge.routard.metier.Country;
+import fr.routardfilrouge.routard.metier.Subdivision;
 import fr.routardfilrouge.routard.service.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -81,6 +80,20 @@ public class MainApp extends Application {
             controller.setCountry(country);
 
             countryDetailPane.setCenter(pane);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showSubdivisionDetail(BorderPane borderPane, Subdivision subdivision) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SubdivisionDetail-View.fxml"));
+            VBox box = loader.load();
+            SubdivisionDetailController controller = loader.getController();
+
+            controller.setSubdivision(subdivision);
+
+            borderPane.setCenter(box);
         } catch(Exception e) {
             e.printStackTrace();
         }

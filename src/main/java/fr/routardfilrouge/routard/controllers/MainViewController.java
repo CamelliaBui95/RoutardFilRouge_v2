@@ -101,6 +101,11 @@ public class MainViewController {
             this.subdivisionBean.filterSubdivisions(n, countrySearchStr);
             this.cityBean.filterCity(citySearchStr, n, countrySearchStr);
         });
+
+        subdivisionTableView.getSelectionModel().selectedItemProperty().addListener((ob, o, n) -> {
+            if(n != null)
+                mainApp.showSubdivisionDetail(detailPane, n);
+        });
     }
 
     private void setUpCityView() {
