@@ -78,22 +78,24 @@ public class CountryBean {
             countries.setAll(DAOFactory.getCountryDAO().getLike(countrySearch));
         }
     }
-    public void postCountry(Country country) {
+    public boolean postCountry(Country country) {
         boolean isPosted = DAOFactory.getCountryDAO().post(country);
         if(isPosted) {
             countriesArr = DAOFactory.getCountryDAO().getAll();
             countries.setAll(countriesArr);
             DAOFactory.getInfoDAO().setCountries(countriesArr);
         }
+        return isPosted;
     }
 
-    public void updateCountry(Country country) {
+    public boolean updateCountry(Country country) {
         boolean isUpdated = DAOFactory.getCountryDAO().update(country);
         if(isUpdated) {
             countriesArr = DAOFactory.getCountryDAO().getAll();
             countries.setAll(countriesArr);
             DAOFactory.getInfoDAO().setCountries(countriesArr);
         }
+        return isUpdated;
     }
 
 }

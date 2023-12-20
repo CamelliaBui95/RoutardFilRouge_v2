@@ -70,7 +70,7 @@
                   </SearchableComboBox>
                   <Button mnemonicParsing="false" onAction="#handleAddNewContinent" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                      <graphic>
-                        <FontAwesomeIconView fx:id="addContinentBtn" glyphName="PLUS" size="12.5" />
+                        <FontAwesomeIconView glyphName="PLUS" size="12.5" />
                      </graphic>
                   </Button>
                </children>

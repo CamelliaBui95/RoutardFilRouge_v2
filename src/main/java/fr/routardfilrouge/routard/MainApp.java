@@ -115,7 +115,7 @@ public class MainApp extends Application {
         }
     }
 
-    public HashMap<String, String> showNewElementDialog(String title) {
+    public HashMap<String, String> showNewElementDialog(String title, boolean deactivateIdField) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NewElementDialog-View.fxml"));
             AnchorPane pane = loader.load();
@@ -130,6 +130,7 @@ public class MainApp extends Application {
             dialogStage.setScene(new Scene(pane));
 
             controller.setDialogStage(dialogStage);
+            controller.deactivateIdField(deactivateIdField);
 
             dialogStage.showAndWait();
             return controller.getElement();

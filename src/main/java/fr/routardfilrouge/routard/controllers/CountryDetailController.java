@@ -7,6 +7,8 @@ import fr.routardfilrouge.routard.metier.InfoType;
 import fr.routardfilrouge.routard.service.ContinentBean;
 import fr.routardfilrouge.routard.service.CountryBean;
 import fr.routardfilrouge.routard.service.InfoBean;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -49,6 +51,7 @@ public class CountryDetailController {
     private Country country;
 
     private HashMap<InfoType, String> infoCollection;
+    private InfoType selectedInfoType;
 
     @FXML
     private void handleNewClick() {
@@ -80,6 +83,7 @@ public class CountryDetailController {
         languageText.getChildren().add(texts.get(4));
         currencyText.getChildren().add(texts.get(5));
         infoText.getChildren().add(texts.get(6));
+
     }
 
     private ArrayList<Text> generateTexts() {
@@ -92,13 +96,23 @@ public class CountryDetailController {
 
         infoTypeSearch.setItems(infoBean.getInfoTypes());
         infoTypeSearch.getSelectionModel().selectFirst();
+        infoTypeSearch.valueProperty().addListener((ob, o, n) -> onSelectInfoType(n));
 
         Text info = new Text("");
         if(!infoCollection.isEmpty())
             info.setText(infoCollection.get(infoTypeSearch.getSelectionModel().getSelectedItem()));
 
-
         return new ArrayList<>(Arrays.asList(countryCode, countryName, continentCode, continentName, language, currency, info));
+    }
+
+    public void onSelectInfoType(InfoType infoType) {
+        if(selectedInfoType != null && selectedInfoType.equals(infoType))
+            return;
+
+        if(infoType != null) {
+            selectedInfoType = infoType;
+            infoText.getChildren().set(0, new Text(infoCollection.get(selectedInfoType)));
+        }
     }
 
     public void setCountryBean(CountryBean countryBean) {

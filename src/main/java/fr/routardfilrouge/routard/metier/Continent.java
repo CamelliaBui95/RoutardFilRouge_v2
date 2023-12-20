@@ -14,6 +14,11 @@ public class Continent {
         this.name = new SimpleStringProperty(name);
     }
 
+    public Continent() {
+        continentCode = new SimpleStringProperty("");
+        name = new SimpleStringProperty("");
+    }
+
     public String getContinentCode() {
         return continentCode.get();
     }

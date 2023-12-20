@@ -20,7 +20,9 @@ public class Country {
     }
 
     public Country() {
-
+        isoCode = new SimpleStringProperty("");
+        name = new SimpleStringProperty("");
+        continent = new Continent();
     }
 
     public String getName() {
@@ -65,7 +67,7 @@ public class Country {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Country country = (Country) o;
-        return Objects.equals(isoCode, country.isoCode) && Objects.equals(name, country.name) && Objects.equals(continent, country.continent);
+        return Objects.equals(isoCode, country.isoCode) && Objects.equals(name, country.name) && continent.equals(country.continent);
     }
 
 }

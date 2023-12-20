@@ -116,7 +116,7 @@ public class MainViewController {
 
     private void setUpContinentSearchBox() {
         ObservableList<Continent> continentsObservableList = continentBean.getContinents();
-        //continentsObservableList.add(0, new Continent("", "Continent (" + continentsObservableList.size() + ")"));
+
         continentSearch.setItems(continentsObservableList);
         continentSearch.getSelectionModel().selectFirst();
 

@@ -15,6 +15,7 @@ public class NewElementDialogController {
     @FXML
     private Button element_okBtn;
     private boolean isOkClicked;
+    private boolean idFieldActivated;
     private HashMap<String, String> element;
 
     public NewElementDialogController() {
@@ -57,8 +58,17 @@ public class NewElementDialogController {
         return isOkClicked;
     }
 
+    public void deactivateIdField(boolean isActivated) {
+        idFieldActivated = isActivated;
+        idField.setDisable(idFieldActivated);
+    }
+
     private boolean isDataValid() {
-        boolean isIdValid = idField.getText() != null && !idField.getText().isEmpty();
+        boolean isIdValid = true;
+
+        if(!idFieldActivated)
+            isIdValid = idField.getText() != null && !idField.getText().isEmpty();
+
         boolean isNameValid = nameField.getText() != null && !nameField.getText().isEmpty();
         return isIdValid && isNameValid;
     }
