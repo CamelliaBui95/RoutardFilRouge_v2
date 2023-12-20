@@ -11,6 +11,7 @@ public class DAOFactory {
     private static InfoDAO infoDAO;
     private static ContinentDAO continentDAO;
     private static ClimateDAO climateDAO;
+    private static PoiDAO poiDAO;
 
     public static CountryDAO getCountryDAO() {
         if(countryDAO == null)
@@ -47,5 +48,12 @@ public class DAOFactory {
             climateDAO = new ClimateDAO();
 
         return climateDAO;
+    }
+
+    public static PoiDAO getPoiDAO() {
+        if(poiDAO == null)
+            poiDAO = new PoiDAO();
+
+        return poiDAO;
     }
 }

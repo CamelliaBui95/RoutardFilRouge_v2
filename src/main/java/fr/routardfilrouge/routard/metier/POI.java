@@ -8,14 +8,18 @@ import javafx.beans.property.StringProperty;
 public class POI {
     private IntegerProperty idPOI;
     private StringProperty POIName;
+    private float longitude;
+    private float latitude;
     private Subdivision subdivision;
     private POIType type;
 
-    public POI(IntegerProperty idPOI, StringProperty POIName, Subdivision subdivision, POIType type) {
-        this.idPOI = idPOI;
-        this.POIName = POIName;
+    public POI(int idPOI, String POIName, Subdivision subdivision, POIType type) {
+        this.idPOI = new SimpleIntegerProperty(idPOI);
+        this.POIName = new SimpleStringProperty(POIName);
         this.subdivision = subdivision;
         this.type = type;
+        longitude = 0;
+        latitude = 0;
     }
 
     public POI() {
@@ -23,6 +27,8 @@ public class POI {
         POIName = new SimpleStringProperty("");
         subdivision = new Subdivision();
         type = new POIType();
+        longitude = 0;
+        latitude = 0;
     }
 
     public int getIdPOI() {
@@ -63,5 +69,26 @@ public class POI {
 
     public void setType(POIType type) {
         this.type = type;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
+    @Override
+    public String toString() {
+        return getPOIName();
     }
 }

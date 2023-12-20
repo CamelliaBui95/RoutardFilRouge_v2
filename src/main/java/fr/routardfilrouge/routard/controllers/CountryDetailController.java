@@ -18,6 +18,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import org.controlsfx.control.SearchableComboBox;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -55,12 +56,17 @@ public class CountryDetailController {
 
     @FXML
     private void handleNewClick() {
-        mainApp.showNewCountryDialog(new Country(), "New Country", true);
-        fillInDetails();
+        boolean isOkCLicked = mainApp.showNewCountryDialog(new Country(), "New Country", true);
+
+        if(isOkCLicked)
+            fillInDetails();
     }
     @FXML
     private void handleModifyClick() {
-        mainApp.showNewCountryDialog(country, "Modify Country", false);
+        boolean isOkClicked = mainApp.showNewCountryDialog(country, "Modify Country", false);
+
+        if(isOkClicked)
+            fillInDetails();
     }
     @FXML
     private void handleDeleteClick() {

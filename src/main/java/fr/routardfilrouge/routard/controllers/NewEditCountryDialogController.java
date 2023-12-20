@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
@@ -199,5 +200,9 @@ public class NewEditCountryDialogController {
         boolean isContinentSelected = continentSearch.getSelectionModel().getSelectedIndex() > 0;
 
         return isCountryCodeValid && isCountryNameValid && isContinentSelected;
+    }
+
+    public boolean isOkClicked() {
+        return isOkClicked;
     }
 }

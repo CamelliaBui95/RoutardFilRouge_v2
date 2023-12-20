@@ -1,8 +1,15 @@
 package fr.routardfilrouge.routard.controllers;
 
+import fr.routardfilrouge.routard.MainApp;
 import fr.routardfilrouge.routard.metier.CountrySearch;
 import fr.routardfilrouge.routard.metier.POI;
+import fr.routardfilrouge.routard.metier.POIType;
 import fr.routardfilrouge.routard.metier.Subdivision;
+import fr.routardfilrouge.routard.service.POIBean;
+import fr.routardfilrouge.routard.service.SubdivisionBean;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -11,17 +18,21 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 
+import java.util.ArrayList;
+
 public class SubdivisionDetailController {
     @FXML
-    private TextField subSearchField;
+    private TextField poiSearchField;
     @FXML
-    private SearchableComboBox<POI> poiTypeSearch;
+    private SearchableComboBox<POIType> poiTypeSearch;
     @FXML
     private TableView<POI> poiTableView;
     @FXML
     private TableColumn<POI, String> idPOICol;
     @FXML
     private TableColumn<POI, String> poiNameCol;
+    @FXML
+    private TableColumn<POI, String> poiCategoryCol;
     @FXML
     private Text idSubText;
     @FXML
@@ -34,11 +45,20 @@ public class SubdivisionDetailController {
     private Text countryText;
 
     private Subdivision subdivision;
+    private POIBean poiBean;
+    private SubdivisionBean subdivisionBean;
+    private MainApp mainApp;
+
+    @FXML
+    private void initialize() {
+        setUpPOIView();
+    }
 
     @FXML
     public void handleAddNewPOI() {
-
+        mainApp.showNewEditPOIDialog();
     }
+
     @FXML
     public void handleDeleteClick() {
 
@@ -60,8 +80,47 @@ public class SubdivisionDetailController {
         countryText.setText(subdivision.getCountry().getName());
     }
 
+    private void setUpPOIView() {
+        idPOICol.setCellValueFactory(cell -> cell.getValue().idPOIProperty().asString());
+        poiNameCol.setCellValueFactory(cell -> cell.getValue().POINameProperty());
+        poiCategoryCol.setCellValueFactory(cell -> cell.getValue().getType().typeNameProperty());
+
+        poiSearchField.textProperty().addListener((ob, o, n) -> poiBean.filterPOIbyName(n));
+    }
+
+    private void setUpPOICategorySearch() {
+        ArrayList<POIType> categoriesArr = poiBean.getCategoriesArr();
+        ObservableList<POIType> categories = FXCollections.observableArrayList(categoriesArr);
+        categories.add(0,new POIType(0, "Category (" + categories.size() + ")"));
+        poiTypeSearch.setItems(categories);
+        poiTypeSearch.getSelectionModel().selectFirst();
+
+        poiTypeSearch.valueProperty().addListener((ob, o, n) -> poiBean.getPOIsByCategory(n));
+    }
+
     public void setSubdivision(Subdivision subdivision) {
         this.subdivision = subdivision;
         mapDataToView();
+    }
+
+    public void setPoiBean(POIBean poiBean) {
+        this.poiBean = poiBean;
+
+        if(subdivision != null) {
+            this.poiBean.getPOIsBySubdivision(subdivision);
+            SortedList<POI> sortedPOIS = this.poiBean.getSortedPOIs();
+            poiTableView.setItems(sortedPOIS);
+            sortedPOIS.comparatorProperty().bind(poiTableView.comparatorProperty());
+
+            setUpPOICategorySearch();
+        }
+    }
+
+    public void setSubdivisionBean(SubdivisionBean subdivisionBean) {
+        this.subdivisionBean = subdivisionBean;
+    }
+
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
     }
 }

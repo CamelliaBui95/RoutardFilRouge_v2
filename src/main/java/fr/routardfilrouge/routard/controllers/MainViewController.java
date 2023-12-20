@@ -104,7 +104,7 @@ public class MainViewController {
 
         subdivisionTableView.getSelectionModel().selectedItemProperty().addListener((ob, o, n) -> {
             if(n != null)
-                mainApp.showSubdivisionDetail(detailPane, n);
+                mainApp.showSubdivisionDetail(detailPane, (Subdivision) n);
         });
     }
 

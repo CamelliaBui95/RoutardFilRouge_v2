@@ -35,7 +35,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="subSearchField" maxWidth="1000.0" prefHeight="25.0" prefWidth="229.0" GridPane.columnIndex="1">
+                  <TextField fx:id="poiSearchField" maxWidth="1000.0" prefHeight="25.0" prefWidth="229.0" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -62,7 +62,8 @@
       <TableView fx:id="poiTableView" prefHeight="341.0" prefWidth="404.0">
         <columns>
           <TableColumn fx:id="idPOICol" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="poiNameCol" prefWidth="259.2000045776367" text="POI Name" />
+          <TableColumn fx:id="poiNameCol" prefWidth="233.60002899169922" text="POI Name" />
+            <TableColumn fx:id="poiCategoryCol" maxWidth="-1.0" minWidth="75.0" prefWidth="75.0" text="Category" />
         </columns>
          <VBox.margin>
             <Insets bottom="10.0" />

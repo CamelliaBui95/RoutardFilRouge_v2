@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -23,8 +24,8 @@ public class MainApp extends Application {
     private CityBean cityBean;
     private ClimateBean climateBean;
     private ContinentBean continentBean;
-
     private InfoBean infoBean;
+    private POIBean poiBean;
 
     public MainApp() {
         this.continentBean = new ContinentBean();
@@ -33,6 +34,7 @@ public class MainApp extends Application {
         this.subdivisionBean = new SubdivisionBean();
         this.cityBean = new CityBean();
         this.climateBean = new ClimateBean();
+        this.poiBean = new POIBean();
     }
 
     @Override
@@ -92,6 +94,9 @@ public class MainApp extends Application {
             SubdivisionDetailController controller = loader.getController();
 
             controller.setSubdivision(subdivision);
+            controller.setPoiBean(poiBean);
+            controller.setSubdivisionBean(subdivisionBean);
+            controller.setMainApp(this);
 
             borderPane.setCenter(box);
         } catch(Exception e) {
@@ -99,7 +104,7 @@ public class MainApp extends Application {
         }
     }
 
-    public void showNewCountryDialog(Country country, String title, boolean isNew) {
+    public boolean showNewCountryDialog(Country country, String title, boolean isNew) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditCountryDialog-View.fxml"));
             AnchorPane dialogPane = loader.load();
@@ -122,12 +127,14 @@ public class MainApp extends Application {
             controller.setMainApp(this);
             controller.setNew(isNew);
 
+
             dialogStage.showAndWait();
+            return controller.isOkClicked();
         } catch(Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
-
     public HashMap<String, String> showNewElementDialog(String title, boolean deactivateIdField) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NewElementDialog-View.fxml"));
@@ -150,6 +157,25 @@ public class MainApp extends Application {
         } catch(IOException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void showNewEditPOIDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditPOIDialog-View.fxml"));
+            AnchorPane pane = loader.load();
+            NewEditPOIDialogController controller = loader.getController();
+
+            Stage dialogStage = new Stage();
+            dialogStage.initOwner(primaryStage);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.setResizable(false);
+            dialogStage.setScene(new Scene(pane));
+
+            controller.setDialogStage(dialogStage);
+            dialogStage.showAndWait();
+        } catch(IOException e) {
+            e.printStackTrace();
         }
     }
 }
