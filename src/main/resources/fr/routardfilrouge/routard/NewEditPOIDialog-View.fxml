@@ -162,10 +162,10 @@
             </SearchableComboBox>
          </children>
       </GridPane>
-      <ButtonBar layoutX="185.0" layoutY="305.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+      <ButtonBar fx:id="btnBar" layoutX="185.0" layoutY="305.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
         <buttons>
             <Button mnemonicParsing="false" onAction="#handleCancelClick" text="Cancel" />
-            <Button mnemonicParsing="false" onAction="#handleOkClick" text="OK" />
+            <Button fx:id="okBtn" mnemonicParsing="false" onAction="#handleOkClick" text="OK" />
         </buttons>
       </ButtonBar>
    </children>

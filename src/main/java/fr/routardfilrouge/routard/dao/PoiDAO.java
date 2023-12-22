@@ -68,12 +68,44 @@ public class PoiDAO extends DAO<POI, POISearch>{
     }
 
     @Override
-    public boolean post(POI object) {
-        return false;
+    public boolean post(POI poi) {
+        String req = "{call ps_insertPOI(?,?,?,?,?)}";
+        try(PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setString(1, poi.getPOIName());
+            stm.setFloat(2, poi.getLongitude());
+            stm.setFloat(3, poi.getLatitude());
+            stm.setInt(4, poi.getSubdivision().getIdSubdivision());
+            stm.setInt(5, poi.getType().getIdType());
+            stm.executeUpdate();
+           return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean postCategory(POIType category) {
+        String req = "INSERT INTO CATEGORIE (NOM_CATEGORIE) VALUES (?)";
+        try (PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setString(1, category.getTypeName());
+            stm.executeUpdate();
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public boolean delete(POI object) {
-        return false;
+    public boolean delete(POI poi) {
+        String req = "DELETE FROM POINT_INTERET WHERE ID_POINT_INTERET=?";
+        try(PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setInt(1, poi.getIdPOI());
+            stm.executeUpdate();
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

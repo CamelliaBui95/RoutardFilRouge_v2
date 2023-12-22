@@ -66,6 +66,9 @@ public class NewEditCountryDialogController {
     }
     @FXML
     private void handleOKClick() {
+        if(!isDataValid())
+            return;
+
         country.setIsoCode(countryCodeField.getText());
         country.setName(countryNameField.getText());
         country.setContinent((Continent) continentSearch.getSelectionModel().getSelectedItem());
@@ -100,7 +103,7 @@ public class NewEditCountryDialogController {
             System.out.println("Info Type insertion failed");
             return;
         }
-        InfoType infoType = new InfoType(999, element.get("name"));
+        InfoType infoType = new InfoType(0, element.get("name"));
         infoBean.postInfoType(infoType);
 
     }

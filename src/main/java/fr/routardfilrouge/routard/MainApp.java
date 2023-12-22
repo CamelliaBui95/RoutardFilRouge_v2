@@ -174,6 +174,7 @@ public class MainApp extends Application {
             dialogStage.setScene(new Scene(pane));
 
             controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
             controller.setPoiBean(poiBean);
             controller.setCountryBean(countryBean);
             controller.setSubdivisionBean(subdivisionBean);

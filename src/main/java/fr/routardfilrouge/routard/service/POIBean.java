@@ -69,4 +69,33 @@ public class POIBean {
             pois.setAll(DAOFactory.getPoiDAO().getLike(poiSearch));
         }
     }
+
+    public boolean postCategory(POIType category) {
+        boolean isPosted = DAOFactory.getPoiDAO().postCategory(category);
+        if(isPosted) {
+            categoriesArr = DAOFactory.getPoiDAO().getAllCategories();
+            categories.setAll(categoriesArr);
+        }
+
+        return isPosted;
+    }
+
+    public boolean postPOI(POI poi) {
+        boolean isPosted = DAOFactory.getPoiDAO().post(poi);
+        if(isPosted) {
+            poiSearch.setSubdivision(poi.getSubdivision());
+            pois.setAll(DAOFactory.getPoiDAO().getLike(poiSearch));
+        }
+
+        return isPosted;
+    }
+
+    public boolean deletePOI(POI poi) {
+        boolean isDeleted = DAOFactory.getPoiDAO().delete(poi);
+        if(isDeleted)
+            pois.setAll(DAOFactory.getPoiDAO().getLike(poiSearch));
+
+        return isDeleted;
+    }
+
 }
