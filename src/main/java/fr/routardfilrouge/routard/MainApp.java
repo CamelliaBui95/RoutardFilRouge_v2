@@ -47,7 +47,6 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch();
     }
-
     private void initMainView(Stage primaryStage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("Main-View.fxml"));
@@ -70,7 +69,6 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-
     public void showCountryDetail(BorderPane countryDetailPane, Country country) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("CountryDetail-View.fxml"));
@@ -87,7 +85,6 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-
     public void showSubdivisionDetail(BorderPane borderPane, Subdivision subdivision) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("SubdivisionDetail-View.fxml"));
@@ -104,7 +101,6 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-
     public boolean showNewCountryDialog(Country country, String title, boolean isNew) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditCountryDialog-View.fxml"));
@@ -159,7 +155,6 @@ public class MainApp extends Application {
             return null;
         }
     }
-
     public void showNewEditPOIDialog(String title, POI poi, boolean isNew) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditPOIDialog-View.fxml"));
@@ -184,6 +179,34 @@ public class MainApp extends Application {
             dialogStage.showAndWait();
         } catch(IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean showNewEditSubdivisionDialog(String title, Subdivision subdivision, boolean isNew) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditSubdivisionDialog-View.fxml"));
+            AnchorPane pane = loader.load();
+            NewEditSubdivisionController controller = loader.getController();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(title);
+            dialogStage.setResizable(false);
+            dialogStage.initOwner(primaryStage);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.setScene(new Scene(pane));
+
+            controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
+            controller.setSubdivision(subdivision);
+            controller.setCountryBean(countryBean);
+            controller.setSubdivisionBean(subdivisionBean);
+            controller.setNew(isNew);
+
+            dialogStage.showAndWait();
+            return controller.isOkClicked();
+        } catch(IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

@@ -8,6 +8,7 @@ import fr.routardfilrouge.routard.metier.SubdivisionSearch;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -83,18 +84,85 @@ public class SubdivisionDAO extends DAO<Subdivision, SubdivisionSearch>{
         return subdivisions;
     }
 
-    @Override
-    public boolean update(Subdivision object) {
-        return false;
+    public ArrayList<SubType> getTypes() {
+        ArrayList<SubType> types = new ArrayList<>();
+        String req = "SELECT * FROM TYPE_SUBDIVISION";
+
+        try(Statement stm = connection.createStatement()) {
+            ResultSet rs = stm .executeQuery(req);
+            while(rs.next())
+                types.add(new SubType(rs.getInt("ID_TYPE"), rs.getString("NOM_TYPE_SUBDIVISION")));
+            rs.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return types;
     }
 
     @Override
-    public boolean post(Subdivision object) {
-        return false;
+    public boolean update(Subdivision subdivision) {
+        String req = "UPDATE SUBDIVISION\n" +
+                "\t\t\tSET NOM_SUBDIVISION = ?,\n" +
+                "\t\t\t\tCODE_ISO_3166_2 = ?,\n" +
+                "\t\t\t\tCODE_ISO_3166_1 = ?,\n" +
+                "\t\t\t\tID_TYPE = ?\n" +
+                "\t\t\tWHERE ID_SUBDIVISION = ?";
+
+        try(PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setString(1, subdivision.getSubdivisionName());
+            stm.setString(2, subdivision.getSubdivisionCode());
+            stm.setString(3, subdivision.getCountry().getIsoCode());
+            stm.setInt(4, subdivision.getSubType().getIdType());
+            stm.setInt(5, subdivision.getIdSubdivision());
+            stm.executeUpdate();
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public boolean delete(Subdivision object) {
+    public boolean post(Subdivision subdivision) {
+        String req = "INSERT INTO SUBDIVISION (NOM_SUBDIVISION, CODE_ISO_3166_2, ID_TYPE, CODE_ISO_3166_1) VALUES (?, ?, ?, ?)";
+
+        try(PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setString(1, subdivision.getSubdivisionName());
+            stm.setString(2, subdivision.getSubdivisionCode());
+            stm.setInt(3, subdivision.getSubType().getIdType());
+            stm.setString(4, subdivision.getCountry().getIsoCode());
+            stm.executeUpdate();
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean postType(SubType type) {
+        String req = "INSERT INTO TYPE_SUBDIVISION (NOM_TYPE_SUBDIVISION) VALUES (?)";
+
+        try(PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setString(1, type.getTypeName());
+            stm.executeUpdate();
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete(Subdivision subdivision) {
+        String req = "DELETE FROM SUBDIVISION WHERE ID_SUBDIVISION=?";
+        try(PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setInt(1, subdivision.getIdSubdivision());
+            stm.executeUpdate();
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 

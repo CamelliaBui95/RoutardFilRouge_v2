@@ -24,6 +24,7 @@ public class Subdivision {
         subdivisionName = new SimpleStringProperty("Subdivision");
         subdivisionCode = new SimpleStringProperty("");
         country = new Country();
+        subType = new SubType();
     }
 
     public int getIdSubdivision() {

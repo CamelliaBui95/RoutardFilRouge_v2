@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -61,14 +62,21 @@ public class SubdivisionDetailController {
 
     @FXML
     public void handleDeleteClick() {
-
+        subdivisionBean.deleteSub(subdivision);
     }
     @FXML
     public void handleNewClick() {
-
+        boolean isOk = mainApp.showNewEditSubdivisionDialog("New Subdivision", new Subdivision(), true);
+        if(isOk) {
+            subdivision = subdivisionBean.getSortedSubdivisions().getLast();
+            mapDataToView();
+        }
     }
     @FXML
     public void handleModifyClick() {
+        boolean isOk = mainApp.showNewEditSubdivisionDialog("Modify Subdivision", subdivision, false);
+        if(isOk)
+            mapDataToView();
 
     }
 
@@ -86,9 +94,10 @@ public class SubdivisionDetailController {
         poiCategoryCol.setCellValueFactory(cell -> cell.getValue().getType().typeNameProperty());
 
         poiSearchField.textProperty().addListener((ob, o, n) -> poiBean.filterPOIbyName(n));
-        poiTableView.getSelectionModel().selectedItemProperty().addListener((ob, o, n) -> {
-            if(n != null)
-                mainApp.showNewEditPOIDialog("Modify POI", n, false);
+        poiTableView.setOnMouseClicked(event -> {
+            POI selectedPOI = poiTableView.getSelectionModel().getSelectedItem();
+            if(selectedPOI != null)
+                mainApp.showNewEditPOIDialog("Modify POI", selectedPOI, false);
         });
     }
 
@@ -127,4 +136,5 @@ public class SubdivisionDetailController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
+
 }
