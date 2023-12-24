@@ -225,7 +225,7 @@ public class MainApp extends Application {
             return false;
         }
     }
-    public void showNewEditCityDialog(String title, City city, ObservableList<Weather> weatherList, boolean isNew) {
+    public boolean showNewEditCityDialog(String title, City city, ObservableList<Weather> weatherList, boolean isNew) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditCityDialog-View.fxml"));
             AnchorPane pane = loader.load();
@@ -238,16 +238,20 @@ public class MainApp extends Application {
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.setScene(new Scene(pane));
 
+            controller.setDialogStage(dialogStage);
             controller.setCity(city);
             controller.setWeatherList(weatherList);
             controller.setCountryBean(countryBean);
             controller.setSubdivisionBean(subdivisionBean);
             controller.setClimateBean(climateBean);
+            controller.setCityBean(cityBean);
             controller.setNew(isNew);
 
             dialogStage.showAndWait();
+            return controller.isOkClicked();
         } catch(Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 }

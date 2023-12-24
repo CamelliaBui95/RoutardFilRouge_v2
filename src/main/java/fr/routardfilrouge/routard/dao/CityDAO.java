@@ -35,15 +35,16 @@ public class CityDAO extends DAO<City, CitySearch>{
                  String cityName = rs.getString("NOM_VILLE");
 
                  City city = new City(idCity, cityName);
-                 city.setSubdivision(subdivision);
 
+                 city.setSubdivision(subdivision);
                  ClimateType climate = new ClimateType();
                  if(rs.getString("CODE_CLIMAT") != null) {
                      climate.setClimateCode(rs.getString("CODE_CLIMAT"));
                      climate.setClimateName(rs.getString("NOM_TYPE_CLIMAT"));
                  }
-
                  city.setClimateType(climate);
+                 city.setLongitude(rs.getFloat("LONGITUDE"));
+                 city.setLatitude(rs.getFloat("LATITUDE"));
 
                  cities.add(city);
              }
@@ -72,15 +73,16 @@ public class CityDAO extends DAO<City, CitySearch>{
                 String cityName = rs.getString("NOM_VILLE");
 
                 City city = new City(idCity, cityName);
-                city.setSubdivision(subdivision);
 
+                city.setSubdivision(subdivision);
                 ClimateType climate = new ClimateType();
                 if(rs.getString("CODE_CLIMAT") != null) {
                     climate.setClimateCode(rs.getString("CODE_CLIMAT"));
                     climate.setClimateName(rs.getString("NOM_TYPE_CLIMAT"));
                 }
-
                 city.setClimateType(climate);
+                city.setLongitude(rs.getFloat("LONGITUDE"));
+                city.setLatitude(rs.getFloat("LATITUDE"));
 
                 cities.add(city);
             }
@@ -92,17 +94,63 @@ public class CityDAO extends DAO<City, CitySearch>{
     }
 
     @Override
-    public boolean update(City object) {
-        return false;
+    public boolean update(City city) {
+        String req = "UPDATE VILLE\n" +
+                        "\t\t\tSET NOM_VILLE = ?,\n" +
+                        "\t\t\t\tLONGITUDE = ?,\n" +
+                        "\t\t\t\tLATITUDE = ?,\n" +
+                        "\t\t\t\tID_SUBDIVISION = ?,\n" +
+                        "\t\t\t\tCODE_CLIMAT = ?\n" +
+                    "\t\t\tWHERE ID_VILLE = ?";
+
+        try(PreparedStatement stm = connection.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
+            stm.setString(1, city.getCityName());
+            stm.setFloat(2, city.getLongitude());
+            stm.setFloat(3, city.getLatitude());
+            stm.setInt(4, city.getSubdivision().getIdSubdivision());
+
+            String climateCode = city.getClimateType().getClimateCode().isEmpty() ? null : city.getClimateType().getClimateCode();
+            stm.setString(5, climateCode);
+            stm.setInt(6, city.getIdCity());
+
+            stm.executeUpdate();
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public boolean post(City object) {
-        return false;
+    public boolean post(City city) {
+        String req = "INSERT INTO VILLE(NOM_VILLE, LONGITUDE, LATITUDE, ID_SUBDIVISION, CODE_CLIMAT) VALUES (?, ?, ?, ?, ?)";
+        try(PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setString(1, city.getCityName());
+            stm.setFloat(2, city.getLongitude());
+            stm.setFloat(3, city.getLatitude());
+            stm.setInt(4, city.getSubdivision().getIdSubdivision());
+
+            String climateCode = city.getClimateType().getClimateCode().isEmpty() ? null : city.getClimateType().getClimateCode();
+            stm.setString(5, climateCode);
+            stm.executeUpdate();
+
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public boolean delete(City object) {
-        return false;
+    public boolean delete(City city) {
+        String req = "DELETE FROM VILLE WHERE ID_VILLE = ?";
+        try(PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setInt(1, city.getIdCity());
+            stm.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

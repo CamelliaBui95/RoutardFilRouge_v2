@@ -12,11 +12,15 @@ public class City {
     private StringProperty cityName;
     private Subdivision subdivision;
     private ClimateType climateType;
+    private Float longitude;
+    private Float latitude;
 
     public City(int idCity, String cityName) {
         this.idCity = new SimpleIntegerProperty(idCity);
         this.cityName = new SimpleStringProperty(cityName);
         climateType = new ClimateType();
+        longitude = (float) 0;
+        latitude = (float) 0;
     }
 
     public City() {
@@ -24,6 +28,8 @@ public class City {
         this.cityName = new SimpleStringProperty("City");
         climateType = new ClimateType();
         subdivision = new Subdivision();
+        longitude = (float) 0;
+        latitude = (float) 0;
     }
 
     public int getIdCity() {
@@ -64,6 +70,22 @@ public class City {
 
     public void setClimateType(ClimateType climateType) {
         this.climateType = climateType;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
     }
 
     @Override

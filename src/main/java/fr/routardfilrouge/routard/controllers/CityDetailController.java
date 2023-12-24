@@ -66,14 +66,22 @@ public class CityDetailController {
     private void handleNewClick() {
         City newCity = new City();
         ObservableList<Weather> newWeatherList = createNewWeatherList(newCity);
-        mainApp.showNewEditCityDialog("New City", newCity, newWeatherList, true);
+        boolean isPosted = mainApp.showNewEditCityDialog("New City", newCity, newWeatherList, true);
+
+        if(isPosted) {
+            city = newCity;
+            mapDataToView();
+        }
     }
 
     @FXML
     private void handleModifyClick() {
         if(weatherList.isEmpty())
             weatherList = createNewWeatherList(city);
-        mainApp.showNewEditCityDialog("Modify City", city, weatherList, false);
+        boolean isModified = mainApp.showNewEditCityDialog("Modify City", city, weatherList, false);
+
+        if(isModified)
+            mapDataToView();
     }
 
     public void setMainApp(MainApp mainApp) {
@@ -102,8 +110,8 @@ public class CityDetailController {
         cityNameText.setText(city.getCityName());
         subNameText.setText(city.getSubdivision().getSubdivisionName());
         countryNameText.setText(city.getSubdivision().getCountry().getName());
-        longitudeText.setText(Float.toString(0));
-        latitudeText.setText(Float.toString(0));
+        longitudeText.setText(Float.toString(city.getLongitude()));
+        latitudeText.setText(Float.toString(city.getLatitude()));
         climateTypeText.setText(city.getClimateType().getClimateName());
     }
 

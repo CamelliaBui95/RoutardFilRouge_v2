@@ -7,7 +7,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
+import java.util.ArrayList;
+
 public class CityBean {
+    private ArrayList<City> citiesArr;
     private ObservableList<City> cities;
     private FilteredList<City> filteredCities;
     private SortedList<City> sortedCities;
@@ -15,8 +18,11 @@ public class CityBean {
     private CitySearch citySearch;
 
     public CityBean() {
+        citiesArr = new ArrayList<>();
         cities = FXCollections.observableArrayList();
-        cities.addAll(DAOFactory.getCityDAO().getAll());
+
+        citiesArr = DAOFactory.getCityDAO().getAll();
+        cities.addAll(citiesArr);
 
         filteredCities = new FilteredList<>(cities, null);
         sortedCities = new SortedList<>(filteredCities);
@@ -58,7 +64,33 @@ public class CityBean {
         }
     }
 
+    public boolean postCity(City city) {
+        boolean isPosted = DAOFactory.getCityDAO().post(city);
+
+        if(isPosted) {
+            citiesArr = DAOFactory.getCityDAO().getAll();
+            cities.setAll(DAOFactory.getCityDAO().getLike(citySearch));
+        }
+
+        return isPosted;
+    }
+
+    public boolean updateCity(City city) {
+        boolean isUpdated = DAOFactory.getCityDAO().update(city);
+
+        if(isUpdated) {
+            citiesArr = DAOFactory.getCityDAO().getAll();
+            cities.setAll(DAOFactory.getCityDAO().getLike(citySearch));
+        }
+
+        return isUpdated;
+    }
+
     public SortedList<City> getSortedCities() {
         return sortedCities;
+    }
+
+    public ArrayList<City> getCitiesArr() {
+        return citiesArr;
     }
 }

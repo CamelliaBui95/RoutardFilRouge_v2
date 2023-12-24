@@ -12,8 +12,8 @@ public class ClimateType {
     }
 
     public ClimateType() {
-        this.climateCode = "Climate";
-        this.climateName = "";
+        this.climateCode = "";
+        this.climateName = "Climate";
     }
 
     public String getClimateCode() {

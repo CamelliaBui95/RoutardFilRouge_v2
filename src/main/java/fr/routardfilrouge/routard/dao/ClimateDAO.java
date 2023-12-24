@@ -62,9 +62,44 @@ public class ClimateDAO extends DAO<ClimateType, ClimateType>{
         return false;
     }
 
+    public boolean updateWeather(Weather weather) {
+        String req = "{call ps_insertOrUpdateTemperer(?,?,?,?,?)}";
+
+        try(PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setInt(1, weather.getCity().getIdCity());
+            stm.setInt(2, weather.getMonth().getIdMonth());
+            stm.setFloat(3, weather.getAvgTemp());
+            stm.setInt(4, weather.getAvgHumidity());
+            stm.setFloat(5, weather.getAvgPrecipitation());
+
+            stm.executeUpdate();
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     @Override
     public boolean post(ClimateType object) {
         return false;
+    }
+
+    public boolean postWeather(Weather weather) {
+        String req = "INSERT INTO TEMPERER (ID_MOIS, ID_VILLE, TEMPERATURE_MOYENNE, HUMIDITE_MOYENNE, PRECIPITATION_MOYENNE) VALUES (?,?,?,?,?)";
+        try(PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setInt(1, weather.getMonth().getIdMonth());
+            stm.setInt(2, weather.getCity().getIdCity());
+            stm.setFloat(3, weather.getAvgTemp());
+            stm.setInt(4, weather.getAvgHumidity());
+            stm.setFloat(5, weather.getAvgPrecipitation());
+
+            stm.executeUpdate();
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

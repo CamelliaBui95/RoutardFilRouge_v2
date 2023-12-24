@@ -11,18 +11,33 @@ import java.util.ArrayList;
 
 public class ClimateBean {
     private ObservableList<ClimateType> climateTypes;
+    private ArrayList<ClimateType> climateTypeArr;
 
     public ClimateBean() {
-        this.climateTypes = FXCollections.observableArrayList();
+        climateTypeArr = new ArrayList<>();
+        climateTypes = FXCollections.observableArrayList();
 
-        climateTypes.addAll(DAOFactory.getClimateDAO().getAll());
+        climateTypeArr = DAOFactory.getClimateDAO().getAll();
+        climateTypes.addAll(climateTypeArr);
     }
 
     public ObservableList<ClimateType> getClimateTypes() {
         return climateTypes;
     }
 
+    public ArrayList<ClimateType> getClimateTypeArr() {
+        return climateTypeArr;
+    }
+
     public ArrayList<Weather> getWeather(City city) {
         return DAOFactory.getClimateDAO().getWeather(city);
+    }
+
+    public boolean updateWeather(Weather weather) {
+        return DAOFactory.getClimateDAO().updateWeather(weather);
+    }
+
+    public boolean postWeather(Weather weather) {
+        return DAOFactory.getClimateDAO().postWeather(weather);
     }
 }

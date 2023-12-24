@@ -1,6 +1,7 @@
 package fr.routardfilrouge.routard.controllers;
 
 import fr.routardfilrouge.routard.metier.*;
+import fr.routardfilrouge.routard.service.CityBean;
 import fr.routardfilrouge.routard.service.ClimateBean;
 import fr.routardfilrouge.routard.service.CountryBean;
 import fr.routardfilrouge.routard.service.SubdivisionBean;
@@ -46,11 +47,13 @@ public class NewEditCityDialogController {
     private TableColumn<Weather, String> precipitationCol;
     @FXML
     private Button okBtn;
+    private boolean isOkClicked;
 
     private Stage dialogStage;
     private ClimateBean climateBean;
     private CountryBean countryBean;
     private SubdivisionBean subdivisionBean;
+    private CityBean cityBean;
     private City city;
     private ObservableList<Weather> weatherList;
     private ObservableList<Subdivision> subdivisions;
@@ -67,53 +70,7 @@ public class NewEditCityDialogController {
 
     @FXML
     private void initialize() {
-        weatherTable.setEditable(true);
-        monthCol.setCellValueFactory(cell -> cell.getValue().getMonth().monthNameProperty());
-        monthCol.setEditable(false);
-        tempCol.setCellValueFactory(cell -> cell.getValue().avgTempProperty().asString());
-
-        tempCol.setCellFactory(cell -> {
-            EditingCell editingCell = new EditingCell();
-            editingCell.setValidator(DataValidator::isValidFloat);
-            return editingCell;
-        });
-
-        tempCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Weather, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Weather, String> e) {
-                e.getTableView().getItems().get(e.getTablePosition().getRow()).setAvgTemp(Float.parseFloat(e.getNewValue()));
-            }
-        });
-
-
-        humidityCol.setCellValueFactory(cell -> cell.getValue().avgHumidityProperty().asString());
-
-        humidityCol.setCellFactory(cell -> {
-            EditingCell editingCell = new EditingCell();
-            editingCell.setValidator(DataValidator::isValidInteger);
-            return editingCell;
-        });
-        humidityCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Weather, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Weather, String> e) {
-                e.getTableView().getItems().get(e.getTablePosition().getRow()).setAvgHumidity(Integer.parseInt(e.getNewValue()));
-            }
-        });
-
-        precipitationCol.setCellValueFactory(cell -> cell.getValue().avgPrecipitationProperty().asString());
-
-        precipitationCol.setCellFactory(cell -> {
-            EditingCell editingCell = new EditingCell();
-            editingCell.setValidator(DataValidator::isValidFloat);
-            return editingCell;
-        });
-        precipitationCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Weather, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Weather, String> e) {
-                e.getTableView().getItems().get(e.getTablePosition().getRow()).setAvgPrecipitation(Float.parseFloat(e.getNewValue()));
-            }
-        });
-
+        setUpWeatherCols();
     }
 
     @FXML
@@ -123,7 +80,29 @@ public class NewEditCityDialogController {
 
     @FXML
     private void handleOkClick() {
+        if(!isDataValid())
+            return;
 
+        mapDataToModel();
+
+        boolean hasSucceeded;
+        if(isNew)
+            hasSucceeded = cityBean.postCity(city);
+        else
+            hasSucceeded = cityBean.updateCity(city);
+
+        boolean isCurrentPosted = true;
+        if(hasSucceeded) {
+            if(isNew)
+                city.setIdCity(cityBean.getCitiesArr().getLast().getIdCity());
+
+            int index = 0;
+            while(isCurrentPosted && index < weatherList.size())
+                isCurrentPosted = climateBean.postWeather(weatherList.get(index++));
+        }
+
+        isOkClicked = hasSucceeded && isCurrentPosted;
+        dialogStage.close();
     }
 
     private boolean isDataValid() {
@@ -140,14 +119,24 @@ public class NewEditCityDialogController {
             idCityLabel.setText(Integer.toString(city.getIdCity()));
 
         cityNameField.setText(city.getCityName());
-        longitudeField.setText("0.0");
-        latitudeField.setText("0.0");
+        longitudeField.setText(Float.toString(city.getLongitude()));
+        latitudeField.setText(Float.toString(city.getLatitude()));
 
         setUpSubdivisionSearch();
         setUpCountrySearch();
         setUpClimateSearch();
         setUpWeatherTable();
         setUpOkBtn();
+    }
+
+    private void mapDataToModel() {
+        int idCity = isNew ? 0 : Integer.parseInt(idCityLabel.getText());
+        city.setIdCity(idCity);
+        city.setCityName(cityNameField.getText());
+        city.setLongitude(Float.parseFloat(longitudeField.getText()));
+        city.setLatitude(Float.parseFloat(latitudeField.getText()));
+        city.setSubdivision(subdivisionSearchBox.getSelectionModel().getSelectedItem());
+        city.setClimateType(climateSearchBox.getSelectionModel().getSelectedItem());
     }
 
     private void setUpOkBtn() {
@@ -162,6 +151,7 @@ public class NewEditCityDialogController {
     private void setUpSubdivisionSearch() {
         subdivisions.addAll(subdivisionBean.getSubdivisionArr());
         subdivisions.add(0, new Subdivision());
+
         subdivisionSearchBox.setItems(subdivisions);
         subdivisionSearchBox.getSelectionModel().select(city.getSubdivision());
     }
@@ -169,18 +159,68 @@ public class NewEditCityDialogController {
     private void setUpCountrySearch() {
         countries.addAll(countryBean.getCountriesArr());
         countries.add(0, new Country());
+
         countrySearchBox.setItems(countries);
         countrySearchBox.getSelectionModel().select(city.getSubdivision().getCountry());
     }
 
     private void setUpClimateSearch() {
-        climateTypes.addAll(climateBean.getClimateTypes());
+        climateTypes.addAll(climateBean.getClimateTypeArr());
+        climateTypes.add(0, new ClimateType());
+
         climateSearchBox.setItems(climateTypes);
+        climateSearchBox.getSelectionModel().select(city.getClimateType());
     }
 
     private void setUpWeatherTable() {
         weatherTable.setItems(weatherList);
         monthCol.setSortable(false);
+    }
+
+    private void setUpWeatherCols() {
+        weatherTable.setEditable(true);
+        monthCol.setCellValueFactory(cell -> cell.getValue().getMonth().monthNameProperty());
+        monthCol.setEditable(false);
+
+        tempCol.setCellValueFactory(cell -> cell.getValue().avgTempProperty().asString());
+        tempCol.setCellFactory(cell -> {
+            EditingCell editingCell = new EditingCell();
+            editingCell.setValidator(DataValidator::isValidFloat);
+            return editingCell;
+        });
+        tempCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Weather, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Weather, String> e) {
+                e.getTableView().getItems().get(e.getTablePosition().getRow()).setAvgTemp(Float.parseFloat(e.getNewValue()));
+            }
+        });
+
+
+        humidityCol.setCellValueFactory(cell -> cell.getValue().avgHumidityProperty().asString());
+        humidityCol.setCellFactory(cell -> {
+            EditingCell editingCell = new EditingCell();
+            editingCell.setValidator(DataValidator::isValidInteger);
+            return editingCell;
+        });
+        humidityCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Weather, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Weather, String> e) {
+                e.getTableView().getItems().get(e.getTablePosition().getRow()).setAvgHumidity(Integer.parseInt(e.getNewValue()));
+            }
+        });
+
+        precipitationCol.setCellValueFactory(cell -> cell.getValue().avgPrecipitationProperty().asString());
+        precipitationCol.setCellFactory(cell -> {
+            EditingCell editingCell = new EditingCell();
+            editingCell.setValidator(DataValidator::isValidFloat);
+            return editingCell;
+        });
+        precipitationCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Weather, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Weather, String> e) {
+                e.getTableView().getItems().get(e.getTablePosition().getRow()).setAvgPrecipitation(Float.parseFloat(e.getNewValue()));
+            }
+        });
     }
 
 
@@ -200,6 +240,10 @@ public class NewEditCityDialogController {
         this.subdivisionBean = subdivisionBean;
     }
 
+    public void setCityBean(CityBean cityBean) {
+        this.cityBean = cityBean;
+    }
+
     public void setCity(City city) {
         this.city = city;
     }
@@ -213,9 +257,9 @@ public class NewEditCityDialogController {
         mapDataToView();
     }
 
-
-
-
+    public boolean isOkClicked() {
+        return isOkClicked;
+    }
 }
 
 

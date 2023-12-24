@@ -61,6 +61,7 @@ public class MainViewController {
     private SearchableComboBox<ClimateType> climateTypeSearch;
     private ClimateBean climateBean;
 
+
     private MainApp mainApp;
 
     @FXML
@@ -182,7 +183,7 @@ public class MainViewController {
     public void setClimateBean(ClimateBean climateBean) {
         this.climateBean = climateBean;
 
-        ObservableList<ClimateType> climateTypesObservableList = climateBean.getClimateTypes();
+        ObservableList<ClimateType> climateTypesObservableList = this.climateBean.getClimateTypes();
         climateTypesObservableList.add(0, new ClimateType("", "Climate (" + climateTypesObservableList.size() + ")"));
         climateTypeSearch.setItems(climateTypesObservableList);
         climateTypeSearch.getSelectionModel().selectFirst();
