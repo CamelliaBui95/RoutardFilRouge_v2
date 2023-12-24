@@ -1,11 +1,10 @@
 package fr.routardfilrouge.routard;
 
 import fr.routardfilrouge.routard.controllers.*;
-import fr.routardfilrouge.routard.metier.Country;
-import fr.routardfilrouge.routard.metier.POI;
-import fr.routardfilrouge.routard.metier.Subdivision;
+import fr.routardfilrouge.routard.metier.*;
 import fr.routardfilrouge.routard.service.*;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -101,6 +100,24 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+    public void showCityDetail(BorderPane borderPane, City city) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CityDetail-View.fxml"));
+            VBox box = loader.load();
+            CityDetailController controller = loader.getController();
+
+            controller.setMainApp(this);
+            controller.setCityBean(cityBean);
+            controller.setClimateBean(climateBean);
+            controller.setCity(city);
+
+            borderPane.setCenter(box);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public boolean showNewCountryDialog(Country country, String title, boolean isNew) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditCountryDialog-View.fxml"));
@@ -181,7 +198,6 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-
     public boolean showNewEditSubdivisionDialog(String title, Subdivision subdivision, boolean isNew) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditSubdivisionDialog-View.fxml"));
@@ -207,6 +223,31 @@ public class MainApp extends Application {
         } catch(IOException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+    public void showNewEditCityDialog(String title, City city, ObservableList<Weather> weatherList, boolean isNew) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditCityDialog-View.fxml"));
+            AnchorPane pane = loader.load();
+            NewEditCityDialogController controller = loader.getController();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(title);
+            dialogStage.setResizable(false);
+            dialogStage.initOwner(primaryStage);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.setScene(new Scene(pane));
+
+            controller.setCity(city);
+            controller.setWeatherList(weatherList);
+            controller.setCountryBean(countryBean);
+            controller.setSubdivisionBean(subdivisionBean);
+            controller.setClimateBean(climateBean);
+            controller.setNew(isNew);
+
+            dialogStage.showAndWait();
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 }

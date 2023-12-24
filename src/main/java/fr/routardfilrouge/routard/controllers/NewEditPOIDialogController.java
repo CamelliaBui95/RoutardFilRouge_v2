@@ -124,13 +124,7 @@ public class NewEditPOIDialogController {
         setUpCategories();
         setUpSubdivisionSearch();
         setUpCountrySearch();
-
-        okBtn.setDisable(!isDataValid());
-
-        poiNameField.textProperty().addListener((ob,o,n) -> okBtn.setDisable(!isDataValid()));
-        longitudeField.textProperty().addListener((ob,o,n) -> okBtn.setDisable(!isDataValid()));
-        latitudeField.textProperty().addListener((ob,o,n) -> okBtn.setDisable(!isDataValid()));
-        subdivisionSearch.valueProperty().addListener((ob,o,n) -> okBtn.setDisable(!isDataValid()));
+        setUpOkBtn();
     }
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -229,6 +223,15 @@ public class NewEditPOIDialogController {
         deleteBtn.setText("Delete");
         deleteBtn.setOnAction(e -> handleDeleteClick());
         btnBar.getButtons().add(2, deleteBtn);
+    }
+
+    private void setUpOkBtn() {
+        okBtn.setDisable(!isDataValid());
+
+        poiNameField.textProperty().addListener((ob,o,n) -> okBtn.setDisable(!isDataValid()));
+        longitudeField.textProperty().addListener((ob,o,n) -> okBtn.setDisable(!isDataValid()));
+        latitudeField.textProperty().addListener((ob,o,n) -> okBtn.setDisable(!isDataValid()));
+        subdivisionSearch.valueProperty().addListener((ob,o,n) -> okBtn.setDisable(!isDataValid()));
     }
 
 }

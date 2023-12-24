@@ -12,3 +12,36 @@
     -fx-border-color: #b6b2b2;
     -fx-border-radius: 5px;
 }
+
+.tableStyle {
+    -fx-background-color: #b9b9b9, #fff;
+}
+
+.tableCell {
+    -fx-background-color: #b9b9b9, #fff;
+    -fx-background-insets: 0, 0 0 0 0;
+}
+
+.border-bottom {
+    -fx-border-color: #e1dfdf;
+    -fx-border-width: 0 0 3px 0;
+}
+
+.border-left-bottom {
+    -fx-border-color: #e1dfdf;
+    -fx-border-width: 0 0 3px 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -84,9 +84,10 @@ public class MainViewController {
             this.cityBean.filterCity(citySearchStr, subdivisionSearchStr, n);
         });
 
-        countryTableView.getSelectionModel().selectedItemProperty().addListener((ob, o, n) -> {
-            if(n != null)
-                mainApp.showCountryDetail(detailPane, n);
+        countryTableView.setOnMouseClicked(e -> {
+            Country selectedCountry = countryTableView.getSelectionModel().getSelectedItem();
+            if(selectedCountry != null)
+                mainApp.showCountryDetail(detailPane, selectedCountry);
         });
     }
 
@@ -102,9 +103,10 @@ public class MainViewController {
             this.cityBean.filterCity(citySearchStr, n, countrySearchStr);
         });
 
-        subdivisionTableView.getSelectionModel().selectedItemProperty().addListener((ob, o, n) -> {
-            if(n != null)
-                mainApp.showSubdivisionDetail(detailPane, (Subdivision) n);
+        subdivisionTableView.setOnMouseClicked(e -> {
+            Subdivision selectedSub = subdivisionTableView.getSelectionModel().getSelectedItem();
+            if(selectedSub != null)
+                mainApp.showSubdivisionDetail(detailPane, selectedSub);
         });
     }
 
@@ -116,6 +118,12 @@ public class MainViewController {
             String subdivisionSearchStr = subdivisionSearchField.textProperty().getValue();
             String countrySearchStr = countrySearchField.textProperty().getValue();
             this.cityBean.filterCity(n, subdivisionSearchStr, countrySearchStr);
+        });
+
+        cityTableView.setOnMouseClicked(e -> {
+            City selectedCity = cityTableView.getSelectionModel().getSelectedItem();
+            if(selectedCity != null)
+                mainApp.showCityDetail(detailPane, selectedCity);
         });
     }
 

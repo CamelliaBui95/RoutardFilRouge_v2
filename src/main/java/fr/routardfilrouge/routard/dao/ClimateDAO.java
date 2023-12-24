@@ -1,7 +1,11 @@
 package fr.routardfilrouge.routard.dao;
 
+import fr.routardfilrouge.routard.metier.City;
 import fr.routardfilrouge.routard.metier.ClimateType;
+import fr.routardfilrouge.routard.metier.Month;
+import fr.routardfilrouge.routard.metier.Weather;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -28,6 +32,29 @@ public class ClimateDAO extends DAO<ClimateType, ClimateType>{
     @Override
     public ArrayList<ClimateType> getLike(ClimateType searchObject) {
         return null;
+    }
+
+    public ArrayList<Weather> getWeather(City city) {
+        ArrayList<Weather> weatherList = new ArrayList<>();
+        String req = "SELECT * FROM View_TEMPERER WHERE ID_VILLE=?";
+        try(PreparedStatement stm = connection.prepareStatement(req)) {
+            stm.setInt(1, city.getIdCity());
+            ResultSet rs = stm.executeQuery();
+
+            while(rs.next()) {
+                Month month = new Month(rs.getInt("ID_MOIS"), rs.getString("NOM_MOIS"));
+                float avgTemp = rs.getFloat("TEMPERATURE_MOYENNE");
+                int avgHumidity = rs.getInt("HUMIDITE_MOYENNE");
+                float avgPrecipitation = rs.getFloat("PRECIPITATION_MOYENNE");
+                weatherList.add(new Weather(city, month, avgTemp, avgHumidity, avgPrecipitation));
+            }
+
+            rs.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return weatherList;
     }
 
     @Override

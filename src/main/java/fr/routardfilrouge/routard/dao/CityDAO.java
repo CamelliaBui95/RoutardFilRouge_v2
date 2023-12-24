@@ -1,9 +1,6 @@
 package fr.routardfilrouge.routard.dao;
 
-import fr.routardfilrouge.routard.metier.City;
-import fr.routardfilrouge.routard.metier.CitySearch;
-import fr.routardfilrouge.routard.metier.Country;
-import fr.routardfilrouge.routard.metier.Subdivision;
+import fr.routardfilrouge.routard.metier.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +36,15 @@ public class CityDAO extends DAO<City, CitySearch>{
 
                  City city = new City(idCity, cityName);
                  city.setSubdivision(subdivision);
+
+                 ClimateType climate = new ClimateType();
+                 if(rs.getString("CODE_CLIMAT") != null) {
+                     climate.setClimateCode(rs.getString("CODE_CLIMAT"));
+                     climate.setClimateName(rs.getString("NOM_TYPE_CLIMAT"));
+                 }
+
+                 city.setClimateType(climate);
+
                  cities.add(city);
              }
          } catch (Exception e) {
@@ -67,6 +73,15 @@ public class CityDAO extends DAO<City, CitySearch>{
 
                 City city = new City(idCity, cityName);
                 city.setSubdivision(subdivision);
+
+                ClimateType climate = new ClimateType();
+                if(rs.getString("CODE_CLIMAT") != null) {
+                    climate.setClimateCode(rs.getString("CODE_CLIMAT"));
+                    climate.setClimateName(rs.getString("NOM_TYPE_CLIMAT"));
+                }
+
+                city.setClimateType(climate);
+
                 cities.add(city);
             }
             rs.close();
