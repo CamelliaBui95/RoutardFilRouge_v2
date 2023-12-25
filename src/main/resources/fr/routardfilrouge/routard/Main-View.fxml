@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -145,6 +146,9 @@
                                         <TableColumn fx:id="countryNameCol" prefWidth="300.0" text="Country Name" />
                                         <TableColumn fx:id="continentNameCol" minWidth="0.0" prefWidth="100.0" text="Continent" />
                                     </columns>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                                 </TableView>
                             </children>
                         </AnchorPane>
@@ -188,6 +192,9 @@
                                                                         <TableColumn fx:id="subdivisionNameCol" prefWidth="216.0" text="Subdivision Name" />
                                                                         <TableColumn fx:id="subdivisionCodeCol" prefWidth="43.0" text="Code" />
                                                                     </columns>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
                                                                 </TableView>
                                                             </children>
                                                         </AnchorPane>
@@ -230,6 +237,9 @@
                                                                         <TableColumn fx:id="idCityCol" prefWidth="30.0" text="ID" />
                                                                         <TableColumn fx:id="cityNameCol" prefWidth="255.0" text="City Name" />
                                                                     </columns>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
                                                                 </TableView>
                                                             </children>
                                                         </AnchorPane>

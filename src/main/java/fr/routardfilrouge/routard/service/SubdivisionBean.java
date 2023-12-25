@@ -27,6 +27,7 @@ public class SubdivisionBean {
 
         subdivisionArr = DAOFactory.getSubdivisionDAO().getAll();
         subdivisions.addAll(subdivisionArr);
+        DAOFactory.getCityDAO().setSubdivisions(subdivisionArr);
 
         mapSubdivisionToCountry();
 
@@ -81,6 +82,7 @@ public class SubdivisionBean {
         if(isPosted) {
             subdivisionArr = DAOFactory.getSubdivisionDAO().getAll();
             subdivisions.setAll(subdivisionArr);
+            DAOFactory.getCityDAO().setSubdivisions(subdivisionArr);
         }
         return isPosted;
     }
@@ -90,6 +92,7 @@ public class SubdivisionBean {
         if(isUpdated) {
             subdivisionArr = DAOFactory.getSubdivisionDAO().getAll();
             subdivisions.setAll(subdivisionArr);
+            DAOFactory.getCityDAO().setSubdivisions(subdivisionArr);
         }
         return isUpdated;
     }
@@ -99,6 +102,7 @@ public class SubdivisionBean {
         if(isDeleted) {
             subdivisionArr = DAOFactory.getSubdivisionDAO().getAll();
             subdivisions.setAll(subdivisionArr);
+            DAOFactory.getCityDAO().setSubdivisions(subdivisionArr);
         }
         return isDeleted;
     }

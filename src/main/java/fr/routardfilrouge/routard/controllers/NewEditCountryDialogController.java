@@ -80,12 +80,15 @@ public class NewEditCountryDialogController {
             hasSucceeded = countryBean.postCountry(country);
 
         if(hasSucceeded) {
-            if(selectedInfoType != null)
+            if(selectedInfoType != null) {
                 infoCollection.put(selectedInfoType, infoTextarea.getText());
+            }
 
             for(Map.Entry<InfoType, String> entry : infoCollection.entrySet()) {
                 InfoType infoType = entry.getKey();
+
                 String text = entry.getValue();
+
                 if(text != null)
                     infoBean.postInfo(new Info(infoType.getIdType(), country, text));
             }
@@ -133,6 +136,7 @@ public class NewEditCountryDialogController {
         infoTypeSearch.setItems(infoBean.getInfoTypes());
         infoTypeSearch.getSelectionModel().selectFirst();
         infoTypeSearch.valueProperty().addListener((ob, o, n) -> onSelectInfoType((InfoType) n));
+        selectedInfoType = (InfoType) infoTypeSearch.getSelectionModel().getSelectedItem();
 
 
         if(!isNew) {
@@ -149,10 +153,7 @@ public class NewEditCountryDialogController {
             infoTextarea.setText(infoText);
         }
 
-        okBtn.setDisable(!isDataValid());
-        countryCodeField.textProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
-        countryNameField.textProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
-        continentSearch.valueProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
+        setUpOkBtn();
     }
 
     private void onSelectInfoType(InfoType infoType) {
@@ -166,6 +167,13 @@ public class NewEditCountryDialogController {
             selectedInfoType = infoType;
             infoTextarea.setText(infoCollection.get(selectedInfoType));
         }
+    }
+
+    private void setUpOkBtn() {
+        okBtn.setDisable(!isDataValid());
+        countryCodeField.textProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
+        countryNameField.textProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
+        continentSearch.valueProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
     }
 
     public void setDialogStage(Stage dialogStage) {

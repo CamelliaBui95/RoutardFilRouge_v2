@@ -15,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainApp extends Application {
@@ -225,7 +226,7 @@ public class MainApp extends Application {
             return false;
         }
     }
-    public boolean showNewEditCityDialog(String title, City city, ObservableList<Weather> weatherList, boolean isNew) {
+    public boolean showNewEditCityDialog(String title, City city, ArrayList<Weather> weatherList, boolean isNew) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditCityDialog-View.fxml"));
             AnchorPane pane = loader.load();

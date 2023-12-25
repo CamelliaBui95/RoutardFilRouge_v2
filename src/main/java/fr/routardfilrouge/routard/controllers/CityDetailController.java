@@ -13,6 +13,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+
 public class CityDetailController {
     @FXML
     private Text idCityText;
@@ -39,6 +41,7 @@ public class CityDetailController {
     @FXML
     private TableColumn<Weather, String> precipitationCol;
     private City city;
+    private ArrayList<Weather> weatherArr;
     private ObservableList<Weather> weatherList;
     private final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private MainApp mainApp;
@@ -47,6 +50,7 @@ public class CityDetailController {
 
     public CityDetailController() {
         weatherList = FXCollections.observableArrayList();
+        weatherArr = new ArrayList<>();
     }
 
     @FXML
@@ -59,13 +63,13 @@ public class CityDetailController {
 
     @FXML
     private void handleDeleteClick() {
-
+        cityBean.deleteCity(city);
     }
 
     @FXML
     private void handleNewClick() {
         City newCity = new City();
-        ObservableList<Weather> newWeatherList = createNewWeatherList(newCity);
+        ArrayList<Weather> newWeatherList = createNewWeatherList(newCity);
         boolean isPosted = mainApp.showNewEditCityDialog("New City", newCity, newWeatherList, true);
 
         if(isPosted) {
@@ -76,12 +80,14 @@ public class CityDetailController {
 
     @FXML
     private void handleModifyClick() {
-        if(weatherList.isEmpty())
-            weatherList = createNewWeatherList(city);
-        boolean isModified = mainApp.showNewEditCityDialog("Modify City", city, weatherList, false);
+        ArrayList<Weather> weatherListToModify = weatherArr.isEmpty() ? createNewWeatherList(city) : weatherArr;
+
+        boolean isModified = mainApp.showNewEditCityDialog("Modify City", city, weatherListToModify, false);
 
         if(isModified)
             mapDataToView();
+        else
+            setUpWeatherTable();
     }
 
     public void setMainApp(MainApp mainApp) {
@@ -102,9 +108,7 @@ public class CityDetailController {
     }
 
     private void mapDataToView() {
-        weatherList.setAll(climateBean.getWeather(city));
-        weatherTableView.setItems(weatherList);
-        monthCol.setSortable(false);
+        setUpWeatherTable();
 
         idCityText.setText(Integer.toString(city.getIdCity()));
         cityNameText.setText(city.getCityName());
@@ -115,8 +119,8 @@ public class CityDetailController {
         climateTypeText.setText(city.getClimateType().getClimateName());
     }
 
-    private ObservableList<Weather> createNewWeatherList(City city) {
-        ObservableList<Weather> newWeatherList = FXCollections.observableArrayList();
+    private ArrayList<Weather> createNewWeatherList(City city) {
+        ArrayList<Weather> newWeatherList = new ArrayList<>();
         for(int i = 0 ; i < MONTHS.length; i++) {
             Month month = new Month(i + 1, MONTHS[i]);
             Weather weather = new Weather();
@@ -126,5 +130,12 @@ public class CityDetailController {
         }
 
         return newWeatherList;
+    }
+
+    private void setUpWeatherTable() {
+        weatherArr = climateBean.getWeather(city);
+        weatherList.setAll(weatherArr);
+        weatherTableView.setItems(weatherList);
+        monthCol.setSortable(false);
     }
 }

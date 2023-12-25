@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
@@ -163,6 +164,9 @@
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
             </TableView>
             <ButtonBar prefHeight="40.0" prefWidth="479.0">
               <buttons>

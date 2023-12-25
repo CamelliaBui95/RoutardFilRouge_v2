@@ -86,6 +86,17 @@ public class CityBean {
         return isUpdated;
     }
 
+    public boolean deleteCity(City city) {
+        boolean isDeleted = DAOFactory.getCityDAO().delete(city);
+
+        if(isDeleted) {
+            citiesArr = DAOFactory.getCityDAO().getAll();
+            cities.setAll(DAOFactory.getCityDAO().getLike(citySearch));
+        }
+
+        return isDeleted;
+    }
+
     public SortedList<City> getSortedCities() {
         return sortedCities;
     }

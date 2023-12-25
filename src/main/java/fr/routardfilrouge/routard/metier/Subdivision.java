@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.Objects;
+
 public class Subdivision {
     private IntegerProperty idSubdivision;
     private StringProperty subdivisionCode;
@@ -82,5 +84,18 @@ public class Subdivision {
     @Override
     public String toString() {
         return getSubdivisionName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subdivision that = (Subdivision) o;
+        return idSubdivision.get() == that.idSubdivision.get() && subdivisionCode.get().equals(that.subdivisionCode.get()) && subdivisionName.get().equals(that.getSubdivisionName()) && country.equals(that.country) && subType.equals(that.subType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idSubdivision, subdivisionCode, subdivisionName, country, subType);
     }
 }

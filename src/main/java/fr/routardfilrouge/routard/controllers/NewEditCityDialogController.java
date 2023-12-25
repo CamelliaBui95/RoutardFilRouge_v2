@@ -18,7 +18,10 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.FXPermission;
 import org.controlsfx.control.SearchableComboBox;
+
+import java.util.ArrayList;
 
 public class NewEditCityDialogController {
     @FXML
@@ -55,6 +58,9 @@ public class NewEditCityDialogController {
     private SubdivisionBean subdivisionBean;
     private CityBean cityBean;
     private City city;
+
+    private Country selectedCountry;
+    private Subdivision selectedSubdivision;
     private ObservableList<Weather> weatherList;
     private ObservableList<Subdivision> subdivisions;
     private ObservableList<Country> countries;
@@ -66,6 +72,9 @@ public class NewEditCityDialogController {
         subdivisions = FXCollections.observableArrayList();
         countries = FXCollections.observableArrayList();
         climateTypes = FXCollections.observableArrayList();
+
+        selectedCountry = new Country();
+        selectedSubdivision = new Subdivision();
     }
 
     @FXML
@@ -110,8 +119,9 @@ public class NewEditCityDialogController {
         boolean isSubdivisionValid = subdivisionSearchBox.getSelectionModel().getSelectedIndex() > 0;
         boolean isLongitudeValid = longitudeField.getText() != null && DataValidator.isValidFloat(longitudeField.getText());
         boolean isLatitudeValid = latitudeField.getText() != null && DataValidator.isValidFloat(latitudeField.getText());
+        boolean isClimateValid = climateSearchBox.getSelectionModel().getSelectedIndex() > 0;
 
-        return isNameValid && isSubdivisionValid && isLongitudeValid && isLatitudeValid;
+        return isNameValid && isSubdivisionValid && isLongitudeValid && isLatitudeValid && isClimateValid;
     }
 
     private void mapDataToView() {
@@ -146,6 +156,7 @@ public class NewEditCityDialogController {
         subdivisionSearchBox.valueProperty().addListener((ob , o, n) -> okBtn.setDisable(!isDataValid()));
         longitudeField.textProperty().addListener((ob, o,n) -> okBtn.setDisable(!isDataValid()));
         latitudeField.textProperty().addListener((ob, o,n) -> okBtn.setDisable(!isDataValid()));
+        climateSearchBox.valueProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
     }
 
     private void setUpSubdivisionSearch() {
@@ -162,6 +173,20 @@ public class NewEditCityDialogController {
 
         countrySearchBox.setItems(countries);
         countrySearchBox.getSelectionModel().select(city.getSubdivision().getCountry());
+
+        countrySearchBox.valueProperty().addListener((ob, o, n) -> {
+            if(n == null || selectedCountry.equals(n))
+                return;
+
+            selectedCountry = n;
+
+            if(selectedSubdivision.getIdSubdivision() == 0) {
+                subdivisions.setAll(subdivisionBean.populateSubdivisionsByCountry(n));
+                subdivisions.add(0, new Subdivision());
+                subdivisionSearchBox.getSelectionModel().select(1);
+            }
+
+        });
     }
 
     private void setUpClimateSearch() {
@@ -248,8 +273,11 @@ public class NewEditCityDialogController {
         this.city = city;
     }
 
-    public void setWeatherList(ObservableList<Weather> weatherList) {
-        this.weatherList = weatherList;
+    public void setWeatherList(ArrayList<Weather> weatherList) {
+        if(this.weatherList == null)
+            this.weatherList = FXCollections.observableArrayList();
+
+        this.weatherList.setAll(weatherList);
     }
 
     public void setNew(boolean isNew) {

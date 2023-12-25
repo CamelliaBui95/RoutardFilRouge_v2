@@ -86,6 +86,14 @@ public class CountryDetailController {
     private void fillInDetails() {
         ArrayList<Text> texts = generateTexts();
 
+        countryCodeText.getChildren().clear();
+        countryNameText.getChildren().clear();
+        continentCodeText.getChildren().clear();
+        continentNameText.getChildren().clear();
+        languageText.getChildren().clear();
+        currencyText.getChildren().clear();
+        infoText.getChildren().clear();
+
         countryCodeText.getChildren().add(texts.get(0));
         countryNameText.getChildren().add(texts.get(1));
         continentCodeText.getChildren().add(texts.get(2));

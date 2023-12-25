@@ -103,7 +103,7 @@ public class CountryBean {
 
     public boolean deleteCountry(Country country) {
         boolean isDeleted = DAOFactory.getCountryDAO().delete(country);
-        System.out.println(isDeleted);
+
         if(isDeleted) {
             countriesArr = DAOFactory.getCountryDAO().getAll();
             countries.setAll(countriesArr);

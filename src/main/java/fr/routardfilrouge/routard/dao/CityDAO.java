@@ -13,14 +13,6 @@ public class CityDAO extends DAO<City, CitySearch>{
 
     public CityDAO() {
         this.subdivisions = new HashMap<>();
-        ArrayList<Subdivision> subdivisionArr = DAOFactory.getSubdivisionDAO().getAll();
-
-        for(int i = 0; i < subdivisionArr.size(); i++) {
-            int idSub = subdivisionArr.get(i).getIdSubdivision();
-            Subdivision subdivision = subdivisionArr.get(i);
-
-            subdivisions.putIfAbsent(idSub, subdivision);
-        }
     }
 
     @Override
@@ -151,6 +143,15 @@ public class CityDAO extends DAO<City, CitySearch>{
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public void setSubdivisions(ArrayList<Subdivision> subdivisions) {
+        for(int i = 0; i < subdivisions.size(); i++) {
+            int idSub = subdivisions.get(i).getIdSubdivision();
+            Subdivision subdivision = subdivisions.get(i);
+
+            this.subdivisions.putIfAbsent(idSub, subdivision);
         }
     }
 }
