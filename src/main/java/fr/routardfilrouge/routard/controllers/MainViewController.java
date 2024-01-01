@@ -87,8 +87,14 @@ public class MainViewController {
 
         countryTableView.setOnMouseClicked(e -> {
             Country selectedCountry = countryTableView.getSelectionModel().getSelectedItem();
-            if(selectedCountry != null)
+            String subdivisionSearchStr = subdivisionSearchField.textProperty().getValue();
+            String citySearchStr = citySearchField.textProperty().getValue();
+
+            if(selectedCountry != null) {
                 mainApp.showCountryDetail(detailPane, selectedCountry);
+                subdivisionBean.filterSubdivisions(subdivisionSearchStr, selectedCountry.getName());
+                cityBean.filterCity(citySearchStr, subdivisionSearchStr,selectedCountry.getName());
+            }
         });
     }
 

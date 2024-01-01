@@ -17,13 +17,6 @@ public class SubdivisionDAO extends DAO<Subdivision, SubdivisionSearch>{
 
     public SubdivisionDAO() {
         this.countries = new HashMap<>();
-        ArrayList<Country> countriesArr = DAOFactory.getCountryDAO().getAll();
-        for(int i = 0; i < countriesArr.size(); i++) {
-            String countryCode = countriesArr.get(i).getIsoCode();
-            Country country = countriesArr.get(i);
-
-            countries.putIfAbsent(countryCode, country);
-        }
     }
 
     @Override
@@ -173,4 +166,12 @@ public class SubdivisionDAO extends DAO<Subdivision, SubdivisionSearch>{
         return countries.get(countryCode);
     }
 
+    public void setCountries(ArrayList<Country> countries) {
+        for(int i = 0; i < countries.size(); i++) {
+            String countryCode = countries.get(i).getIsoCode();
+            Country country = countries.get(i);
+
+            this.countries.putIfAbsent(countryCode, country);
+        }
+    }
 }

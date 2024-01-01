@@ -57,7 +57,10 @@ public class SubdivisionDetailController {
 
     @FXML
     public void handleAddNewPOI() {
-        mainApp.showNewEditPOIDialog("New POI", new POI(), true);
+        POI newPOI = new POI();
+        newPOI.setSubdivision(subdivision);
+
+        mainApp.showNewEditPOIDialog("New POI", newPOI, true);
     }
 
     @FXML
