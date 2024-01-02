@@ -7,7 +7,11 @@ public abstract class DAO<T, TSearch> {
     protected Connection connection;
 
     public DAO() {
-        this.connection = RoutardConnect.getInstance();
+        try {
+            this.connection = RoutardConnect.getInstance();
+        } catch(Exception e) {
+            //e.printStackTrace();
+        }
     }
     public abstract ArrayList<T> getAll();
 

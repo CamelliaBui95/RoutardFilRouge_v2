@@ -1,6 +1,7 @@
 package fr.routardfilrouge.routard;
 
 import fr.routardfilrouge.routard.controllers.*;
+import fr.routardfilrouge.routard.dao.RoutardConnect;
 import fr.routardfilrouge.routard.metier.*;
 import fr.routardfilrouge.routard.service.*;
 import javafx.application.Application;
@@ -28,20 +29,27 @@ public class MainApp extends Application {
     private InfoBean infoBean;
     private POIBean poiBean;
 
+    private LoginDialogController loginController;
+    private HashMap<String, String> account;
+
     public MainApp() {
-        this.continentBean = new ContinentBean();
-        this.countryBean = new CountryBean();
-        this.infoBean = new InfoBean();
-        this.subdivisionBean = new SubdivisionBean();
-        this.cityBean = new CityBean();
-        this.climateBean = new ClimateBean();
-        this.poiBean = new POIBean();
+        account = new HashMap<>();
+
     }
 
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        initMainView(primaryStage);
+        boolean isOkClicked = showLoginDialog();
+
+        if(isOkClicked) {
+            account.put("username", loginController.getUsername());
+            account.put("password", loginController.getPassword());
+            RoutardConnect.setAccount(account);
+            setUpBeans();
+            initMainView(primaryStage);
+        }
+
     }
 
     public static void main(String[] args) {
@@ -117,8 +125,6 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-
-
     public boolean showNewCountryDialog(Country country, String title, boolean isNew) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditCountryDialog-View.fxml"));
@@ -254,5 +260,39 @@ public class MainApp extends Application {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private boolean showLoginDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginDialog-View.fxml"));
+            AnchorPane pane = loader.load();
+            LoginDialogController controller = loader.getController();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setResizable(false);
+            dialogStage.setTitle("Login - Routard Manager");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            dialogStage.setScene(new Scene(pane));
+
+            controller.setDialogStage(dialogStage);
+            this.loginController = controller;
+
+            dialogStage.showAndWait();
+            return controller.isOkClicked();
+        } catch(IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void setUpBeans() {
+        this.continentBean = new ContinentBean();
+        this.countryBean = new CountryBean();
+        this.infoBean = new InfoBean();
+        this.subdivisionBean = new SubdivisionBean();
+        this.cityBean = new CityBean();
+        this.climateBean = new ClimateBean();
+        this.poiBean = new POIBean();
     }
 }

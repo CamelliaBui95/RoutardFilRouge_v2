@@ -1,7 +1,13 @@
 
-‰
-java:S1319˜"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(Ë€í­ıÿÿÿÿ
-‡
-java:S1319å"kThe type of "weatherList" should be an interface such as "List" rather than the implementation "ArrayList".(§¨Öƒúÿÿÿÿ
-;
-java:S1168­"$Return an empty map instead of null.(¥¹ï
+Â
+java:S6539"ŸSplit this â€œMonster Classâ€ into smaller and more specialized ones to reduce its dependencies on other classes from 22 to the maximum authorized 20 or less.(Æé± ùÿÿÿÿ8¢ŸèÏÌ1
+
+java:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(Ë€í­ıÿÿÿÿ8£ŸèÏÌ1
+
+java:S1319ë"kThe type of "weatherList" should be an interface such as "List" rather than the implementation "ArrayList".(§¨Öƒúÿÿÿÿ8£ŸèÏÌ1
+B
+java:S1168³"$Return an empty map instead of null.(¥¹ï8òŸèÏÌ1
+`
+java:S1128">Remove this unused import 'javafx.collections.ObservableList'.(ÄÜ€éüÿÿÿÿ8²ÍíÏÌ1
+T
+java:S1128"7Remove this unused import 'javafx.scene.layout.Border'.(û‘ÊÑ8²ÍíÏÌ1
