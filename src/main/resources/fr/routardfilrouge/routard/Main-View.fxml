@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -180,10 +181,13 @@
                                                                             </font>
                                                                         </Label>
                                                                         <TextField fx:id="subdivisionSearchField" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
-                                                      <Button minHeight="25.0" minWidth="30.0" mnemonicParsing="false" onAction="#handleNewSubdivision" text="A" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                                      <Button minHeight="25.0" minWidth="30.0" mnemonicParsing="false" onAction="#handleNewSubdivision" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                                          <font>
                                                             <Font name="System Bold" size="12.0" />
                                                          </font>
+                                                         <graphic>
+                                                            <FontAwesomeIconView glyphName="PLUS" size="14" />
+                                                         </graphic>
                                                       </Button>
                                                                     </children>
                                                                     <padding>
@@ -232,10 +236,13 @@
                                                                             </font>
                                                                         </Label>
                                                                         <TextField fx:id="citySearchField" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
-                                                      <Button minHeight="25.0" minWidth="30.0" mnemonicParsing="false" onAction="#handleNewCity" text="A" GridPane.columnIndex="2">
+                                                      <Button minHeight="25.0" minWidth="30.0" mnemonicParsing="false" onAction="#handleNewCity" GridPane.columnIndex="2">
                                                          <font>
                                                             <Font name="System Bold" size="12.0" />
                                                          </font>
+                                                         <graphic>
+                                                            <FontAwesomeIconView glyphName="PLUS" size="14" />
+                                                         </graphic>
                                                       </Button>
                                                                     </children>
                                                                     <padding>
