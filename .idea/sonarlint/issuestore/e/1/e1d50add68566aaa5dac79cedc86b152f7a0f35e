@@ -1,0 +1,7 @@
+
+‰
+java:S1319˜"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(Ë€í­ıÿÿÿÿ
+‡
+java:S1319å"kThe type of "weatherList" should be an interface such as "List" rather than the implementation "ArrayList".(§¨Öƒúÿÿÿÿ
+;
+java:S1168­"$Return an empty map instead of null.(¥¹ï

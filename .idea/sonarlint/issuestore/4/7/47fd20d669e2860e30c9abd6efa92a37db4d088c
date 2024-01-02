@@ -1,0 +1,22 @@
+
+
+java:S1319–"kThe type of "weatherList" should be an interface such as "List" rather than the implementation "ArrayList".(ö¤åıÿÿÿÿ8ÜšÈÌ1
+K
+java:S1604Ú"(Make this anonymous inner class a lambda(áÌßŒûÿÿÿÿ8‘ÜšÈÌ1
+F
+java:S1604è"(Make this anonymous inner class a lambda(«Ÿ‰¿8‘ÜšÈÌ1
+K
+java:S1604õ"(Make this anonymous inner class a lambda(×“ã¸ÿÿÿÿÿ8‘ÜšÈÌ1
+[
+java:S1128
+">Remove this unused import 'javafx.beans.value.ChangeListener'.(¸÷Í8œ² ÊÌ1
+\
+java:S1128"?Remove this unused import 'javafx.beans.value.ObservableValue'.(´œ«Å8œ² ÊÌ1
+k
+java:S1128"IRemove this unused import 'javafx.scene.control.cell.TextFieldTableCell'.(¦’âÄùÿÿÿÿ8œ² ÊÌ1
+U
+java:S1128"3Remove this unused import 'javafx.scene.text.Text'.(˜ÿ‡Üşÿÿÿÿ8œ² ÊÌ1
+S
+java:S1128"1Remove this unused import 'javafx.util.Callback'.(¢œ»²ıÿÿÿÿ8œ² ÊÌ1
+W
+java:S1128"5Remove this unused import 'javafx.util.FXPermission'.(ª¿¹šüÿÿÿÿ8œ² ÊÌ1
