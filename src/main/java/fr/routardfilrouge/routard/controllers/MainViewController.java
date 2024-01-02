@@ -15,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import org.controlsfx.control.SearchableComboBox;
 
+import java.util.ArrayList;
+
 public class MainViewController {
     @FXML
     private BorderPane detailPane;
@@ -69,6 +71,26 @@ public class MainViewController {
         setUpCountryView();
         setUpSubdivisionView();
         setUpCityView();
+    }
+
+    @FXML
+    private void handleNewSubdivision() {
+        boolean isOk = mainApp.showNewEditSubdivisionDialog("New Subdivision", new Subdivision(), true);
+        if(isOk) {
+            SortedList<Subdivision> sortedSubs = subdivisionBean.getSortedSubdivisions();
+            Subdivision newSub = sortedSubs.get(sortedSubs.size() - 1);
+            mainApp.showSubdivisionDetail(detailPane,newSub);
+        }
+    }
+
+    @FXML
+    private void handleNewCity() {
+        City newCity = new City();
+        ArrayList<Weather> newWeatherList = climateBean.createNewWeatherList(newCity);
+        boolean isPosted = mainApp.showNewEditCityDialog("New City", newCity, newWeatherList, true);
+
+        if(isPosted)
+            mainApp.showCityDetail(detailPane, newCity);
     }
 
     private void setUpCountryView() {

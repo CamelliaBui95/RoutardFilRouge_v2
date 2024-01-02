@@ -43,7 +43,6 @@ public class CityDetailController {
     private City city;
     private ArrayList<Weather> weatherArr;
     private ObservableList<Weather> weatherList;
-    private final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private MainApp mainApp;
     private CityBean cityBean;
     private ClimateBean climateBean;
@@ -69,7 +68,7 @@ public class CityDetailController {
     @FXML
     private void handleNewClick() {
         City newCity = new City();
-        ArrayList<Weather> newWeatherList = createNewWeatherList(newCity);
+        ArrayList<Weather> newWeatherList = climateBean.createNewWeatherList(newCity);
         boolean isPosted = mainApp.showNewEditCityDialog("New City", newCity, newWeatherList, true);
 
         if(isPosted) {
@@ -80,7 +79,7 @@ public class CityDetailController {
 
     @FXML
     private void handleModifyClick() {
-        ArrayList<Weather> weatherListToModify = weatherArr.isEmpty() ? createNewWeatherList(city) : weatherArr;
+        ArrayList<Weather> weatherListToModify = weatherArr.isEmpty() ? climateBean.createNewWeatherList(city) : weatherArr;
 
         boolean isModified = mainApp.showNewEditCityDialog("Modify City", city, weatherListToModify, false);
 
@@ -117,19 +116,6 @@ public class CityDetailController {
         longitudeText.setText(Float.toString(city.getLongitude()));
         latitudeText.setText(Float.toString(city.getLatitude()));
         climateTypeText.setText(city.getClimateType().getClimateName());
-    }
-
-    private ArrayList<Weather> createNewWeatherList(City city) {
-        ArrayList<Weather> newWeatherList = new ArrayList<>();
-        for(int i = 0 ; i < MONTHS.length; i++) {
-            Month month = new Month(i + 1, MONTHS[i]);
-            Weather weather = new Weather();
-            weather.setMonth(month);
-            weather.setCity(city);
-            newWeatherList.add(weather);
-        }
-
-        return newWeatherList;
     }
 
     private void setUpWeatherTable() {

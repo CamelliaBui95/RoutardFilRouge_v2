@@ -71,7 +71,8 @@ public class SubdivisionDetailController {
     public void handleNewClick() {
         boolean isOk = mainApp.showNewEditSubdivisionDialog("New Subdivision", new Subdivision(), true);
         if(isOk) {
-            subdivision = subdivisionBean.getSortedSubdivisions().getLast();
+            SortedList<Subdivision> sortedSubs = subdivisionBean.getSortedSubdivisions();
+            subdivision = sortedSubs.get(sortedSubs.size() - 1);
             mapDataToView();
         }
     }

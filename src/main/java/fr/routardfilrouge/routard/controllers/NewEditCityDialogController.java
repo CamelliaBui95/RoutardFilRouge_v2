@@ -102,8 +102,10 @@ public class NewEditCityDialogController {
 
         boolean isCurrentPosted = true;
         if(hasSucceeded) {
-            if(isNew)
-                city.setIdCity(cityBean.getCitiesArr().getLast().getIdCity());
+            if(isNew) {
+                ArrayList<City> cities = cityBean.getCitiesArr();
+                city.setIdCity(cities.get(cities.size() - 1).getIdCity());
+            }
 
             int index = 0;
             while(isCurrentPosted && index < weatherList.size())

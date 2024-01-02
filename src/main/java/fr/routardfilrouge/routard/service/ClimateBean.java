@@ -3,6 +3,7 @@ package fr.routardfilrouge.routard.service;
 import fr.routardfilrouge.routard.dao.DAOFactory;
 import fr.routardfilrouge.routard.metier.City;
 import fr.routardfilrouge.routard.metier.ClimateType;
+import fr.routardfilrouge.routard.metier.Month;
 import fr.routardfilrouge.routard.metier.Weather;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
 public class ClimateBean {
+    private final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private ObservableList<ClimateType> climateTypes;
     private ArrayList<ClimateType> climateTypeArr;
 
@@ -39,5 +41,18 @@ public class ClimateBean {
 
     public boolean postWeather(Weather weather) {
         return DAOFactory.getClimateDAO().postWeather(weather);
+    }
+
+    public ArrayList<Weather> createNewWeatherList(City city) {
+        ArrayList<Weather> newWeatherList = new ArrayList<>();
+        for(int i = 0 ; i < MONTHS.length; i++) {
+            Month month = new Month(i + 1, MONTHS[i]);
+            Weather weather = new Weather();
+            weather.setMonth(month);
+            weather.setCity(city);
+            newWeatherList.add(weather);
+        }
+
+        return newWeatherList;
     }
 }
