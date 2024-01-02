@@ -1,11 +1,15 @@
 package fr.routardfilrouge.routard.controllers;
 
+import fr.routardfilrouge.routard.dao.RoutardConnect;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.util.HashMap;
 
 public class LoginDialogController {
     @FXML
@@ -14,13 +18,18 @@ public class LoginDialogController {
     private PasswordField passwordField;
     @FXML
     private Button okBtn;
+    @FXML
+    private Label errorMessage;
     private String username;
     private String password;
+    private HashMap<String, String> account;
     private Stage dialogStage;
+    private boolean isOkClicked;
 
     public LoginDialogController() {
         username = "";
         password = "";
+        account = new HashMap<>();
         isOkClicked = false;
     }
 
@@ -28,11 +37,17 @@ public class LoginDialogController {
     private void initialize() {
         okBtn.setDisable(!isDataValid());
 
-        usernameField.textProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
-        passwordField.textProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
+        usernameField.textProperty().addListener((ob, o, n) -> {
+            if(!errorMessage.getText().isEmpty())
+                errorMessage.setText("");
+            okBtn.setDisable(!isDataValid());
+        });
+        passwordField.textProperty().addListener((ob, o, n) -> {
+            if(!errorMessage.getText().isEmpty())
+                errorMessage.setText("");
+            okBtn.setDisable(!isDataValid());
+        });
     }
-
-    private boolean isOkClicked;
 
     @FXML
     private void handleOkClick() {
@@ -41,8 +56,17 @@ public class LoginDialogController {
 
         username = usernameField.getText();
         password = passwordField.getText();
-        isOkClicked = true;
-        dialogStage.close();
+        account.put("username", username);
+        account.put("password", password);
+
+        try {
+            RoutardConnect.setAccount(account);
+            RoutardConnect.getInstance();
+            isOkClicked = true;
+            dialogStage.close();
+        } catch(Exception e) {
+            errorMessage.setText("Access to database is denied.");
+        }
     }
     @FXML
     private void handleCancelClick() {
@@ -63,11 +87,7 @@ public class LoginDialogController {
         this.dialogStage = dialogStage;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
+    public HashMap<String, String> getAccount() {
+        return account;
     }
 }

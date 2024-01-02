@@ -43,9 +43,7 @@ public class MainApp extends Application {
         boolean isOkClicked = showLoginDialog();
 
         if(isOkClicked) {
-            account.put("username", loginController.getUsername());
-            account.put("password", loginController.getPassword());
-            RoutardConnect.setAccount(account);
+            account = loginController.getAccount();
             setUpBeans();
             initMainView(primaryStage);
         }
