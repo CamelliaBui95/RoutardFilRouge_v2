@@ -36,6 +36,7 @@ public class MainViewController {
     private SearchableComboBox<String> codeCountrySearch;
     private CountryBean countryBean;
     private ContinentBean continentBean;
+    private CurrencyBean currencyBean;
 
     @FXML
     private TableView<Subdivision> subdivisionTableView;
@@ -219,6 +220,10 @@ public class MainViewController {
 
     public void setContinentBean(ContinentBean continentBean) {
         this.continentBean = continentBean;
+    }
+
+    public void setCurrencyBean(CurrencyBean currencyBean) {
+        this.currencyBean = currencyBean;
     }
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
