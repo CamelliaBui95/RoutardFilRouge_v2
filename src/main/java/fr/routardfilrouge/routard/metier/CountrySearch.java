@@ -5,9 +5,11 @@ public class CountrySearch {
     private String countryName;
 
     private Continent continent;
+    private Currency currency;
 
     public CountrySearch() {
         this.continent = new Continent("", "");
+        this.currency = new Currency("","");
         this.countryCode = "";
         this.countryName = "";
     }
@@ -34,5 +36,13 @@ public class CountrySearch {
 
     public void setContinent(Continent continent) {
         this.continent = continent;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 }

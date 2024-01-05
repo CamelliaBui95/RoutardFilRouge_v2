@@ -110,7 +110,7 @@ public class CountryDetailController {
         Text continentCode = new Text(country.getContinent().getContinentCode());
         Text continentName = new Text(country.getContinent().getName());
         Text language = new Text("");
-        Text currency = new Text("");
+        Text currency = new Text(country.getCurrency().getNameCurrency());
 
         infoTypeSearch.setItems(infoBean.getInfoTypes());
         infoTypeSearch.getSelectionModel().selectFirst();

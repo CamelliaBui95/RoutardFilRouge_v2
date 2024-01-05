@@ -1,10 +1,7 @@
 package fr.routardfilrouge.routard.service;
 
 import fr.routardfilrouge.routard.dao.DAOFactory;
-import fr.routardfilrouge.routard.metier.Continent;
-import fr.routardfilrouge.routard.metier.Country;
-import fr.routardfilrouge.routard.metier.CountrySearch;
-import fr.routardfilrouge.routard.metier.InfoType;
+import fr.routardfilrouge.routard.metier.*;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,6 +77,15 @@ public class CountryBean {
 
         if(continent != null) {
             countrySearch.setContinent(continent);
+            countries.setAll(DAOFactory.getCountryDAO().getLike(countrySearch));
+        }
+    }
+
+    public void getCountriesByCurrency(Currency currency){
+        if(countrySearch.getCurrency() != null && countrySearch.getCurrency().equals(currency))
+            return;
+        if(currency != null){
+            countrySearch.setCurrency(currency);
             countries.setAll(DAOFactory.getCountryDAO().getLike(countrySearch));
         }
     }
