@@ -30,10 +30,11 @@ public class MainApp extends Application {
     private LoginDialogController loginController;
     private HashMap<String, String> account;
 
-    public MainApp(CurrencyBean currencyBean) {
+    public MainApp() {
         account = new HashMap<>();
 
     }
+
 
     @Override
     public void start(Stage stage) throws IOException {

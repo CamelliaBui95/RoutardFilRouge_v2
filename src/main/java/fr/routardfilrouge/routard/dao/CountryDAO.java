@@ -21,13 +21,13 @@ public class CountryDAO extends DAO<Country, CountrySearch> {
     @Override
     public ArrayList<Country> getAll() {
         ArrayList<Country> countries = new ArrayList<>();
-        String req = "{call ps_searchCountry}";
+        String req = "SELECT * FROM View_Pays";
         try (CallableStatement stm = connection.prepareCall(req)) {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Continent continent = this.continents.get(rs.getString("CODE_CONTINENT"));
                 Currency currency = this.currencies.get(rs.getString("CODE_ISO_MONNAIE"));
-                String countryCode = rs.getString("CODE_PAYS");
+                String countryCode = rs.getString("CODE_ISO_3166_1");
                 String countryName = rs.getString("NOM_PAYS");
                 Country country = new Country(countryCode, countryName, continent, currency);
                 countries.add(country);
@@ -42,12 +42,13 @@ public class CountryDAO extends DAO<Country, CountrySearch> {
     @Override
     public ArrayList<Country> getLike(CountrySearch countrySearch) {
         ArrayList<Country> countries = new ArrayList<>();
-        String rq = "{call ps_searchCountry(?,?,?)}";
+        String rq = "{call ps_searchCountry(?,?,?,?)}";
 
         try (PreparedStatement stm = connection.prepareStatement(rq)) {
             stm.setString(1, countrySearch.getCountryName());
             stm.setString(2, countrySearch.getCountryCode());
             stm.setString(3, countrySearch.getContinent().getContinentCode());
+            stm.setString(4, countrySearch.getCurrency().getCodeIsoName());
 
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
