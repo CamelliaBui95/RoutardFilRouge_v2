@@ -30,6 +30,7 @@ public class CountryBean {
         countryCodes = FXCollections.observableArrayList();
 
         countriesArr = DAOFactory.getCountryDAO().getAll();
+
         countries.addAll(countriesArr);
         countryCodes.addAll(extractCountryCodes());
         DAOFactory.getInfoDAO().setCountries(countriesArr);

@@ -40,13 +40,20 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        boolean isOkClicked = showLoginDialog();
+        //boolean isOkClicked = showLoginDialog();
 
-        if(isOkClicked) {
+        /*if(isOkClicked) {
             account = loginController.getAccount();
             setUpBeans();
             initMainView(primaryStage);
-        }
+        }*/
+
+        account.put("username", "dev");
+        account.put("password", "routard123");
+
+        RoutardConnect.setAccount(account);
+        setUpBeans();
+        initMainView(primaryStage);
 
     }
 
@@ -292,5 +299,6 @@ public class MainApp extends Application {
         this.cityBean = new CityBean();
         this.climateBean = new ClimateBean();
         this.poiBean = new POIBean();
+
     }
 }

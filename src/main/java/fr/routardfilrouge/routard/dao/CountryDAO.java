@@ -22,13 +22,13 @@ public class CountryDAO extends DAO<Country, CountrySearch> {
     @Override
     public ArrayList<Country> getAll() {
         ArrayList<Country> countries = new ArrayList<>();
-        String req = "{call ps_searchCountry}";
+        String req = "SELECT * FROM View_PAYS";
         try(CallableStatement stm = connection.prepareCall(req)) {
             ResultSet rs = stm.executeQuery();
             while(rs.next()) {
                 Continent continent = this.continents.get(rs.getString("CODE_CONTINENT"));
 
-                String countryCode = rs.getString("CODE_PAYS");
+                String countryCode = rs.getString("CODE_ISO_3166_1");
                 String countryName = rs.getString("NOM_PAYS");
                 Country country = new Country(countryCode,countryName,continent);
 

@@ -31,7 +31,6 @@ public class InfoBean {
             Info info = infoArrayList.get(i);
 
             Country country = info.getCountry();
-
             int idType = info.getIdType();
             InfoType type = infoTypes.get(idType - 1);
 
