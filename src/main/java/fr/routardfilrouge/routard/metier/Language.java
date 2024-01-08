@@ -2,10 +2,10 @@ package fr.routardfilrouge.routard.metier;
 
 public class Language {
     private String idLanguage;
-    private String LanguageName;
+    private String languageName;
     public Language(String idLanguage, String languageName) {
         this.idLanguage = idLanguage;
-        this.LanguageName = languageName;
+        this.languageName = languageName;
     }
 
     public String getIdLanguage() {
@@ -13,7 +13,7 @@ public class Language {
     }
 
     public String getLanguageName() {
-        return LanguageName;
+        return languageName;
     }
 
     public void setIdLanguage(String idLanguage) {
@@ -21,11 +21,11 @@ public class Language {
     }
 
     public void setLanguageName(String languageName) {
-        this.LanguageName = languageName;
+        this.languageName = languageName;
     }
 
     @Override
     public String toString() {
-        return LanguageName;
+        return languageName;
     }
 }
