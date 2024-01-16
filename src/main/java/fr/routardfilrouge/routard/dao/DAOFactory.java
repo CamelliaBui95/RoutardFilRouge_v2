@@ -1,6 +1,7 @@
 package fr.routardfilrouge.routard.dao;
 
 import fr.routardfilrouge.routard.metier.Country;
+import fr.routardfilrouge.routard.metier.Currency;
 
 import java.util.ArrayList;
 
@@ -12,6 +13,8 @@ public class DAOFactory {
     private static ContinentDAO continentDAO;
     private static ClimateDAO climateDAO;
     private static PoiDAO poiDAO;
+
+    private static CurrencyDAO currencyDAO;
 
     public static CountryDAO getCountryDAO() {
         if(countryDAO == null)
@@ -55,5 +58,11 @@ public class DAOFactory {
             poiDAO = new PoiDAO();
 
         return poiDAO;
+    }
+
+    public static CurrencyDAO getCurrencyDAO(){
+        if(currencyDAO == null)
+            currencyDAO = new CurrencyDAO();
+        return currencyDAO;
     }
 }

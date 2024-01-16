@@ -111,6 +111,9 @@ public class CountryDetailController {
         Text continentName = new Text(country.getContinent().getName());
         Text language = new Text("");
         Text currency = new Text("");
+        if(country.getCurrency() != null)
+            currency.setText(country.getCurrency().getNameCurrency());
+
 
         infoTypeSearch.setItems(infoBean.getInfoTypes());
         infoTypeSearch.getSelectionModel().selectFirst();
