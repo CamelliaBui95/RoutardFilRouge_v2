@@ -141,6 +141,7 @@ public class MainApp extends Application {
             controller.setDialogStage(dialogStage);
             controller.setCountryBean(countryBean);
             controller.setContinentBean(continentBean);
+            controller.setCurrencyBean(currencyBean);
             controller.setInfoBean(infoBean);
             controller.setCountry(country);
             controller.setMainApp(this);
