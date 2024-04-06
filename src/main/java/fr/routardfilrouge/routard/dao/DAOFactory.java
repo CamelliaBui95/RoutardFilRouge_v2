@@ -13,6 +13,7 @@ public class DAOFactory {
     private static ClimateDAO climateDAO;
     private static PoiDAO poiDAO;
     private static LanguageDAO languageDAO;
+    private static CurrencyDAO currencyDAO;
 
     public static CountryDAO getCountryDAO() {
         if(countryDAO == null)
@@ -63,5 +64,11 @@ public class DAOFactory {
             languageDAO = new LanguageDAO();
 
         return languageDAO;
+    }
+
+    public static CurrencyDAO getCurrencyDAO(){
+        if(currencyDAO == null)
+            currencyDAO = new CurrencyDAO();
+        return currencyDAO;
     }
 }

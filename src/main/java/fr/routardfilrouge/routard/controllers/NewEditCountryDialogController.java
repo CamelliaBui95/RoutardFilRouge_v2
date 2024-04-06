@@ -72,6 +72,7 @@ public class NewEditCountryDialogController {
         country.setName(countryNameField.getText());
         country.setContinent((Continent) continentSearch.getSelectionModel().getSelectedItem());
         country.setCurrency((Currency) currencySearch.getSelectionModel().getSelectedItem());
+
         boolean hasSucceeded;
         if(!isNew)
             hasSucceeded = countryBean.updateCountry(country);

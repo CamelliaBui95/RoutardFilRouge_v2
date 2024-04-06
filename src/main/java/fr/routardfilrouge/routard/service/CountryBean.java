@@ -31,7 +31,6 @@ public class CountryBean {
         countries.addAll(countriesArr);
         countryCodes.addAll(extractCountryCodes());
         DAOFactory.getInfoDAO().setCountries(countriesArr);
-        DAOFactory.getSubdivisionDAO().setCountries(countriesArr);
 
         filteredCountries = new FilteredList<>(countries, null);
         sortedCountries = new SortedList<>(filteredCountries);
@@ -64,9 +63,9 @@ public class CountryBean {
     }
 
     public void getCountriesByCountryCode(String countryCode) {
-        if(countrySearch.getCountryCode().equals(countryCode))
+        if (countrySearch.getCountryCode().equals(countryCode))
             return;
-        if(countryCode != null) {
+        if (countryCode != null) {
             countrySearch.setCountryCode(countryCode);
             countries.setAll(DAOFactory.getCountryDAO().getLike(countrySearch));
         }
@@ -81,12 +80,28 @@ public class CountryBean {
             countries.setAll(DAOFactory.getCountryDAO().getLike(countrySearch));
         }
     }
-
     public void getCountriesByCurrency(Currency currency){
         if(countrySearch.getCurrency() != null && countrySearch.getCurrency().equals(currency))
             return;
         if(currency != null){
             countrySearch.setCurrency(currency);
+            countries.setAll(DAOFactory.getCountryDAO().getLike(countrySearch));
+        }
+    }
+    public void getCountriesByLanguage(Language language) {
+        if(countrySearch.getLanguage() != null && countrySearch.getLanguage().equals(language))
+            return;
+        if(language != null) {
+            countrySearch.setLanguage(language);
+            countries.setAll(DAOFactory.getCountryDAO().getLike(countrySearch));
+        }
+    }
+    public void getCountriesByClimate(ClimateType climateType) {
+        if(countrySearch.getClimateType() != null && countrySearch.getClimateType().equals(climateType))
+            return;
+
+        if(climateType != null) {
+            countrySearch.setClimateType(climateType);
             countries.setAll(DAOFactory.getCountryDAO().getLike(countrySearch));
         }
     }
@@ -96,7 +111,6 @@ public class CountryBean {
             countriesArr = DAOFactory.getCountryDAO().getAll();
             countries.setAll(countriesArr);
             DAOFactory.getInfoDAO().setCountries(countriesArr);
-            DAOFactory.getSubdivisionDAO().setCountries(countriesArr);
         }
         return isPosted;
     }
@@ -106,7 +120,6 @@ public class CountryBean {
             countriesArr = DAOFactory.getCountryDAO().getAll();
             countries.setAll(countriesArr);
             DAOFactory.getInfoDAO().setCountries(countriesArr);
-            DAOFactory.getSubdivisionDAO().setCountries(countriesArr);
         }
         return isUpdated;
     }
@@ -118,7 +131,6 @@ public class CountryBean {
             countriesArr = DAOFactory.getCountryDAO().getAll();
             countries.setAll(countriesArr);
             DAOFactory.getInfoDAO().setCountries(countriesArr);
-            DAOFactory.getSubdivisionDAO().setCountries(countriesArr);
         }
         return isDeleted;
     }

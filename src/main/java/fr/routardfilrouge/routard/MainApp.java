@@ -1,6 +1,7 @@
 package fr.routardfilrouge.routard;
 
 import fr.routardfilrouge.routard.controllers.*;
+import fr.routardfilrouge.routard.dao.RoutardConnect;
 import fr.routardfilrouge.routard.metier.*;
 import fr.routardfilrouge.routard.service.*;
 import javafx.application.Application;
@@ -24,6 +25,7 @@ public class MainApp extends Application {
     private ClimateBean climateBean;
     private ContinentBean continentBean;
     private CurrencyBean currencyBean;
+    private LanguageBean languageBean;
     private InfoBean infoBean;
     private POIBean poiBean;
 
@@ -32,7 +34,6 @@ public class MainApp extends Application {
 
     public MainApp() {
         account = new HashMap<>();
-
     }
 
 
@@ -42,7 +43,10 @@ public class MainApp extends Application {
         //boolean isOkClicked = showLoginDialog();
 
         /*if(isOkClicked) {
-            account = loginController.getAccount();
+            HashMap<String, String> account = loginController.getAccount();
+            user.setUsername(account.get("username"));
+            user.setPassword(account.get("password"));
+
             setUpBeans();
             initMainView(primaryStage);
         }*/
@@ -65,11 +69,12 @@ public class MainApp extends Application {
             BorderPane pane = (BorderPane) fxmlLoader.load();
             MainViewController controller = fxmlLoader.getController();
             controller.setCurrencyBean(currencyBean);
+            controller.setLanguageBean(languageBean);
             controller.setContinentBean(continentBean);
+            controller.setClimateBean(climateBean);
             controller.setCountryBean(countryBean);
             controller.setSubdivisionBean(subdivisionBean);
             controller.setCityBean(cityBean);
-            controller.setClimateBean(climateBean);
             controller.setMainApp(this);
 
             Scene scene = new Scene(pane);
@@ -301,6 +306,7 @@ public class MainApp extends Application {
         this.cityBean = new CityBean();
         this.climateBean = new ClimateBean();
         this.poiBean = new POIBean();
+        this.languageBean = new LanguageBean();
 
     }
 }

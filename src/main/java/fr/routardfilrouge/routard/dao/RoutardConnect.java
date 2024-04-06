@@ -16,7 +16,7 @@ public class RoutardConnect {
     public static Connection getInstance() throws Exception {
         if(connection == null) {
             try {
-                String url = "jdbc:sqlserver://127.0.0.1:1555;databaseName=ROUTARD;encrypt=false";
+                String url = "jdbc:sqlserver://127.0.0.1:1433;databaseName=ROUTARD;encrypt=false";
                 connection = DriverManager.getConnection(url, username, password);
             } catch(Exception e) {
                 e.printStackTrace();

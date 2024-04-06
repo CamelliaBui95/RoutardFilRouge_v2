@@ -18,6 +18,7 @@ public class LanguageDAO extends DAO<Language, Language>{
             while (resultSet.next()) {
                 String idLanguage = resultSet.getString("ISO_LANGUE");
                 String nameLanguage = resultSet.getString("NOM_LANGUE");
+
                 Language language = new Language(idLanguage,nameLanguage);
                 languages.add(language);
             }

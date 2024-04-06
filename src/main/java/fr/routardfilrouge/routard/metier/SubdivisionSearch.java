@@ -1,5 +1,10 @@
 package fr.routardfilrouge.routard.metier;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class SubdivisionSearch {
     private int idSubdivision;
     private String nameSubdivision;
@@ -15,53 +20,5 @@ public class SubdivisionSearch {
         subType = new SubType(0, "");
         codeCountry = "";
         continent = new Continent("", "");
-    }
-
-    public int getIdSubdivision() {
-        return idSubdivision;
-    }
-
-    public void setIdSubdivision(int idSubdivision) {
-        this.idSubdivision = idSubdivision;
-    }
-
-    public String getNameSubdivision() {
-        return nameSubdivision;
-    }
-
-    public void setNameSubdivision(String nameSubdivision) {
-        this.nameSubdivision = nameSubdivision;
-    }
-
-    public String getCodeSubdivision() {
-        return codeSubdivision;
-    }
-
-    public void setCodeSubdivision(String codeSubdivision) {
-        this.codeSubdivision = codeSubdivision;
-    }
-
-    public SubType getSubType() {
-        return subType;
-    }
-
-    public void setSubType(SubType subType) {
-        this.subType = subType;
-    }
-
-    public String getCodeCountry() {
-        return codeCountry;
-    }
-
-    public void setCodeCountry(String codeCountry) {
-        this.codeCountry = codeCountry;
-    }
-
-    public Continent getContinent() {
-        return continent;
-    }
-
-    public void setContinent(Continent continent) {
-        this.continent = continent;
     }
 }

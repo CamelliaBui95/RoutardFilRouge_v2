@@ -1,31 +1,42 @@
 package fr.routardfilrouge.routard.metier;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import lombok.Data;
+
+@Data
 public class Language {
-    private String idLanguage;
-    private String languageName;
-    public Language(String idLanguage, String languageName) {
-        this.idLanguage = idLanguage;
-        this.languageName = languageName;
+    private StringProperty languageCode;
+    private StringProperty languageName;
+
+    public Language(String languageCode, String languageName) {
+        this.languageCode = new SimpleStringProperty(languageCode);
+        this.languageName = new SimpleStringProperty(languageName);
     }
 
-    public String getIdLanguage() {
-        return idLanguage;
+    public Language() {
+        this.languageCode = new SimpleStringProperty("");
+        this.languageName = new SimpleStringProperty("");
     }
 
-    public String getLanguageName() {
-        return languageName;
+    public void setLanguageCode(String languageCode) {
+        this.languageCode.set(languageCode);
     }
 
-    public void setIdLanguage(String idLanguage) {
-        this.idLanguage = idLanguage;
+    public String getLanguageCode() {
+        return this.languageCode.get();
     }
 
     public void setLanguageName(String languageName) {
-        this.languageName = languageName;
+        this.languageName.set(languageName);
+    }
+
+    public String getLanguageName() {
+        return this.languageName.get();
     }
 
     @Override
     public String toString() {
-        return languageName;
+        return languageName.get();
     }
 }

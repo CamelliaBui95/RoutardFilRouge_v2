@@ -21,6 +21,7 @@ public class ClimateBean {
 
         climateTypeArr = DAOFactory.getClimateDAO().getAll();
         climateTypes.addAll(climateTypeArr);
+        climateTypes.add(0, new ClimateType("", "Climate (" + climateTypes.size() + ")"));
     }
 
     public ObservableList<ClimateType> getClimateTypes() {

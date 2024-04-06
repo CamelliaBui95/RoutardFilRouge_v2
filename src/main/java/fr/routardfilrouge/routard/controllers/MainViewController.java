@@ -66,6 +66,10 @@ public class MainViewController {
     private SearchableComboBox<ClimateType> climateTypeSearch;
     private ClimateBean climateBean;
 
+    @FXML
+    private SearchableComboBox<Language> languageSearch;
+
+    private LanguageBean languageBean;
 
     private MainApp mainApp;
 
@@ -130,15 +134,17 @@ public class MainViewController {
 
         subdivisionSearchField.textProperty().addListener((ob, o, n) -> {
             String countrySearchStr = countrySearchField.textProperty().getValue();
-            String citySearchStr = citySearchField.textProperty().getValue();
             this.subdivisionBean.filterSubdivisions(n, countrySearchStr);
-            this.cityBean.filterCity(citySearchStr, n, countrySearchStr);
+            this.cityBean.filterCity("", n, countrySearchStr);
         });
 
         subdivisionTableView.setOnMouseClicked(e -> {
             Subdivision selectedSub = subdivisionTableView.getSelectionModel().getSelectedItem();
-            if(selectedSub != null)
+            if(selectedSub != null) {
                 mainApp.showSubdivisionDetail(detailPane, selectedSub);
+                this.cityBean.filterCity("", selectedSub.getSubdivisionName(), "");
+            }
+
         });
     }
 
@@ -166,9 +172,9 @@ public class MainViewController {
         continentSearch.getSelectionModel().selectFirst();
 
         continentSearch.valueProperty().addListener((ob, o, n) -> {
-            countryBean.getCountriesByContinent((Continent) n);
-            subdivisionBean.getSubdivisionsByContinent((Continent) n);
-            cityBean.getCitiesByContinent((Continent) n);
+            countryBean.getCountriesByContinent(n);
+            subdivisionBean.getSubdivisionsByContinent(n);
+            cityBean.getCitiesByContinent(n);
         });
     }
 
@@ -176,10 +182,24 @@ public class MainViewController {
         ObservableList<Currency> currencyObservableList = currencyBean.getCurrencies();
         currencySearch.setItems(currencyObservableList);
         currencySearch.getSelectionModel().selectFirst();
-        currencySearch.valueProperty().addListener(((observableValue, oldValue, newValue) -> {
-            countryBean.getCountriesByCurrency((Currency) newValue);
+        currencySearch.valueProperty().addListener(((observableValue, oldValue, newValue) -> countryBean.getCountriesByCurrency(newValue)));
+    }
 
-        }));
+    private void setUpLanguageSearchBox() {
+        ObservableList<Language> languageObservableList = languageBean.getLanguages();
+
+        languageSearch.setItems(languageObservableList);
+        languageSearch.getSelectionModel().selectFirst();
+        languageSearch.valueProperty().addListener(((observableValue, oldValue, newValue) -> countryBean.getCountriesByLanguage(newValue)));
+    }
+
+    private void setUpClimateSearchBox() {
+        ObservableList<ClimateType> climateTypesObservableList = this.climateBean.getClimateTypes();
+
+        climateTypeSearch.setItems(climateTypesObservableList);
+        climateTypeSearch.getSelectionModel().selectFirst();
+
+        climateTypeSearch.valueProperty().addListener(((observableValue, oldValue, newValue) -> countryBean.getCountriesByClimate(newValue)));
     }
 
     private void setUpCountryCodeSearchBox() {
@@ -207,6 +227,8 @@ public class MainViewController {
 
         setUpContinentSearchBox();
         setUpCurrencySearchBox();
+        setUpLanguageSearchBox();
+        setUpClimateSearchBox();
         setUpCountryCodeSearchBox();
     }
 
@@ -224,11 +246,6 @@ public class MainViewController {
     }
     public void setClimateBean(ClimateBean climateBean) {
         this.climateBean = climateBean;
-
-        ObservableList<ClimateType> climateTypesObservableList = this.climateBean.getClimateTypes();
-        climateTypesObservableList.add(0, new ClimateType("", "Climate (" + climateTypesObservableList.size() + ")"));
-        climateTypeSearch.setItems(climateTypesObservableList);
-        climateTypeSearch.getSelectionModel().selectFirst();
     }
 
     public void setContinentBean(ContinentBean continentBean) {
@@ -237,6 +254,10 @@ public class MainViewController {
 
     public void setCurrencyBean(CurrencyBean currencyBean) {
         this.currencyBean = currencyBean;
+    }
+
+    public void setLanguageBean(LanguageBean languageBean) {
+        this.languageBean = languageBean;
     }
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;

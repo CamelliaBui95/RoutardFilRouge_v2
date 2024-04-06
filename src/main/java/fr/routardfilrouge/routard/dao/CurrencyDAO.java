@@ -44,8 +44,8 @@ public class CurrencyDAO extends DAO<Currency, Currency> {
     public boolean post(Currency currency) {
         String req = "{call ps_insertMonnaie(?,?)}";
         try (PreparedStatement stm = connection.prepareStatement(req)) {
-            stm.setString(1, currency.getCodeIsoName());
-            stm.setString(2, currency.getNameCurrency());
+            stm.setString(1, currency.getCurrenyCode());
+            stm.setString(2, currency.getCurrencyName());
             stm.executeUpdate();
             return true;
         } catch (Exception e) {

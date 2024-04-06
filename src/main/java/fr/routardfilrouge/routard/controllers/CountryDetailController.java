@@ -1,24 +1,16 @@
 package fr.routardfilrouge.routard.controllers;
 
 import fr.routardfilrouge.routard.MainApp;
-import fr.routardfilrouge.routard.metier.ClimateType;
 import fr.routardfilrouge.routard.metier.Country;
 import fr.routardfilrouge.routard.metier.InfoType;
-import fr.routardfilrouge.routard.service.ContinentBean;
 import fr.routardfilrouge.routard.service.CountryBean;
 import fr.routardfilrouge.routard.service.InfoBean;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import org.controlsfx.control.SearchableComboBox;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -41,11 +33,6 @@ public class CountryDetailController {
     private SearchableComboBox<InfoType> infoTypeSearch;
     @FXML
     private TextFlow infoText;
-    @FXML
-    private Label dateLabel;
-    @FXML
-    private Label authorLabel;
-
     private CountryBean countryBean;
     private InfoBean infoBean;
     private MainApp mainApp;
@@ -112,7 +99,7 @@ public class CountryDetailController {
         Text language = new Text("");
         Text currency = new Text("");
         if(country.getCurrency() != null)
-            currency.setText(country.getCurrency().getNameCurrency());
+            currency.setText(country.getCurrency().getCurrencyName());
 
 
         infoTypeSearch.setItems(infoBean.getInfoTypes());

@@ -2,38 +2,41 @@ package fr.routardfilrouge.routard.metier;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import lombok.Data;
 
+@Data
 public class Currency {
-    private StringProperty codeIsoName;
-    private StringProperty nameCurrency;
+    private StringProperty currenyCode;
+    private StringProperty currencyName;
 
-    public Currency(String codeIsoName, String nameCurrency) {
-        this.codeIsoName = new SimpleStringProperty(codeIsoName);
-        this.nameCurrency = new SimpleStringProperty(nameCurrency);
+    public Currency(String currenyCode, String currencyName) {
+        this.currenyCode = new SimpleStringProperty(currenyCode);
+        this.currencyName = new SimpleStringProperty(currencyName);
     }
 
    public Currency(){
-        this.codeIsoName = new SimpleStringProperty("");
-        this.nameCurrency = new SimpleStringProperty("");
+        this.currenyCode = new SimpleStringProperty("");
+        this.currencyName = new SimpleStringProperty("");
    }
 
-    public String getCodeIsoName() {
-        return codeIsoName.get();
+    public String getCurrenyCode() {
+        return currenyCode.get();
     }
 
-    public void setCodeIsoName(String codeIsoName) {
-        this.codeIsoName.set(codeIsoName);
+    public void setCurrenyCode(String currenyCode) {
+        this.currenyCode.set(currenyCode);
     }
 
-    public String getNameCurrency() {
-        return nameCurrency.get();
+    public String getCurrencyName() {
+        return currencyName.get();
     }
 
-    public void setNameCurrency(String nameCurrency) {
-        this.nameCurrency.set(nameCurrency);
+    public void setCurrencyName(String currencyName) {
+        this.currencyName.set(currencyName);
     }
 
-    public String toString(){
-        return nameCurrency.get();
+    @Override
+    public String toString() {
+        return this.currencyName.get();
     }
 }

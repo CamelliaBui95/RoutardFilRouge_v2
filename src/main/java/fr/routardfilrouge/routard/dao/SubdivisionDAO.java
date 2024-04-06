@@ -1,9 +1,6 @@
 package fr.routardfilrouge.routard.dao;
 
-import fr.routardfilrouge.routard.metier.Country;
-import fr.routardfilrouge.routard.metier.SubType;
-import fr.routardfilrouge.routard.metier.Subdivision;
-import fr.routardfilrouge.routard.metier.SubdivisionSearch;
+import fr.routardfilrouge.routard.metier.*;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -13,11 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SubdivisionDAO extends DAO<Subdivision, SubdivisionSearch>{
-    private HashMap<String, Country> countries;
-
-    public SubdivisionDAO() {
-        this.countries = new HashMap<>();
-    }
 
     @Override
     public ArrayList<Subdivision> getAll() {
@@ -26,7 +18,8 @@ public class SubdivisionDAO extends DAO<Subdivision, SubdivisionSearch>{
         try(CallableStatement stm = connection.prepareCall(req)) {
             ResultSet rs = stm.executeQuery();
             while(rs.next()) {
-                Country country = getCountry(rs.getString("CODE_ISO_3166_1"));
+                Country country = new Country(rs.getString("CODE_ISO_3166_1"), rs.getString("NOM_PAYS"), new Continent(rs.getString("CODE_CONTINENT"), rs.getString("NOM_CONTINENT")), null);
+
                 SubType type = new SubType(rs.getInt("ID_TYPE"), rs.getString("NOM_TYPE_SUBDIVISION"));
                 int idSub = rs.getInt("ID_SUBDIVISION");
                 String codeSub = rs.getString("CODE_ISO_3166_2");
@@ -59,7 +52,7 @@ public class SubdivisionDAO extends DAO<Subdivision, SubdivisionSearch>{
 
             ResultSet rs = stm.executeQuery();
             while(rs.next()) {
-                Country country = getCountry(rs.getString("CODE_ISO_3166_1"));
+                Country country = new Country(rs.getString("CODE_ISO_3166_1"), rs.getString("NOM_PAYS"), new Continent(rs.getString("CODE_CONTINENT"), rs.getString("NOM_CONTINENT")), null);
                 SubType type = new SubType(rs.getInt("ID_TYPE"), rs.getString("NOM_TYPE_SUBDIVISION"));
                 int idSub = rs.getInt("ID_SUBDIVISION");
                 String codeSub = rs.getString("CODE_ISO_3166_2");
@@ -159,19 +152,4 @@ public class SubdivisionDAO extends DAO<Subdivision, SubdivisionSearch>{
         return false;
     }
 
-    private Country getCountry(String countryCode) {
-        if(countries.isEmpty())
-            return null;
-
-        return countries.get(countryCode);
-    }
-
-    public void setCountries(ArrayList<Country> countries) {
-        for(int i = 0; i < countries.size(); i++) {
-            String countryCode = countries.get(i).getIsoCode();
-            Country country = countries.get(i);
-
-            this.countries.putIfAbsent(countryCode, country);
-        }
-    }
 }

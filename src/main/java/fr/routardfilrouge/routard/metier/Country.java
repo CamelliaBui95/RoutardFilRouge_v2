@@ -22,6 +22,13 @@ public class Country {
         this.currency = currency;
     }
 
+    public Country(String isoCode, String name, Continent continent) {
+        this.isoCode = new SimpleStringProperty(isoCode);
+        this.name = new SimpleStringProperty(name);
+        this.continent = continent;
+        this.currency = new Currency();
+    }
+
     public Country() {
         isoCode = new SimpleStringProperty("");
         name = new SimpleStringProperty("Country");
@@ -79,7 +86,7 @@ public class Country {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Country country = (Country) o;
-        return isoCode.get().equals(country.isoCode.get()) && name.get().equals(country.getName()) && continent.equals(country.continent) && currency.equals(country.currency);
+        return isoCode.get().equals(country.isoCode.get()) && name.get().equals(country.getName()) && continent.equals(country.continent);
     }
 
 }

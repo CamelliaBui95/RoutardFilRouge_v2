@@ -13,7 +13,7 @@ public class ContinentBean {
     public ContinentBean() {
         continents = FXCollections.observableArrayList();
         continentsArr = DAOFactory.getContinentDAO().getAll();
-        DAOFactory.getCountryDAO().setContinents(continentsArr);
+        //DAOFactory.getCountryDAO().setContinents(continentsArr);
 
         continents.addAll(continentsArr);
         continents.add(0, new Continent("", "Continent (" + continents.size() + ")"));
@@ -23,15 +23,11 @@ public class ContinentBean {
         return continents;
     }
 
-    public ArrayList<Continent> getContinentsArr() {
-        return continentsArr;
-    }
-
     public void postContinent(Continent continent) {
         boolean isPosted = DAOFactory.getContinentDAO().post(continent);
         if(isPosted) {
             continentsArr = DAOFactory.getContinentDAO().getAll();
-            DAOFactory.getCountryDAO().setContinents(continentsArr);
+            //DAOFactory.getCountryDAO().setContinents(continentsArr);
 
             continents.setAll(continentsArr);
             continents.add(0, new Continent("", "Continent (" + continents.size() + ")"));

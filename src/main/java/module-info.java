@@ -4,6 +4,7 @@ module fr.routardfilrouge.routard {
 
     requires org.controlsfx.controls;
     requires java.sql;
+    requires static lombok;
 
     opens fr.routardfilrouge.routard to javafx.fxml;
     exports fr.routardfilrouge.routard;
