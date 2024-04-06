@@ -34,8 +34,11 @@ public class MainViewController {
     private SearchableComboBox<Continent> continentSearch;
     @FXML
     private SearchableComboBox<String> codeCountrySearch;
+    @FXML
+    private SearchableComboBox<Currency> currencySearch;
     private CountryBean countryBean;
     private ContinentBean continentBean;
+    private CurrencyBean currencyBean;
 
     @FXML
     private TableView<Subdivision> subdivisionTableView;
@@ -169,6 +172,16 @@ public class MainViewController {
         });
     }
 
+    private void setUpCurrencySearchBox(){
+        ObservableList<Currency> currencyObservableList = currencyBean.getCurrencies();
+        currencySearch.setItems(currencyObservableList);
+        currencySearch.getSelectionModel().selectFirst();
+        currencySearch.valueProperty().addListener(((observableValue, oldValue, newValue) -> {
+            countryBean.getCountriesByCurrency((Currency) newValue);
+
+        }));
+    }
+
     private void setUpCountryCodeSearchBox() {
         ObservableList<String> countryCodesObservableList = countryBean.getCountryCodes();
         countryCodesObservableList.add(0,"Country Code (" + countryCodesObservableList.size() + ")");
@@ -193,6 +206,7 @@ public class MainViewController {
         countryTableView.setItems(sortedCountries);
 
         setUpContinentSearchBox();
+        setUpCurrencySearchBox();
         setUpCountryCodeSearchBox();
     }
 
@@ -219,6 +233,10 @@ public class MainViewController {
 
     public void setContinentBean(ContinentBean continentBean) {
         this.continentBean = continentBean;
+    }
+
+    public void setCurrencyBean(CurrencyBean currencyBean) {
+        this.currencyBean = currencyBean;
     }
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;

@@ -1,12 +1,10 @@
 package fr.routardfilrouge.routard.controllers;
 
 import fr.routardfilrouge.routard.MainApp;
-import fr.routardfilrouge.routard.metier.Continent;
-import fr.routardfilrouge.routard.metier.Country;
-import fr.routardfilrouge.routard.metier.Info;
-import fr.routardfilrouge.routard.metier.InfoType;
+import fr.routardfilrouge.routard.metier.*;
 import fr.routardfilrouge.routard.service.ContinentBean;
 import fr.routardfilrouge.routard.service.CountryBean;
+import fr.routardfilrouge.routard.service.CurrencyBean;
 import fr.routardfilrouge.routard.service.InfoBean;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,6 +45,7 @@ public class NewEditCountryDialogController {
     private HashMap<InfoType, String> infoCollection;
     private CountryBean countryBean;
     private ContinentBean continentBean;
+    private CurrencyBean currencyBean;
     private InfoBean infoBean;
     private boolean isNew = false;
     private boolean isOkClicked = false;
@@ -72,7 +71,7 @@ public class NewEditCountryDialogController {
         country.setIsoCode(countryCodeField.getText());
         country.setName(countryNameField.getText());
         country.setContinent((Continent) continentSearch.getSelectionModel().getSelectedItem());
-
+        country.setCurrency((Currency) currencySearch.getSelectionModel().getSelectedItem());
         boolean hasSucceeded;
         if(!isNew)
             hasSucceeded = countryBean.updateCountry(country);
@@ -126,13 +125,22 @@ public class NewEditCountryDialogController {
     }
     @FXML
     private void handleAddNewCurrency() {
-
+        HashMap<String, String> element  = mainApp.showNewElementDialog("New Currency", false);
+        if(element == null || element.isEmpty()){
+            System.out.println("Currency insertion failed");
+            return;
+        }
+        Currency currency = new Currency(element.get("id"), element.get("name"));
+        currencyBean.postCurrency(currency);
     }
 
     private void mapDataToView() {
         ObservableList<Continent> continentsList = continentBean.getContinents();
+        ObservableList<Currency> currenciesList = currencyBean.getCurrencies();
         continentSearch.setItems(continentsList);
         continentSearch.getSelectionModel().selectFirst();
+        currencySearch.setItems(currenciesList);
+        currencySearch.getSelectionModel().selectFirst();
         infoTypeSearch.setItems(infoBean.getInfoTypes());
         infoTypeSearch.getSelectionModel().selectFirst();
         infoTypeSearch.valueProperty().addListener((ob, o, n) -> onSelectInfoType((InfoType) n));
@@ -146,9 +154,10 @@ public class NewEditCountryDialogController {
             countryNameField.setText(country.getName());
 
             int indexContinent = continentsList.indexOf(country.getContinent());
+            int indexCurrency = currenciesList.indexOf(country.getCurrency());
 
             continentSearch.getSelectionModel().select(indexContinent);
-
+            currencySearch.getSelectionModel().select(indexCurrency);
             String infoText = infoCollection.get((InfoType) infoTypeSearch.getSelectionModel().getSelectedItem());
             infoTextarea.setText(infoText);
         }
@@ -174,6 +183,7 @@ public class NewEditCountryDialogController {
         countryCodeField.textProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
         countryNameField.textProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
         continentSearch.valueProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
+        currencySearch.valueProperty().addListener((ob, o, n) -> okBtn.setDisable(!isDataValid()));
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -193,6 +203,10 @@ public class NewEditCountryDialogController {
         this.continentBean = continentBean;
     }
 
+    public void setCurrencyBean(CurrencyBean currencyBean){
+        this.currencyBean = currencyBean;
+    }
+
     public void setInfoBean(InfoBean infoBean) {
         this.infoBean = infoBean;
     }
@@ -209,8 +223,8 @@ public class NewEditCountryDialogController {
         boolean isCountryCodeValid = countryCodeField.getText() != null && !countryCodeField.getText().isEmpty();
         boolean isCountryNameValid = countryNameField.getText() != null && !countryNameField.getText().isEmpty();
         boolean isContinentSelected = continentSearch.getSelectionModel().getSelectedIndex() > 0;
-
-        return isCountryCodeValid && isCountryNameValid && isContinentSelected;
+        boolean isCurrencySelected = currencySearch.getSelectionModel().getSelectedIndex() > 0;
+        return isCountryCodeValid && isCountryNameValid && isContinentSelected && isCurrencySelected;
     }
 
     public boolean isOkClicked() {

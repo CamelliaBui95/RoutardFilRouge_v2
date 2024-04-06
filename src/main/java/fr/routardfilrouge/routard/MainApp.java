@@ -1,15 +1,12 @@
 package fr.routardfilrouge.routard;
 
 import fr.routardfilrouge.routard.controllers.*;
-import fr.routardfilrouge.routard.dao.RoutardConnect;
 import fr.routardfilrouge.routard.metier.*;
 import fr.routardfilrouge.routard.service.*;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -26,6 +23,7 @@ public class MainApp extends Application {
     private CityBean cityBean;
     private ClimateBean climateBean;
     private ContinentBean continentBean;
+    private CurrencyBean currencyBean;
     private InfoBean infoBean;
     private POIBean poiBean;
 
@@ -36,6 +34,7 @@ public class MainApp extends Application {
         account = new HashMap<>();
 
     }
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -65,6 +64,7 @@ public class MainApp extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("Main-View.fxml"));
             BorderPane pane = (BorderPane) fxmlLoader.load();
             MainViewController controller = fxmlLoader.getController();
+            controller.setCurrencyBean(currencyBean);
             controller.setContinentBean(continentBean);
             controller.setCountryBean(countryBean);
             controller.setSubdivisionBean(subdivisionBean);
@@ -148,6 +148,7 @@ public class MainApp extends Application {
             controller.setDialogStage(dialogStage);
             controller.setCountryBean(countryBean);
             controller.setContinentBean(continentBean);
+            controller.setCurrencyBean(currencyBean);
             controller.setInfoBean(infoBean);
             controller.setCountry(country);
             controller.setMainApp(this);
@@ -293,6 +294,7 @@ public class MainApp extends Application {
 
     private void setUpBeans() {
         this.continentBean = new ContinentBean();
+        this.currencyBean = new CurrencyBean();
         this.countryBean = new CountryBean();
         this.infoBean = new InfoBean();
         this.subdivisionBean = new SubdivisionBean();
