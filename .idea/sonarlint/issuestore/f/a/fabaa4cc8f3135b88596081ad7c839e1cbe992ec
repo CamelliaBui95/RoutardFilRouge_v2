@@ -1,0 +1,10 @@
+
+
+java:S1319="pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(õ’8œêÊ£ë1
+]
+java:S1117/"@Rename "countryCodes" which hides the field declared at line 19.(ñ÷¾à8¾êÊ£ë1
+^
+java:S1128"ARemove this unused import 'javafx.beans.property.StringProperty'.(Å‘ï±8ÔêÊ£ë1
+O
+java:S1128
+"-Remove this unused import 'javafx.fxml.FXML'.(ÃÚ¢„şÿÿÿÿ8ÔêÊ£ë1

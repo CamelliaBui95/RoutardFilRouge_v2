@@ -1,0 +1,12 @@
+
+e
+java:S1192"HDefine a constant instead of duplicating this literal "ID_TYPE" 3 times.(Ü¶¨8Ò–êë1
+r
+java:S1192"UDefine a constant instead of duplicating this literal "NOM_TYPE_SUBDIVISION" 3 times.(Ü¶¨8Ò–êë1
+
+java:S1319I"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ÇŞ×°8Ó–êë1
+T
+java:S6126["2Replace this String concatenation with Text block.(çñ‡ûÿÿÿÿ8»—êë1
+P
+java:S1128
+".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8…ùÈŸë1

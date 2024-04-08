@@ -1,0 +1,5 @@
+
+
+java:S13192"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(÷µ’®üÿÿÿÿ8©£ƒšê1
+Z
+java:S1128	"=Remove this unused import 'javafx.collections.ObservableMap'.(ÜÓˆ½8éŒ÷Ãë1

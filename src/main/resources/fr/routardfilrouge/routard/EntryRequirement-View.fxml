@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.routardfilrouge.routard.EntryRequirementView">
+   <children>
+      <GridPane hgap="5.0" layoutX="378.0" layoutY="221.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="403.0" minWidth="10.0" prefWidth="300.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="715.0" minWidth="10.0" prefWidth="442.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="489.0" minWidth="10.0" prefWidth="403.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox prefHeight="790.0" prefWidth="332.0">
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="192.0" minWidth="10.0" prefWidth="34.0" />
+                      <ColumnConstraints hgrow="ALWAYS" maxWidth="358.0" minWidth="10.0" prefWidth="278.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextField fx:id="countrySearchField" prefHeight="25.0" prefWidth="352.0" GridPane.columnIndex="1" />
+                        <FontAwesomeIconView glyphName="SEARCH" size="20">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </FontAwesomeIconView>
+                     </children>
+                     <VBox.margin>
+                        <Insets right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </GridPane>
+                  <TableView VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="countryCodeCol" prefWidth="75.0" text="Code" />
+                      <TableColumn fx:id="countryNameCol" prefWidth="236.0" text="Country Name" />
+                    </columns>
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="10.0" />
+                     </VBox.margin>
+                  </TableView>
+               </children>
+            </VBox>
+            <GridPane GridPane.columnIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <VBox prefHeight="171.0" prefWidth="444.0">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                     <children>
+                        <GridPane prefHeight="34.0" prefWidth="444.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="398.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="217.0" minWidth="10.0" prefWidth="46.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Administrative Documents :" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Button alignment="CENTER" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <graphic>
+                                    <FontAwesomeIconView glyphName="EDIT" size="20" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </GridPane>
+                        <TableView VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn prefWidth="112.0" text="Document Name" />
+                              <TableColumn prefWidth="77.0" text="Type" />
+                              <TableColumn prefWidth="189.0" text="Note" />
+                              <TableColumn prefWidth="65.0" text="Status" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="171.0" prefWidth="444.0" GridPane.rowIndex="1">
+                     <children>
+                        <GridPane prefHeight="34.0" prefWidth="444.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="398.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="217.0" minWidth="10.0" prefWidth="46.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Vaccins/Treatments :" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Button alignment="CENTER" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <graphic>
+                                    <FontAwesomeIconView glyphName="EDIT" size="20" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
+                        </GridPane>
+                        <TableView VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn prefWidth="137.0" text="Vaccin/Treatment" />
+                              <TableColumn prefWidth="210.0" text="Note" />
+                              <TableColumn prefWidth="96.0" text="Status" />
+                           </columns>
+                        </TableView>
+                     </children>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                  </VBox>
+               </children>
+            </GridPane>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+               <children>
+                  <GridPane prefHeight="34.0" prefWidth="444.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="398.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="217.0" minWidth="10.0" prefWidth="46.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Visa Exempted Countries :" underline="true">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Button alignment="CENTER" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="EDIT" size="20" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </GridPane>
+                  <TableView prefHeight="747.0" prefWidth="404.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn prefWidth="40.0" text="Code" />
+                      <TableColumn prefWidth="124.0" text="Name" />
+                        <TableColumn prefWidth="71.0" text="Min" />
+                        <TableColumn prefWidth="65.0" text="Max" />
+                        <TableColumn prefWidth="103.0" text="Applied Date" />
+                    </columns>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TableView>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

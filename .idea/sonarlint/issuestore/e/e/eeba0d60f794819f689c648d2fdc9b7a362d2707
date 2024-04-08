@@ -1,0 +1,7 @@
+
+’
+java:S1319%"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Å®–ÿÿÿÿÿ8÷œÆ™ê1
+z
+java:S4144X"]Update this method so that its implementation is not identical to "updateWeather" on line 65.(õ¢àª8´Æ™ê1
+H
+java:S1168""+Return an empty collection instead of null.(¥¹ï8êÆ™ê1

@@ -12,14 +12,16 @@ public class Country {
     private StringProperty isoCode;
     private StringProperty name;
     private Continent continent;
-
     private Currency currency;
+
+    private ArrayList<Language> languages;
 
     public Country(String isoCode, String name, Continent continent, Currency currency) {
         this.isoCode = new SimpleStringProperty(isoCode);
         this.name = new SimpleStringProperty(name);
         this.continent = continent;
         this.currency = currency;
+        this.languages = new ArrayList<>();
     }
 
     public Country(String isoCode, String name, Continent continent) {
@@ -27,6 +29,7 @@ public class Country {
         this.name = new SimpleStringProperty(name);
         this.continent = continent;
         this.currency = new Currency();
+        this.languages = new ArrayList<>();
     }
 
     public Country() {
@@ -34,6 +37,7 @@ public class Country {
         name = new SimpleStringProperty("Country");
         continent = new Continent();
         currency = new Currency();
+        this.languages = new ArrayList<>();
     }
 
     public String getName() {
@@ -74,6 +78,14 @@ public class Country {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public ArrayList<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(ArrayList<Language> languages) {
+        this.languages = languages;
     }
 
     @Override

@@ -1,0 +1,6 @@
+
+f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ðº¯Ú
+k	java:S1176"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õÿ‰þÿÿÿÿÿ
+l	java:S116
+"RRename this field "POIName" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒªÇŸøÿÿÿÿ
+h	java:S1002"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™Àþëÿÿÿÿÿ

@@ -1,8 +1,8 @@
 
-‹
-java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(“İöøÿÿÿÿ
-‹
-java:S1319""pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Å®–ÿÿÿÿÿ
+’
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(“İöøÿÿÿÿ8ú·Ø£ë1
+’
+java:S1319#"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Å®–ÿÿÿÿÿ8û·Ø£ë1
 
-java:S1319."pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ë–¬›8ÈÈÉÌ1
-r	java:S116"QRename this field "MONTHS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÉ£ğıÿÿÿÿ8¡¬ÉÉÌ1
+java:S1319/"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ë–¬›8û·Ø£ë1
+r	java:S116"QRename this field "MONTHS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÉ£ğıÿÿÿÿ8…¸Ø£ë1

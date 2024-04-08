@@ -1,0 +1,5 @@
+
+k
+java:S12064"PThis class overrides "equals()" and should therefore also override "hashCode()".(Ý¢êÍýÿÿÿÿ
+K
+java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8Å­ƒšê1

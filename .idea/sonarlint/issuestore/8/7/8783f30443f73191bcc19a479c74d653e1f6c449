@@ -1,0 +1,30 @@
+
+Q
+java:S3740"/Provide the parametrized type for this generic.(‡¨÷ıÿÿÿÿ8ƒŞÖë1
+Q
+java:S3740!"/Provide the parametrized type for this generic.(•ğïúÿÿÿÿ8…ŞÖë1
+Q
+java:S3740#"/Provide the parametrized type for this generic.(ï“Àıùÿÿÿÿ8…ŞÖë1
+L
+java:S3740%"/Provide the parametrized type for this generic.(»ú³8‡ŞÖë1
+£
+java:S1186;"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(·òşÿÿÿÿ8çßÖë1
+£
+java:S1186|"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(–·Æşøÿÿÿÿ8çßÖë1
+£
+java:S11866"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¥‚Õ’ûÿÿÿÿ8èßÖë1
+L	java:S106j"+Replace this use of System.out by a logger.(ÃÖ§úÿÿÿÿ8“àÖë1
+G	java:S106u"+Replace this use of System.out by a logger.(÷£àƒ8›àÖë1
+M	java:S106ƒ"+Replace this use of System.out by a logger.(ïË§€şÿÿÿÿ8µàÖë1
+H
+java:S1905¢"+Remove this unnecessary cast to "InfoType".(ÙòÄ?8ØàÖë1
+Z
+java:S1128	"=Remove this unused import 'javafx.collections.FXCollections'.(´¶²Æ8ç‰æŸë1
+Z
+java:S1128"=Remove this unused import 'javafx.collections.ObservableMap'.(ÜÓˆ½8ç‰æŸë1
+]
+java:S1128";Remove this unused import 'javafx.scene.layout.BorderPane'.(Îî¥üÿÿÿÿ8è‰æŸë1
+U
+java:S1128"3Remove this unused import 'javafx.scene.text.Text'.(˜ÿ‡Üşÿÿÿÿ8è‰æŸë1
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ê‰æŸë1

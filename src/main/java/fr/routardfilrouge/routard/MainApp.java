@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 public class MainApp extends Application {
     private Stage primaryStage;
+    private BorderPane appContainer;
     private CountryBean countryBean;
     private SubdivisionBean subdivisionBean;
     private CityBean cityBean;
@@ -56,17 +57,38 @@ public class MainApp extends Application {
 
         RoutardConnect.setAccount(account);
         setUpBeans();
-        initMainView(primaryStage);
+        initAppContainerView(primaryStage);
 
     }
 
     public static void main(String[] args) {
         launch();
     }
-    private void initMainView(Stage primaryStage) {
+
+    private void initAppContainerView(Stage primaryStage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("AppContainer-View.fxml"));
+            appContainer = (BorderPane) fxmlLoader.load();
+
+            AppContainerController controller = fxmlLoader.getController();
+            controller.setMainApp(this);
+            controller.setAppPrimaryStage(primaryStage);
+
+            Scene scene = new Scene(appContainer);
+            scene.getStylesheets().add(getClass().getResource("stylesheets/styles.css").toExternalForm());
+
+            primaryStage.setTitle("Project Manager - Routard");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void showMainView() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("Main-View.fxml"));
             BorderPane pane = (BorderPane) fxmlLoader.load();
+
             MainViewController controller = fxmlLoader.getController();
             controller.setCurrencyBean(currencyBean);
             controller.setLanguageBean(languageBean);
@@ -77,12 +99,7 @@ public class MainApp extends Application {
             controller.setCityBean(cityBean);
             controller.setMainApp(this);
 
-            Scene scene = new Scene(pane);
-            scene.getStylesheets().add(getClass().getResource("stylesheets/styles.css").toExternalForm());
-
-            primaryStage.setTitle("Project Manager - Routard");
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            appContainer.setCenter(pane);
         } catch(Exception e) {
             e.printStackTrace();
         }

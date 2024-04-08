@@ -1,0 +1,13 @@
+
+’
+java:S1319S"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ˆÔá÷şÿÿÿÿ8ªÌ«Äë1
+‹
+java:S1319W"iThe type of "languages" should be an interface such as "List" rather than the implementation "ArrayList".(À–Ã¤ıÿÿÿÿ8«Ì«Äë1
+k
+java:S1206a"PThis class overrides "equals()" and should therefore also override "hashCode()".(İ¢êÍıÿÿÿÿ
+h
+java:S1128"FRemove this unused import 'fr.routardfilrouge.routard.dao.DAOFactory'.(ÔãĞ¢ıÿÿÿÿ8Œ¦Äë1
+P
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8¦Äë1
+K
+java:S1128	".Remove this unused import 'java.util.Objects'.(¼¸õ›8¦Äë1

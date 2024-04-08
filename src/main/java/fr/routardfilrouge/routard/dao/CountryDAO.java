@@ -22,7 +22,10 @@ public class CountryDAO extends DAO<Country, CountrySearch> {
 
                 Currency currency = new Currency(rs.getString("CODE_ISO_MONNAIE"), rs.getString("NOM_DEVISE"));
 
-                Country country = new Country(countryCode,countryName,continent, currency);
+                Country country = new Country(countryCode, countryName, continent, currency);
+
+                ArrayList<Language> languages = DAOFactory.getLanguageDAO().getLike(country);
+                country.setLanguages(languages);
 
                 countries.add(country);
             }
@@ -57,6 +60,9 @@ public class CountryDAO extends DAO<Country, CountrySearch> {
                 Currency currency = new Currency(rs.getString("CODE_ISO_MONNAIE"), rs.getString("NOM_DEVISE"));
 
                 Country country = new Country(countryCode,countryName,continent, currency);
+
+                ArrayList<Language> languages = DAOFactory.getLanguageDAO().getLike(country);
+                country.setLanguages(languages);
 
                 countries.add(country);
             }

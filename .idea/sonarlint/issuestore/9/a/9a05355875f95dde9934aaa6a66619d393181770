@@ -1,13 +1,7 @@
 
-J
-java:S1905¦",Remove this unnecessary cast to "Continent".(îìÖæ8¿æÛÉÌ1
-J
-java:S1905§",Remove this unnecessary cast to "Continent".(¸¨Ğë8ÀæÛÉÌ1
-O
-java:S1905¨",Remove this unnecessary cast to "Continent".(›ñ²£øÿÿÿÿ8ÀæÛÉÌ1
 d
-java:S1128"GRemove this unused import 'javafx.beans.property.SimpleStringProperty'.(ûĞùÑ8ç„İÉÌ1
+java:S1128"GRemove this unused import 'javafx.beans.property.SimpleStringProperty'.(ûĞùÑ8–ó£ë1
 ^
-java:S1128"ARemove this unused import 'javafx.beans.property.StringProperty'.(Å‘ï±8ç„İÉÌ1
+java:S1128"ARemove this unused import 'javafx.beans.property.StringProperty'.(Å‘ï±8–ó£ë1
 Y
-java:S1128"7Remove this unused import 'javafx.scene.control.Label'.(ö²­ÿÿÿÿÿ8ç„İÉÌ1
+java:S1128"7Remove this unused import 'javafx.scene.control.Label'.(ö²­ÿÿÿÿÿ8‚–ó£ë1

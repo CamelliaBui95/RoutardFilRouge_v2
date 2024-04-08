@@ -46,9 +46,6 @@ public class InfoBean {
     public ObservableList<InfoType> getInfoTypes() {
         return infoTypes;
     }
-    public HashMap<String, HashMap<InfoType, String>> getInfoCollection() {
-        return infoCollection;
-    }
 
     public HashMap<InfoType, String> getInfoSlice(Country country) {
         return infoCollection.get(country.getIsoCode());

@@ -168,10 +168,10 @@
       </AnchorPane>
         <TableView fx:id="weatherTableView" prefHeight="320.0" prefWidth="404.0">
             <columns>
-                <TableColumn fx:id="monthCol" maxWidth="-1.0" minWidth="100.0" prefWidth="90.0" text="Month" />
-                <TableColumn fx:id="tempCol" maxWidth="-1.0" minWidth="100.0" prefWidth="75.0" text="Temperature" />
-                <TableColumn fx:id="humidityCol" maxWidth="-1.0" minWidth="100.0" prefWidth="75.0" text="Humidity" />
-            <TableColumn fx:id="precipitationCol" maxWidth="-1.0" minWidth="100.0" prefWidth="75.0" text="Precipitation" />
+                <TableColumn fx:id="monthCol" maxWidth="95.20001065731049" minWidth="63.999998450279236" prefWidth="63.999998450279236" text="Month" />
+                <TableColumn fx:id="tempCol" maxWidth="136.00000762939453" minWidth="100.0" prefWidth="101.59998321533203" text="Temperature" />
+                <TableColumn fx:id="humidityCol" maxWidth="135.20001220703125" minWidth="100.0" prefWidth="110.4000244140625" text="Humidity" />
+            <TableColumn fx:id="precipitationCol" maxWidth="131.20001220703125" minWidth="100.0" prefWidth="125.5999755859375" text="Precipitation" />
             </columns>
             <VBox.margin>
                 <Insets bottom="10.0" />

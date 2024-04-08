@@ -1,0 +1,9 @@
+
+E	java:S106I"+Replace this use of System.out by a logger.( Υ±‚ÿÿÿÿÿ
+R	java:S125¤"<This block of commented-out lines of code should be removed.(νη§¤
+R	java:S125®"<This block of commented-out lines of code should be removed.(†€ι
+R	java:S125Ν"<This block of commented-out lines of code should be removed.(‚°£‹
+c
+java:S1128"MRemove this unused import 'fr.routardfilrouge.routard.service.ContinentBean'.(€
+F
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(χ‰ξƒ

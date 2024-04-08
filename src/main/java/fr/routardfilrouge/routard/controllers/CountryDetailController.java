@@ -3,6 +3,7 @@ package fr.routardfilrouge.routard.controllers;
 import fr.routardfilrouge.routard.MainApp;
 import fr.routardfilrouge.routard.metier.Country;
 import fr.routardfilrouge.routard.metier.InfoType;
+import fr.routardfilrouge.routard.metier.Language;
 import fr.routardfilrouge.routard.service.CountryBean;
 import fr.routardfilrouge.routard.service.InfoBean;
 import javafx.fxml.FXML;
@@ -96,7 +97,19 @@ public class CountryDetailController {
         Text countryName = new Text(country.getName());
         Text continentCode = new Text(country.getContinent().getContinentCode());
         Text continentName = new Text(country.getContinent().getName());
-        Text language = new Text("");
+        Text languageText = new Text("");
+
+        StringBuilder langTextBuilder = new StringBuilder();
+        for(int i = 0; i < country.getLanguages().size(); i++) {
+            Language language = country.getLanguages().get(i);
+            langTextBuilder.append(language.getLanguageCode());
+
+            if(i < country.getLanguages().size() - 1)
+                langTextBuilder.append(", ");
+        }
+
+        languageText.setText(langTextBuilder.toString());
+
         Text currency = new Text("");
         if(country.getCurrency() != null)
             currency.setText(country.getCurrency().getCurrencyName());
@@ -110,7 +123,7 @@ public class CountryDetailController {
         if(!infoCollection.isEmpty())
             info.setText(infoCollection.get(infoTypeSearch.getSelectionModel().getSelectedItem()));
 
-        return new ArrayList<>(Arrays.asList(countryCode, countryName, continentCode, continentName, language, currency, info));
+        return new ArrayList<>(Arrays.asList(countryCode, countryName, continentCode, continentName, languageText, currency, info));
     }
 
     public void onSelectInfoType(InfoType infoType) {
