@@ -1,12 +1,11 @@
 package fr.routardfilrouge.routard.metier;
 
-import fr.routardfilrouge.routard.dao.DAOFactory;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
 
 public class Country {
     private StringProperty isoCode;
@@ -14,7 +13,12 @@ public class Country {
     private Continent continent;
     private Currency currency;
 
+    @Getter
+    @Setter
     private ArrayList<Language> languages;
+    @Getter
+    @Setter
+    private ArrayList<AdministrativeRequirement> administrativeReqs;
 
     public Country(String isoCode, String name, Continent continent, Currency currency) {
         this.isoCode = new SimpleStringProperty(isoCode);
@@ -78,14 +82,6 @@ public class Country {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
-    }
-
-    public ArrayList<Language> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(ArrayList<Language> languages) {
-        this.languages = languages;
     }
 
     @Override

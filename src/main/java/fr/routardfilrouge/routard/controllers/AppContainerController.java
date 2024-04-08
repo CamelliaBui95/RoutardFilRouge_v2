@@ -17,7 +17,17 @@ public class AppContainerController {
     private MenuItem countrySubdivisionCityItem;
 
     @FXML
+    private MenuItem entryReqItem;
+
+    @FXML
     private void handleClickCountrySubdivisionCityItem() {
         mainApp.showMainView();
     }
+
+    @FXML
+    private void handleClickEntryReqItem() {
+        mainApp.showEntryReqView();
+    }
+
+
 }

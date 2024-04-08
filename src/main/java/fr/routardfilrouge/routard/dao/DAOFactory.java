@@ -14,6 +14,7 @@ public class DAOFactory {
     private static PoiDAO poiDAO;
     private static LanguageDAO languageDAO;
     private static CurrencyDAO currencyDAO;
+    private static AdministrativeRequirementDAO administrativeRequirementDAO;
 
     public static CountryDAO getCountryDAO() {
         if(countryDAO == null)
@@ -70,5 +71,11 @@ public class DAOFactory {
         if(currencyDAO == null)
             currencyDAO = new CurrencyDAO();
         return currencyDAO;
+    }
+
+    public static AdministrativeRequirementDAO getAdministrativeRequirementDAO() {
+        if(administrativeRequirementDAO == null)
+            administrativeRequirementDAO = new AdministrativeRequirementDAO();
+        return administrativeRequirementDAO;
     }
 }

@@ -14,7 +14,7 @@
             <items>
                   <MenuItem fx:id="countrySubdivisionCityItem" mnemonicParsing="false" onAction="#handleClickCountrySubdivisionCityItem" text="Manage Countries, Subdivisions, Cities" />
                   <MenuItem mnemonicParsing="false" text="Manage POIs" />
-                  <MenuItem mnemonicParsing="false" text="Edit Entry Requirements" />
+                  <MenuItem fx:id="entryReqItem" mnemonicParsing="false" onAction="#handleClickEntryReqItem" text="Edit Entry Requirements" />
                   <SeparatorMenuItem mnemonicParsing="false" />
               <MenuItem mnemonicParsing="false" text="Exit" />
             </items>

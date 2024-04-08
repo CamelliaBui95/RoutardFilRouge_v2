@@ -29,6 +29,7 @@ public class MainApp extends Application {
     private LanguageBean languageBean;
     private InfoBean infoBean;
     private POIBean poiBean;
+    private AdministrativeReqBean adminReqBean;
 
     private LoginDialogController loginController;
     private HashMap<String, String> account;
@@ -97,6 +98,22 @@ public class MainApp extends Application {
             controller.setCountryBean(countryBean);
             controller.setSubdivisionBean(subdivisionBean);
             controller.setCityBean(cityBean);
+            controller.setMainApp(this);
+
+            appContainer.setCenter(pane);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showEntryReqView() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("EntryRequirement-View.fxml"));
+            AnchorPane pane = (AnchorPane) fxmlLoader.load();
+
+            EntryReqViewController controller = fxmlLoader.getController();
+            controller.setCountryBean(countryBean);
+            controller.setAdminReqBean(adminReqBean);
             controller.setMainApp(this);
 
             appContainer.setCenter(pane);
@@ -324,6 +341,6 @@ public class MainApp extends Application {
         this.climateBean = new ClimateBean();
         this.poiBean = new POIBean();
         this.languageBean = new LanguageBean();
-
+        this.adminReqBean = new AdministrativeReqBean();
     }
 }

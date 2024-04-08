@@ -1,17 +1,17 @@
 
 Â
-java:S6539"ŸSplit this â€œMonster Classâ€ into smaller and more specialized ones to reduce its dependencies on other classes from 25 to the maximum authorized 20 or less.(Æé± ùÿÿÿÿ8í‘ÑÆë1
+java:S6539"ŸSplit this â€œMonster Classâ€ into smaller and more specialized ones to reduce its dependencies on other classes from 27 to the maximum authorized 20 or less.(Æé± ùÿÿÿÿ8±Ÿòëë1
 
-java:S1319º"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(Ë€í­ıÿÿÿÿ8ï‘ÑÆë1
+java:S1319Ë"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(Ë€í­ıÿÿÿÿ8´Ÿòëë1
 
-java:S1319‡"kThe type of "weatherList" should be an interface such as "List" rather than the implementation "ArrayList".(§¨Öƒúÿÿÿÿ8ï‘ÑÆë1
+java:S1319˜"kThe type of "weatherList" should be an interface such as "List" rather than the implementation "ArrayList".(§¨Öƒúÿÿÿÿ8µŸòëë1
 €
-java:S1450!"^Remove the "loginController" field and declare it as a local variable in the relevant methods.(ÁÙ­ûÿÿÿÿ8Ø’ÑÆë1
-X	java:S125,"<This block of commented-out lines of code should be removed.(›ĞÇŒ8á’ÑÆë1
-]	java:S125."<This block of commented-out lines of code should be removed.(›äƒøÿÿÿÿ8á’ÑÆë1
+java:S1450""^Remove the "loginController" field and declare it as a local variable in the relevant methods.(ÁÙ­ûÿÿÿÿ8ú òëë1
+X	java:S125-"<This block of commented-out lines of code should be removed.(›ĞÇŒ8‚¡òëë1
+]	java:S125/"<This block of commented-out lines of code should be removed.(›äƒøÿÿÿÿ8‚¡òëë1
 B
-java:S1168Ï"$Return an empty map instead of null.(¥¹ï8Õ¦ÑÆë1
+java:S1168à"$Return an empty map instead of null.(¥¹ï8¹¡òëë1
 U
-java:S1068!"3Remove this unused "loginController" private field.(ÁÙ­ûÿÿÿÿ8´“ÑÆë1
+java:S1068""3Remove this unused "loginController" private field.(ÁÙ­ûÿÿÿÿ8Ù¡òëë1
 R
-java:S1144¥"4Remove this unused private "showLoginDialog" method.(ÙÖ8õ¦ÑÆë1
+java:S1144¶"4Remove this unused private "showLoginDialog" method.(ÙÖ8Ù¡òëë1

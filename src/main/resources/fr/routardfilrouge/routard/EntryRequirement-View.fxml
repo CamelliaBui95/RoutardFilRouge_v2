@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.routardfilrouge.routard.EntryRequirementView">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.routardfilrouge.routard.controllers.EntryReqViewController">
    <children>
       <GridPane hgap="5.0" layoutX="378.0" layoutY="221.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
         <columnConstraints>
@@ -49,7 +48,7 @@
                         <Insets right="5.0" top="5.0" />
                      </VBox.margin>
                   </GridPane>
-                  <TableView VBox.vgrow="ALWAYS">
+                  <TableView fx:id="countryTableView" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="countryCodeCol" prefWidth="75.0" text="Code" />
                       <TableColumn fx:id="countryNameCol" prefWidth="236.0" text="Country Name" />
@@ -59,6 +58,9 @@
                      </VBox.margin>
                   </TableView>
                </children>
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin>
             </VBox>
             <GridPane GridPane.columnIndex="1">
               <columnConstraints>
@@ -90,7 +92,7 @@
                               </Label>
                               <Button alignment="CENTER" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <graphic>
-                                    <FontAwesomeIconView glyphName="EDIT" size="20" />
+                                    <FontAwesomeIconView fx:id="adminReqEditBtn" glyphName="EDIT" size="20" />
                                  </graphic>
                               </Button>
                            </children>
@@ -98,12 +100,12 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </GridPane>
-                        <TableView VBox.vgrow="ALWAYS">
+                        <TableView fx:id="adminReqTableView" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="112.0" text="Document Name" />
-                              <TableColumn prefWidth="77.0" text="Type" />
-                              <TableColumn prefWidth="189.0" text="Note" />
-                              <TableColumn prefWidth="65.0" text="Status" />
+                            <TableColumn fx:id="documentNameCol" prefWidth="112.0" text="Document Name" />
+                              <TableColumn fx:id="documentNoteCol" prefWidth="189.0" text="Note" />
+                              <TableColumn fx:id="documentTypeCol" prefWidth="77.0" text="Type" />
+                              <TableColumn fx:id="documentReqStatusCol" prefWidth="65.0" text="Status" />
                           </columns>
                         </TableView>
                      </children>
@@ -126,7 +128,7 @@
                               </Label>
                               <Button alignment="CENTER" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <graphic>
-                                    <FontAwesomeIconView glyphName="EDIT" size="20" />
+                                    <FontAwesomeIconView fx:id="healthReqEditBtn" glyphName="EDIT" size="20" />
                                  </graphic>
                               </Button>
                            </children>
@@ -134,11 +136,11 @@
                               <Insets bottom="5.0" />
                            </padding>
                         </GridPane>
-                        <TableView VBox.vgrow="ALWAYS">
+                        <TableView fx:id="healthReqTableView" VBox.vgrow="ALWAYS">
                            <columns>
-                              <TableColumn prefWidth="137.0" text="Vaccin/Treatment" />
-                              <TableColumn prefWidth="210.0" text="Note" />
-                              <TableColumn prefWidth="96.0" text="Status" />
+                              <TableColumn fx:id="vaccinNameCol" prefWidth="137.0" text="Vaccin/Treatment" />
+                              <TableColumn fx:id="vaccinNoteCol" prefWidth="210.0" text="Note" />
+                              <TableColumn fx:id="vaccinReqStatusCol" prefWidth="96.0" text="Status" />
                            </columns>
                         </TableView>
                      </children>
@@ -171,13 +173,13 @@
                         </Button>
                      </children>
                   </GridPane>
-                  <TableView prefHeight="747.0" prefWidth="404.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="visaExemptedCountryTableView" prefHeight="747.0" prefWidth="404.0" VBox.vgrow="ALWAYS">
                     <columns>
-                      <TableColumn prefWidth="40.0" text="Code" />
-                      <TableColumn prefWidth="124.0" text="Name" />
-                        <TableColumn prefWidth="71.0" text="Min" />
-                        <TableColumn prefWidth="65.0" text="Max" />
-                        <TableColumn prefWidth="103.0" text="Applied Date" />
+                      <TableColumn fx:id="exemptedCountryCodeCol" prefWidth="40.0" text="Code" />
+                      <TableColumn fx:id="exemptedCountryNameCol" prefWidth="124.0" text="Name" />
+                        <TableColumn fx:id="minExemptedDurationCol" prefWidth="71.0" text="Min" />
+                        <TableColumn fx:id="maxExemptedDurationCol" prefWidth="65.0" text="Max" />
+                        <TableColumn fx:id="exemptionAppliedDateCol" prefWidth="103.0" text="Applied Date" />
                     </columns>
                      <VBox.margin>
                         <Insets top="5.0" />
