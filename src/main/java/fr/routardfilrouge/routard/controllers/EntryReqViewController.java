@@ -2,7 +2,7 @@ package fr.routardfilrouge.routard.controllers;
 
 import fr.routardfilrouge.routard.MainApp;
 import fr.routardfilrouge.routard.metier.*;
-import fr.routardfilrouge.routard.service.AdministrativeReqBean;
+import fr.routardfilrouge.routard.service.AdministrativeServicesBean;
 import fr.routardfilrouge.routard.service.CountryBean;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -39,13 +39,18 @@ public class EntryReqViewController {
     @FXML
     private TableColumn<AdministrativeRequirement, String> documentReqStatusCol;
 
+    @FXML
+    private TableView<VisaExemptedCountry> visaExemptedCountryTableView;
+
     private CountryBean countryBean;
 
     @Setter
-    private AdministrativeReqBean adminReqBean;
+    private AdministrativeServicesBean adminReqBean;
 
     @Setter
     private MainApp mainApp;
+
+    private Country selectedCountry;
 
     @FXML
     private void initialize() {
@@ -66,7 +71,8 @@ public class EntryReqViewController {
                 if(selectedCountry.getAdministrativeReqs() == null)
                     adminReqBean.fetchAdministrativeReqsForCountry(selectedCountry);
 
-                displayAdminReqs(selectedCountry);
+                this.selectedCountry = selectedCountry;
+                displayAdminReqs();
             }
         });
     }
@@ -79,14 +85,13 @@ public class EntryReqViewController {
         countryTableView.setItems(sortedCountries);
     }
 
-    private void displayAdminReqs(Country selectedCountry) {
+    private void displayAdminReqs() {
         ArrayList<AdministrativeRequirement> adminReqs = selectedCountry.getAdministrativeReqs();
 
         ObservableList<AdministrativeRequirement> adminReqObservableList = FXCollections.observableArrayList(adminReqs);
         SortedList<AdministrativeRequirement> sortedAdminReqs = new SortedList<>(adminReqObservableList);
 
         adminReqTableView.setItems(sortedAdminReqs);
-
     }
 
     private void setAdminReqTableView() {
@@ -94,5 +99,12 @@ public class EntryReqViewController {
         documentNoteCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNote()));
         documentTypeCol.setCellValueFactory(cell -> cell.getValue().getAdministrativeDocument().getDocumentType().typeNameProperty());
         documentReqStatusCol.setCellValueFactory(cell -> cell.getValue().getStatus().statusNameProperty());
+
+        adminReqTableView.setOnMouseClicked(e -> {
+            AdministrativeRequirement selectedAdminReq = adminReqTableView.getSelectionModel().getSelectedItem();
+
+            if(selectedAdminReq != null && selectedCountry != null)
+                mainApp.showNewEditAdminReqDialog(selectedCountry, selectedAdminReq, false);
+        });
     }
 }

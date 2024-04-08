@@ -42,6 +42,10 @@ public class AdministrativeRequirementDAO extends DAO<AdministrativeRequirement,
         return entryReqs;
     }
 
+    public ArrayList<VisaExemptedCountry> getVisaExemptedCountriesForCountry(Country country) {
+        return null;
+    }
+
     @Override
     public boolean update(AdministrativeRequirement object) {
         return false;

@@ -29,7 +29,8 @@ public class MainApp extends Application {
     private LanguageBean languageBean;
     private InfoBean infoBean;
     private POIBean poiBean;
-    private AdministrativeReqBean adminReqBean;
+    private AdministrativeServicesBean adminServicesBean;
+    private ExigenceStatusBean exigenceStatusBean;
 
     private LoginDialogController loginController;
     private HashMap<String, String> account;
@@ -113,7 +114,7 @@ public class MainApp extends Application {
 
             EntryReqViewController controller = fxmlLoader.getController();
             controller.setCountryBean(countryBean);
-            controller.setAdminReqBean(adminReqBean);
+            controller.setAdminReqBean(adminServicesBean);
             controller.setMainApp(this);
 
             appContainer.setCenter(pane);
@@ -331,6 +332,34 @@ public class MainApp extends Application {
         }
     }
 
+    public boolean showNewEditAdminReqDialog(Country country, AdministrativeRequirement adminReq, boolean isNew) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditAdminReq-View.fxml"));
+            AnchorPane pane = loader.load();
+            NewEditAdminReqDialogController controller = loader.getController();
+
+            Stage dialogStage = new Stage();
+
+            dialogStage.setResizable(false);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            dialogStage.setScene(new Scene(pane));
+
+            controller.setDialogStage(dialogStage);
+            controller.setSelectedCountry(country);
+            controller.setAdminReq(adminReq);
+            controller.setAdminServicesBean(adminServicesBean);
+            controller.setExigenceStatusBean(exigenceStatusBean);
+            controller.setNew(isNew);
+
+            dialogStage.showAndWait();
+            return controller.isOkClicked();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private void setUpBeans() {
         this.continentBean = new ContinentBean();
         this.currencyBean = new CurrencyBean();
@@ -341,6 +370,7 @@ public class MainApp extends Application {
         this.climateBean = new ClimateBean();
         this.poiBean = new POIBean();
         this.languageBean = new LanguageBean();
-        this.adminReqBean = new AdministrativeReqBean();
+        this.adminServicesBean = new AdministrativeServicesBean();
+        this.exigenceStatusBean = new ExigenceStatusBean();
     }
 }

@@ -10,7 +10,7 @@ public class AdministrativeDocType {
 
     public AdministrativeDocType() {
         idType = new SimpleIntegerProperty(0);
-        typeName = new SimpleStringProperty("");
+        typeName = new SimpleStringProperty("Document Type");
     }
 
     public AdministrativeDocType(int idType, String typeName) {
@@ -53,5 +53,10 @@ public class AdministrativeDocType {
     @Override
     public int hashCode() {
         return Objects.hash(idType, typeName);
+    }
+
+    @Override
+    public String toString() {
+        return typeName.get();
     }
 }

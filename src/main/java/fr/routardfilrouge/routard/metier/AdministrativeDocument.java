@@ -20,7 +20,7 @@ public class AdministrativeDocument {
 
     public AdministrativeDocument() {
         idDocument = new SimpleIntegerProperty(0);
-        documentName = new SimpleStringProperty("");
+        documentName = new SimpleStringProperty("Document");
         documentType = new AdministrativeDocType();
     }
 
@@ -65,5 +65,10 @@ public class AdministrativeDocument {
     @Override
     public int hashCode() {
         return Objects.hash(idDocument, documentName, documentType);
+    }
+
+    @Override
+    public String toString() {
+        return this.documentName.get();
     }
 }
