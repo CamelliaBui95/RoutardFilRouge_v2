@@ -99,7 +99,6 @@ public class NewEditPOIDialogController {
         poi.setSubdivision(subdivision);
         poi.setType(category);
 
-
         if(isNew)
             poiBean.postPOI(poi);
 

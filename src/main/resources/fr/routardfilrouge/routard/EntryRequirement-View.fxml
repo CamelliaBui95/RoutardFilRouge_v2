@@ -85,7 +85,7 @@
                             <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
                           </rowConstraints>
                            <children>
-                              <Label text="Administrative Documents :" underline="true">
+                              <Label text="Administrative Requirements :" underline="true">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -102,7 +102,7 @@
                         </GridPane>
                         <TableView fx:id="adminReqTableView" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn fx:id="documentNameCol" prefWidth="112.0" text="Document Name" />
+                            <TableColumn fx:id="documentNameCol" prefWidth="112.0" text="Req Name" />
                               <TableColumn fx:id="documentNoteCol" prefWidth="189.0" text="Note" />
                               <TableColumn fx:id="documentTypeCol" prefWidth="77.0" text="Type" />
                               <TableColumn fx:id="documentReqStatusCol" prefWidth="65.0" text="Status" />
@@ -121,7 +121,7 @@
                               <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
                            </rowConstraints>
                            <children>
-                              <Label text="Vaccins/Treatments :" underline="true">
+                              <Label text="Medical Requirements :" underline="true">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -136,11 +136,12 @@
                               <Insets bottom="5.0" />
                            </padding>
                         </GridPane>
-                        <TableView fx:id="healthReqTableView" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="medicalReqTableView" VBox.vgrow="ALWAYS">
                            <columns>
-                              <TableColumn fx:id="vaccinNameCol" prefWidth="137.0" text="Vaccin/Treatment" />
-                              <TableColumn fx:id="vaccinNoteCol" prefWidth="210.0" text="Note" />
-                              <TableColumn fx:id="vaccinReqStatusCol" prefWidth="96.0" text="Status" />
+                              <TableColumn fx:id="medicalReqNameCol" prefWidth="115.0" text="Req Name" />
+                              <TableColumn fx:id="medicalNoteCol" prefWidth="178.0" text="Note" />
+                              <TableColumn fx:id="medicalReqTypeCol" prefWidth="78.0" text="Type" />
+                              <TableColumn fx:id="medicalReqStatusCol" prefWidth="72.0" text="Status" />
                            </columns>
                         </TableView>
                      </children>
@@ -179,7 +180,6 @@
                       <TableColumn fx:id="exemptedCountryNameCol" prefWidth="124.0" text="Name" />
                         <TableColumn fx:id="minExemptedDurationCol" prefWidth="71.0" text="Min" />
                         <TableColumn fx:id="maxExemptedDurationCol" prefWidth="65.0" text="Max" />
-                        <TableColumn fx:id="exemptionAppliedDateCol" prefWidth="103.0" text="Applied Date" />
                     </columns>
                      <VBox.margin>
                         <Insets top="5.0" />

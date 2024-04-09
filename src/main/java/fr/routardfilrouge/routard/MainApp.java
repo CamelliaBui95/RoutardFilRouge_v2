@@ -29,7 +29,7 @@ public class MainApp extends Application {
     private LanguageBean languageBean;
     private InfoBean infoBean;
     private POIBean poiBean;
-    private AdministrativeServicesBean adminServicesBean;
+    private EntryReqServicesBean adminServicesBean;
     private ExigenceStatusBean exigenceStatusBean;
 
     private LoginDialogController loginController;
@@ -114,7 +114,7 @@ public class MainApp extends Application {
 
             EntryReqViewController controller = fxmlLoader.getController();
             controller.setCountryBean(countryBean);
-            controller.setAdminReqBean(adminServicesBean);
+            controller.setEntryReqServicesBean(adminServicesBean);
             controller.setMainApp(this);
 
             appContainer.setCenter(pane);
@@ -332,11 +332,11 @@ public class MainApp extends Application {
         }
     }
 
-    public boolean showNewEditAdminReqDialog(Country country, AdministrativeRequirement adminReq, boolean isNew) {
+    public boolean showNewEditEntryReqDialog(CountryEntryRequirement entryReq) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("NewEditAdminReq-View.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEntryReq-View.fxml"));
             AnchorPane pane = loader.load();
-            NewEditAdminReqDialogController controller = loader.getController();
+            EditEntryReqDialogController controller = loader.getController();
 
             Stage dialogStage = new Stage();
 
@@ -346,11 +346,9 @@ public class MainApp extends Application {
             dialogStage.setScene(new Scene(pane));
 
             controller.setDialogStage(dialogStage);
-            controller.setSelectedCountry(country);
-            controller.setAdminReq(adminReq);
-            controller.setAdminServicesBean(adminServicesBean);
+            controller.setEntryRequirement(entryReq);
             controller.setExigenceStatusBean(exigenceStatusBean);
-            controller.setNew(isNew);
+            controller.mapDataToView();
 
             dialogStage.showAndWait();
             return controller.isOkClicked();
@@ -370,7 +368,7 @@ public class MainApp extends Application {
         this.climateBean = new ClimateBean();
         this.poiBean = new POIBean();
         this.languageBean = new LanguageBean();
-        this.adminServicesBean = new AdministrativeServicesBean();
+        this.adminServicesBean = new EntryReqServicesBean();
         this.exigenceStatusBean = new ExigenceStatusBean();
     }
 }

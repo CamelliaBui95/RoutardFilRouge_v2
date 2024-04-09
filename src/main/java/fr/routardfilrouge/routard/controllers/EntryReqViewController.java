@@ -2,7 +2,7 @@ package fr.routardfilrouge.routard.controllers;
 
 import fr.routardfilrouge.routard.MainApp;
 import fr.routardfilrouge.routard.metier.*;
-import fr.routardfilrouge.routard.service.AdministrativeServicesBean;
+import fr.routardfilrouge.routard.service.EntryReqServicesBean;
 import fr.routardfilrouge.routard.service.CountryBean;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,7 +16,6 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 
-
 public class EntryReqViewController {
     @FXML
     private TextField countrySearchField;
@@ -29,23 +28,42 @@ public class EntryReqViewController {
     private TableColumn<Country, String> countryNameCol;
 
     @FXML
-    private TableView<AdministrativeRequirement> adminReqTableView;
+    private TableView<CountryEntryRequirement> adminReqTableView;
     @FXML
-    private TableColumn<AdministrativeRequirement, String> documentNameCol;
+    private TableColumn<CountryEntryRequirement, String> documentNameCol;
     @FXML
-    private TableColumn<AdministrativeRequirement, String> documentNoteCol;
+    private TableColumn<CountryEntryRequirement, String> documentNoteCol;
     @FXML
-    private TableColumn<AdministrativeRequirement, String> documentTypeCol;
+    private TableColumn<CountryEntryRequirement, String> documentTypeCol;
     @FXML
-    private TableColumn<AdministrativeRequirement, String> documentReqStatusCol;
+    private TableColumn<CountryEntryRequirement, String> documentReqStatusCol;
+
+    @FXML
+    private TableView<CountryEntryRequirement> medicalReqTableView;
+    @FXML
+    private TableColumn<CountryEntryRequirement, String> medicalReqNameCol;
+    @FXML
+    private TableColumn<CountryEntryRequirement, String> medicalNoteCol;
+    @FXML
+    private TableColumn<CountryEntryRequirement, String> medicalReqTypeCol;
+    @FXML
+    private TableColumn<CountryEntryRequirement, String> medicalReqStatusCol;
 
     @FXML
     private TableView<VisaExemptedCountry> visaExemptedCountryTableView;
+    @FXML
+    private TableColumn<VisaExemptedCountry, String> exemptedCountryCodeCol;
+    @FXML
+    private TableColumn<VisaExemptedCountry, String> exemptedCountryNameCol;
+    @FXML
+    private TableColumn<VisaExemptedCountry, Integer> minExemptedDurationCol;
+    @FXML
+    private TableColumn<VisaExemptedCountry, Integer> maxExemptedDurationCol;
 
     private CountryBean countryBean;
 
     @Setter
-    private AdministrativeServicesBean adminReqBean;
+    private EntryReqServicesBean entryReqServicesBean;
 
     @Setter
     private MainApp mainApp;
@@ -54,7 +72,8 @@ public class EntryReqViewController {
 
     @FXML
     private void initialize() {
-        setAdminReqTableView();
+        setUpAdminReqTableView();
+        setUpMedicalReqTableView();
         setUpCountryView();
     }
 
@@ -68,11 +87,14 @@ public class EntryReqViewController {
             Country selectedCountry = countryTableView.getSelectionModel().getSelectedItem();
 
             if(selectedCountry != null) {
-                if(selectedCountry.getAdministrativeReqs() == null)
-                    adminReqBean.fetchAdministrativeReqsForCountry(selectedCountry);
+                if(selectedCountry.getAdministrativeReqs() == null) {
+                    entryReqServicesBean.fetchAdministrativeReqsForCountry(selectedCountry);
+                    entryReqServicesBean.fetchMedicalReqsForCountry(selectedCountry);
+                }
 
                 this.selectedCountry = selectedCountry;
-                displayAdminReqs();
+                setAdminReqs();
+                setMedicalReqs();
             }
         });
     }
@@ -85,26 +107,79 @@ public class EntryReqViewController {
         countryTableView.setItems(sortedCountries);
     }
 
-    private void displayAdminReqs() {
-        ArrayList<AdministrativeRequirement> adminReqs = selectedCountry.getAdministrativeReqs();
+    private void setAdminReqs() {
+        ArrayList<CountryEntryRequirement> adminReqs = selectedCountry.getAdministrativeReqs();
 
-        ObservableList<AdministrativeRequirement> adminReqObservableList = FXCollections.observableArrayList(adminReqs);
-        SortedList<AdministrativeRequirement> sortedAdminReqs = new SortedList<>(adminReqObservableList);
+        ObservableList<CountryEntryRequirement> adminReqObservableList = FXCollections.observableArrayList(adminReqs);
+        SortedList<CountryEntryRequirement> sortedAdminReqs = new SortedList<>(adminReqObservableList);
 
         adminReqTableView.setItems(sortedAdminReqs);
     }
 
-    private void setAdminReqTableView() {
-        documentNameCol.setCellValueFactory(cell -> cell.getValue().getAdministrativeDocument().documentNameProperty());
+    private void setMedicalReqs() {
+        ArrayList<CountryEntryRequirement> medicalReqs = selectedCountry.getMedicalReqs();
+        
+        ObservableList<CountryEntryRequirement> medicalReqObservableList = FXCollections.observableArrayList(medicalReqs);
+        SortedList<CountryEntryRequirement> sortedMedicalReqS = new SortedList<>(medicalReqObservableList);
+        
+        medicalReqTableView.setItems(sortedMedicalReqS);
+    }
+
+    private void setUpAdminReqTableView() {
+        documentNameCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getEntryRequirement().getEntryReqName()));
         documentNoteCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNote()));
-        documentTypeCol.setCellValueFactory(cell -> cell.getValue().getAdministrativeDocument().getDocumentType().typeNameProperty());
+        documentTypeCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getEntryRequirement().getEntryReqType().getReqTypeName()));
         documentReqStatusCol.setCellValueFactory(cell -> cell.getValue().getStatus().statusNameProperty());
 
         adminReqTableView.setOnMouseClicked(e -> {
-            AdministrativeRequirement selectedAdminReq = adminReqTableView.getSelectionModel().getSelectedItem();
+            CountryEntryRequirement selectedAdminReq = adminReqTableView.getSelectionModel().getSelectedItem();
 
             if(selectedAdminReq != null && selectedCountry != null)
-                mainApp.showNewEditAdminReqDialog(selectedCountry, selectedAdminReq, false);
+               handleEditAdministrativeReq(selectedAdminReq);
         });
+    }
+
+    private void setUpMedicalReqTableView() {
+        medicalReqNameCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getEntryRequirement().getEntryReqName()));
+        medicalNoteCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNote()));
+        medicalReqTypeCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getEntryRequirement().getEntryReqType().getReqTypeName()));
+        medicalReqStatusCol.setCellValueFactory(cell -> cell.getValue().getStatus().statusNameProperty());
+
+        medicalReqTableView.setOnMouseClicked(e -> {
+            CountryEntryRequirement selectedMedicalReq = medicalReqTableView.getSelectionModel().getSelectedItem();
+
+            if(selectedMedicalReq != null && selectedCountry != null)
+                handleEditMedicalReq(selectedMedicalReq);
+        });
+    }
+
+    private void handleEditAdministrativeReq(CountryEntryRequirement selectedAdministrativeReq) {
+
+        boolean isOkClicked = mainApp.showNewEditEntryReqDialog(selectedAdministrativeReq);
+
+        if(!isOkClicked)
+            return;
+
+        boolean isUpdated = entryReqServicesBean.updateEntryReqForCountry(selectedAdministrativeReq);
+
+        if(isUpdated) {
+            entryReqServicesBean.fetchAdministrativeReqsForCountry(selectedCountry);
+            setAdminReqs();
+        }
+    }
+
+    private void handleEditMedicalReq(CountryEntryRequirement selectedMedicalReq) {
+
+        boolean isOkClicked = mainApp.showNewEditEntryReqDialog(selectedMedicalReq);
+
+        if(!isOkClicked)
+            return;
+
+        boolean isUpdated = entryReqServicesBean.updateEntryReqForCountry(selectedMedicalReq);
+
+        if(isUpdated) {
+            entryReqServicesBean.fetchMedicalReqsForCountry(selectedCountry);
+            setMedicalReqs();
+        }
     }
 }

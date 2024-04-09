@@ -9,8 +9,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AdministrativeRequirement {
-    private AdministrativeDocument administrativeDocument;
+public class CountryEntryRequirement {
+    private Country country;
+    private EntryRequirement entryRequirement;
     private String note;
     private ExigenceStatus status;
 }

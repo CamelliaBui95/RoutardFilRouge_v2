@@ -1,10 +1,5 @@
 package fr.routardfilrouge.routard.dao;
 
-import fr.routardfilrouge.routard.metier.Country;
-import fr.routardfilrouge.routard.metier.ExigenceStatus;
-
-import java.util.ArrayList;
-
 public class DAOFactory {
     private static CountryDAO countryDAO;
     private static SubdivisionDAO subdivisionDAO;
@@ -15,8 +10,9 @@ public class DAOFactory {
     private static PoiDAO poiDAO;
     private static LanguageDAO languageDAO;
     private static CurrencyDAO currencyDAO;
-    private static AdministrativeRequirementDAO administrativeRequirementDAO;
-    private static AdministrativeDocumentDAO administrativeDocumentDAO;
+    private static EntryRequirementDAO entryRequirementDAO;
+
+    private static EntryReqTypeDAO entryReqTypeDAO;
     private static ExigenceStatusDAO exigenceStatusDAO;
 
     public static CountryDAO getCountryDAO() {
@@ -72,16 +68,10 @@ public class DAOFactory {
             currencyDAO = new CurrencyDAO();
         return currencyDAO;
     }
-    public static AdministrativeRequirementDAO getAdministrativeRequirementDAO() {
-        if(administrativeRequirementDAO == null)
-            administrativeRequirementDAO = new AdministrativeRequirementDAO();
-        return administrativeRequirementDAO;
-    }
-    public static AdministrativeDocumentDAO getAdministrativeDocumentDAO() {
-        if(administrativeDocumentDAO == null)
-            administrativeDocumentDAO = new AdministrativeDocumentDAO();
-
-        return administrativeDocumentDAO;
+    public static EntryRequirementDAO getEntryRequirementDAO() {
+        if(entryRequirementDAO == null)
+            entryRequirementDAO = new EntryRequirementDAO();
+        return entryRequirementDAO;
     }
 
     public static ExigenceStatusDAO getExigenceStatusDAO() {
@@ -89,5 +79,12 @@ public class DAOFactory {
             exigenceStatusDAO = new ExigenceStatusDAO();
 
         return exigenceStatusDAO;
+    }
+
+    public static EntryReqTypeDAO getEntryReqTypeDAO() {
+        if(entryReqTypeDAO == null)
+            entryReqTypeDAO = new EntryReqTypeDAO();
+
+        return entryReqTypeDAO;
     }
 }
