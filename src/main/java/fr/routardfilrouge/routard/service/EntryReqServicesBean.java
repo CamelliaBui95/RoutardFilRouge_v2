@@ -36,6 +36,12 @@ public class EntryReqServicesBean {
         country.setMedicalReqs(medicalReqs);
     }
 
+    public void fetchVisaExemptedCountries(Country country) {
+        ArrayList<VisaExemptedCountry> visaExemptedCountries = DAOFactory.getVisaExemptionDAO().getLike(country);
+
+        country.setVisaExemptedCountries(visaExemptedCountries);
+    }
+
 
     public boolean postAdminReqForCountry(CountryEntryRequirement newAdminReq) {
         return DAOFactory.getEntryRequirementDAO().post(newAdminReq);

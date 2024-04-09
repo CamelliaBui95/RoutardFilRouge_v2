@@ -16,14 +16,15 @@ public class Country {
     @Getter
     @Setter
     private ArrayList<Language> languages;
-
     @Getter
     @Setter
     private ArrayList<CountryEntryRequirement> administrativeReqs;
-
     @Getter
     @Setter
     private ArrayList<CountryEntryRequirement> medicalReqs;
+    @Getter
+    @Setter
+    private ArrayList<VisaExemptedCountry> visaExemptedCountries;
 
     public Country(String isoCode, String name, Continent continent, Currency currency) {
         this.isoCode = new SimpleStringProperty(isoCode);

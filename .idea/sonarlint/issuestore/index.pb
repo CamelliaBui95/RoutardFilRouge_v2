@@ -183,3 +183,5 @@ q
 Asrc/main/java/fr/routardfilrouge/routard/dao/EntryReqTypeDAO.java,e\b\ebea467d0995d9c58da6f19cf9da3ca5c7dd4014
 z
 Jsrc/main/java/fr/routardfilrouge/routard/service/EntryReqServicesBean.java,a\9\a99db26bf1958779bf5fabbb4262e411565fef33
+r
+Bsrc/main/java/fr/routardfilrouge/routard/dao/VisaExemptionDAO.java,7\8\78b8e7fca1a4ef980b9c4b25f15e6f3ea4c72231

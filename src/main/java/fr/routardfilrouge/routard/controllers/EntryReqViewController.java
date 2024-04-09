@@ -4,6 +4,7 @@ import fr.routardfilrouge.routard.MainApp;
 import fr.routardfilrouge.routard.metier.*;
 import fr.routardfilrouge.routard.service.EntryReqServicesBean;
 import fr.routardfilrouge.routard.service.CountryBean;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,9 +57,9 @@ public class EntryReqViewController {
     @FXML
     private TableColumn<VisaExemptedCountry, String> exemptedCountryNameCol;
     @FXML
-    private TableColumn<VisaExemptedCountry, Integer> minExemptedDurationCol;
+    private TableColumn<VisaExemptedCountry, String> minExemptedDurationCol;
     @FXML
-    private TableColumn<VisaExemptedCountry, Integer> maxExemptedDurationCol;
+    private TableColumn<VisaExemptedCountry, String> maxExemptedDurationCol;
 
     private CountryBean countryBean;
 
@@ -75,6 +76,7 @@ public class EntryReqViewController {
         setUpAdminReqTableView();
         setUpMedicalReqTableView();
         setUpCountryView();
+        setUpVisaExemptedCountryTableView();
     }
 
     private void setUpCountryView() {
@@ -90,11 +92,13 @@ public class EntryReqViewController {
                 if(selectedCountry.getAdministrativeReqs() == null) {
                     entryReqServicesBean.fetchAdministrativeReqsForCountry(selectedCountry);
                     entryReqServicesBean.fetchMedicalReqsForCountry(selectedCountry);
+                    entryReqServicesBean.fetchVisaExemptedCountries(selectedCountry);
                 }
 
                 this.selectedCountry = selectedCountry;
                 setAdminReqs();
                 setMedicalReqs();
+                setVisaExemptedCountries();
             }
         });
     }
@@ -104,6 +108,7 @@ public class EntryReqViewController {
 
         SortedList<Country> sortedCountries = this.countryBean.getSortedCountries();
         sortedCountries.comparatorProperty().bind(countryTableView.comparatorProperty());
+
         countryTableView.setItems(sortedCountries);
     }
 
@@ -112,6 +117,7 @@ public class EntryReqViewController {
 
         ObservableList<CountryEntryRequirement> adminReqObservableList = FXCollections.observableArrayList(adminReqs);
         SortedList<CountryEntryRequirement> sortedAdminReqs = new SortedList<>(adminReqObservableList);
+        sortedAdminReqs.comparatorProperty().bind(adminReqTableView.comparatorProperty());
 
         adminReqTableView.setItems(sortedAdminReqs);
     }
@@ -120,9 +126,20 @@ public class EntryReqViewController {
         ArrayList<CountryEntryRequirement> medicalReqs = selectedCountry.getMedicalReqs();
         
         ObservableList<CountryEntryRequirement> medicalReqObservableList = FXCollections.observableArrayList(medicalReqs);
-        SortedList<CountryEntryRequirement> sortedMedicalReqS = new SortedList<>(medicalReqObservableList);
-        
-        medicalReqTableView.setItems(sortedMedicalReqS);
+        SortedList<CountryEntryRequirement> sortedMedicalReqs = new SortedList<>(medicalReqObservableList);
+        sortedMedicalReqs.comparatorProperty().bind(medicalReqTableView.comparatorProperty());
+
+        medicalReqTableView.setItems(sortedMedicalReqs);
+    }
+
+    private void setVisaExemptedCountries() {
+        ArrayList<VisaExemptedCountry> visaExemptedCountries = selectedCountry.getVisaExemptedCountries();
+
+        ObservableList<VisaExemptedCountry> visaExemptedCountryObservableList = FXCollections.observableArrayList(visaExemptedCountries);
+        SortedList<VisaExemptedCountry> sortedVisaExemptedCountries = new SortedList<>(visaExemptedCountryObservableList);
+        sortedVisaExemptedCountries.comparatorProperty().bind(visaExemptedCountryTableView.comparatorProperty());
+
+        visaExemptedCountryTableView.setItems(sortedVisaExemptedCountries);
     }
 
     private void setUpAdminReqTableView() {
@@ -151,6 +168,13 @@ public class EntryReqViewController {
             if(selectedMedicalReq != null && selectedCountry != null)
                 handleEditMedicalReq(selectedMedicalReq);
         });
+    }
+
+    private void setUpVisaExemptedCountryTableView() {
+        exemptedCountryCodeCol.setCellValueFactory(cell -> cell.getValue().getCountry().isoCodeProperty());
+        exemptedCountryNameCol.setCellValueFactory(cell -> cell.getValue().getCountry().nameProperty());
+        minExemptedDurationCol.setCellValueFactory(cell -> new SimpleStringProperty(Integer.toString(cell.getValue().getMinDuration())));
+        maxExemptedDurationCol.setCellValueFactory(cell -> new SimpleStringProperty(Integer.toString(cell.getValue().getMaxDuration())));
     }
 
     private void handleEditAdministrativeReq(CountryEntryRequirement selectedAdministrativeReq) {

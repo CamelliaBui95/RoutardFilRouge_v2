@@ -11,9 +11,9 @@ public class DAOFactory {
     private static LanguageDAO languageDAO;
     private static CurrencyDAO currencyDAO;
     private static EntryRequirementDAO entryRequirementDAO;
-
     private static EntryReqTypeDAO entryReqTypeDAO;
     private static ExigenceStatusDAO exigenceStatusDAO;
+    private static VisaExemptionDAO visaExemptionDAO;
 
     public static CountryDAO getCountryDAO() {
         if(countryDAO == null)
@@ -86,5 +86,12 @@ public class DAOFactory {
             entryReqTypeDAO = new EntryReqTypeDAO();
 
         return entryReqTypeDAO;
+    }
+
+    public static VisaExemptionDAO getVisaExemptionDAO() {
+        if(visaExemptionDAO == null)
+            visaExemptionDAO = new VisaExemptionDAO();
+
+        return visaExemptionDAO;
     }
 }
