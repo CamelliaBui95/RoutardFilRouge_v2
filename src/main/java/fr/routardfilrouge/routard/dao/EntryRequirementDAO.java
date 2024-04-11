@@ -121,7 +121,7 @@ public class EntryRequirementDAO extends DAO<CountryEntryRequirement, Country>{
 
     @Override
     public boolean post(CountryEntryRequirement countryEntryReq) {
-        String query = "{call ps_insertAdminReq(?,?,?,?)}";
+        String query = "{call ps_insertFormaliteReq(?,?,?,?)}";
 
         try(PreparedStatement pstm = connection.prepareStatement(query)) {
             pstm.setString(1, countryEntryReq.getCountry().getIsoCode());

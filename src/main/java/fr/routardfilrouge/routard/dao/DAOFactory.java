@@ -15,6 +15,8 @@ public class DAOFactory {
     private static ExigenceStatusDAO exigenceStatusDAO;
     private static VisaExemptionDAO visaExemptionDAO;
 
+    private static UserDAO userDAO;
+
     public static CountryDAO getCountryDAO() {
         if(countryDAO == null)
             countryDAO = new CountryDAO();
@@ -93,5 +95,12 @@ public class DAOFactory {
             visaExemptionDAO = new VisaExemptionDAO();
 
         return visaExemptionDAO;
+    }
+
+    public static UserDAO getUserDAO() {
+        if(userDAO == null)
+            userDAO = new UserDAO();
+
+        return userDAO;
     }
 }

@@ -27,18 +27,15 @@ public class EntryReqServicesBean {
     }
     public void fetchAdministrativeReqsForCountry(Country country) {
         ArrayList<CountryEntryRequirement> adminReqs = DAOFactory.getEntryRequirementDAO().getAdministrativeReqs(country);
-
         country.setAdministrativeReqs(adminReqs);
     }
     public void fetchMedicalReqsForCountry(Country country) {
         ArrayList<CountryEntryRequirement> medicalReqs = DAOFactory.getEntryRequirementDAO().getMedicalReqs(country);
-
         country.setMedicalReqs(medicalReqs);
     }
 
     public void fetchVisaExemptedCountries(Country country) {
         ArrayList<VisaExemptedCountry> visaExemptedCountries = DAOFactory.getVisaExemptionDAO().getLike(country);
-
         country.setVisaExemptedCountries(visaExemptedCountries);
     }
 

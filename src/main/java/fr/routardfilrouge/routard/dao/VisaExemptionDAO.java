@@ -39,7 +39,7 @@ public class VisaExemptionDAO extends DAO<VisaExemptedCountry, Country>{
 
                 VisaExemptedCountry visaExemptedCountry = new VisaExemptedCountry(exemptedCountry);
                 visaExemptedCountry.setMinDuration(rs.getInt(3));
-                visaExemptedCountry.setMaxDuration(4);
+                visaExemptedCountry.setMaxDuration(rs.getInt(4));
 
                 exemptedCountries.add(visaExemptedCountry);
             }

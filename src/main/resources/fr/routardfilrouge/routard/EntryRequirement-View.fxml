@@ -176,10 +176,10 @@
                   </GridPane>
                   <TableView fx:id="visaExemptedCountryTableView" prefHeight="747.0" prefWidth="404.0" VBox.vgrow="ALWAYS">
                     <columns>
-                      <TableColumn fx:id="exemptedCountryCodeCol" prefWidth="40.0" text="Code" />
-                      <TableColumn fx:id="exemptedCountryNameCol" prefWidth="124.0" text="Name" />
-                        <TableColumn fx:id="minExemptedDurationCol" prefWidth="71.0" text="Min" />
-                        <TableColumn fx:id="maxExemptedDurationCol" prefWidth="65.0" text="Max" />
+                      <TableColumn fx:id="exemptedCountryCodeCol" prefWidth="57.59997636079788" text="Code" />
+                      <TableColumn fx:id="exemptedCountryNameCol" prefWidth="115.20000839233398" text="Name" />
+                        <TableColumn fx:id="minExemptedDurationCol" prefWidth="63.20001220703125" text="Min" />
+                        <TableColumn fx:id="maxExemptedDurationCol" prefWidth="71.19990539550781" text="Max" />
                     </columns>
                      <VBox.margin>
                         <Insets top="5.0" />

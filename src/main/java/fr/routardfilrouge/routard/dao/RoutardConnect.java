@@ -6,8 +6,6 @@ import java.util.HashMap;
 
 public class RoutardConnect {
     private static Connection connection;
-    private static String username;
-    private static String password;
 
     private RoutardConnect() {
 
@@ -17,7 +15,7 @@ public class RoutardConnect {
         if(connection == null) {
             try {
                 String url = "jdbc:sqlserver://127.0.0.1:1433;databaseName=ROUTARD;encrypt=false";
-                connection = DriverManager.getConnection(url, username, password);
+                connection = DriverManager.getConnection(url, "dev", "routard123");
             } catch(Exception e) {
                 e.printStackTrace();
                 throw e;
@@ -27,8 +25,4 @@ public class RoutardConnect {
         return connection;
     }
 
-    public static void setAccount(HashMap<String, String> account) {
-        username = account.get("username");
-        password = account.get("password");
-    }
 }

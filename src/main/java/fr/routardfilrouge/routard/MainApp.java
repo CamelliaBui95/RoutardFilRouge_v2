@@ -1,8 +1,9 @@
 package fr.routardfilrouge.routard;
 
 import fr.routardfilrouge.routard.controllers.*;
-import fr.routardfilrouge.routard.dao.RoutardConnect;
+import fr.routardfilrouge.routard.dao.DAOFactory;
 import fr.routardfilrouge.routard.metier.*;
+import fr.routardfilrouge.routard.security.User;
 import fr.routardfilrouge.routard.service.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainApp extends Application {
+    private User user;
     private Stage primaryStage;
     private BorderPane appContainer;
     private CountryBean countryBean;
@@ -32,35 +34,18 @@ public class MainApp extends Application {
     private EntryReqServicesBean adminServicesBean;
     private ExigenceStatusBean exigenceStatusBean;
 
-    private LoginDialogController loginController;
-    private HashMap<String, String> account;
-
-    public MainApp() {
-        account = new HashMap<>();
-    }
-
 
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        //boolean isOkClicked = showLoginDialog();
 
-        /*if(isOkClicked) {
-            HashMap<String, String> account = loginController.getAccount();
-            user.setUsername(account.get("username"));
-            user.setPassword(account.get("password"));
 
-            setUpBeans();
-            initMainView(primaryStage);
-        }*/
-
-        account.put("username", "dev");
-        account.put("password", "routard123");
-
-        RoutardConnect.setAccount(account);
         setUpBeans();
         initAppContainerView(primaryStage);
 
+        if(user == null || !user.getRole().equalsIgnoreCase("admin"))
+            showLoginView();
+        else showMainView();
     }
 
     public static void main(String[] args) {
@@ -68,6 +53,7 @@ public class MainApp extends Application {
     }
 
     private void initAppContainerView(Stage primaryStage) {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("AppContainer-View.fxml"));
             appContainer = (BorderPane) fxmlLoader.load();
@@ -80,13 +66,18 @@ public class MainApp extends Application {
             scene.getStylesheets().add(getClass().getResource("stylesheets/styles.css").toExternalForm());
 
             primaryStage.setTitle("Project Manager - Routard");
+            primaryStage.setResizable(false);
             primaryStage.setScene(scene);
+
             primaryStage.show();
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
     public void showMainView() {
+        if(user == null || !user.getRole().equalsIgnoreCase("admin"))
+            return;
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("Main-View.fxml"));
             BorderPane pane = (BorderPane) fxmlLoader.load();
@@ -108,6 +99,9 @@ public class MainApp extends Application {
     }
 
     public void showEntryReqView() {
+        if(user == null || !user.getRole().equalsIgnoreCase("admin"))
+            return;
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("EntryRequirement-View.fxml"));
             AnchorPane pane = (AnchorPane) fxmlLoader.load();
@@ -308,27 +302,17 @@ public class MainApp extends Application {
         }
     }
 
-    private boolean showLoginDialog() {
+    private void showLoginView() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginDialog-View.fxml"));
             AnchorPane pane = loader.load();
             LoginDialogController controller = loader.getController();
 
-            Stage dialogStage = new Stage();
-            dialogStage.setResizable(false);
-            dialogStage.setTitle("Login - Routard Manager");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            dialogStage.setScene(new Scene(pane));
+            controller.setMainApp(this);
 
-            controller.setDialogStage(dialogStage);
-            this.loginController = controller;
-
-            dialogStage.showAndWait();
-            return controller.isOkClicked();
+            appContainer.setCenter(pane);
         } catch(IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
@@ -370,5 +354,15 @@ public class MainApp extends Application {
         this.languageBean = new LanguageBean();
         this.adminServicesBean = new EntryReqServicesBean();
         this.exigenceStatusBean = new ExigenceStatusBean();
+    }
+
+    public boolean loginAndConnect(User user) {
+        User persistedUser = DAOFactory.getUserDAO().getByLogin(user);
+
+        if(persistedUser.validate(user)) {
+            this.user = persistedUser;
+            return true;
+        }
+        return false;
     }
 }

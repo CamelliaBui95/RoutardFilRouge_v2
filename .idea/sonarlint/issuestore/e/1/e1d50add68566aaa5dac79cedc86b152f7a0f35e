@@ -1,17 +1,11 @@
 
 Â
-java:S6539"ŸSplit this â€œMonster Classâ€ into smaller and more specialized ones to reduce its dependencies on other classes from 30 to the maximum authorized 20 or less.(Æé± ùÿÿÿÿ8Â£ôë1
+java:S6539"ŸSplit this â€œMonster Classâ€ into smaller and more specialized ones to reduce its dependencies on other classes from 31 to the maximum authorized 20 or less.(Æé± ùÿÿÿÿ8Êìıçì1
+b
+java:S1192."FDefine a constant instead of duplicating this literal "admin" 3 times.(ªÿÒx8†‹ÿçì1
 
-java:S1319Ì"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(Ë€í­ıÿÿÿÿ8Ä£ôë1
+java:S1319Æ"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(Ë€í­ıÿÿÿÿ8”€èì1
 
-java:S1319™"kThe type of "weatherList" should be an interface such as "List" rather than the implementation "ArrayList".(§¨Öƒúÿÿÿÿ8Ä£ôë1
-€
-java:S1450#"^Remove the "loginController" field and declare it as a local variable in the relevant methods.(ÁÙ­ûÿÿÿÿ8ˆ¤ôë1
-X	java:S125."<This block of commented-out lines of code should be removed.(›ĞÇŒ8¤ôë1
-]	java:S1250"<This block of commented-out lines of code should be removed.(›äƒøÿÿÿÿ8¤ôë1
+java:S1319“"kThe type of "weatherList" should be an interface such as "List" rather than the implementation "ArrayList".(§¨Öƒúÿÿÿÿ8•€èì1
 B
-java:S1168á"$Return an empty map instead of null.(¥¹ï8¬¤ôë1
-U
-java:S1068#"3Remove this unused "loginController" private field.(ÁÙ­ûÿÿÿÿ8¾¤ôë1
-R
-java:S1144·"4Remove this unused private "showLoginDialog" method.(ÙÖ8¾¤ôë1
+java:S1168Û"$Return an empty map instead of null.(¥¹ï8Š€èì1
